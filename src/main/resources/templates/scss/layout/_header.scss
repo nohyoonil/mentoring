@@ -1,0 +1,29 @@
+.header{
+    height:100px;
+    background:#151515;
+
+    .row{
+        height:100%;
+    }
+    .logo-wrap{
+        .img-frame{
+            display: block;
+            width:65px;
+            height:54px;
+            background:url('#{$G-path-img}/logo_white.svg') no-repeat;
+            background-position: center center;
+        }
+    }
+    .menu-list{
+        display: flex;
+        justify-content: flex-end;
+
+        .menu-item a{
+            display:block;
+            padding:4px 10px;
+            font-family: $G-font-M;
+            font-size:$G-font-size-md;
+            color:$G-white;
+        }
+    }
+}

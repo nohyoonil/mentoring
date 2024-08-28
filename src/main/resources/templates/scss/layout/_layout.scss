@@ -1,0 +1,87 @@
+//공통 레이아웃 스타일
+.content-area{
+    padding-top:$G-section-padding;
+    padding-bottom:$G-section-padding;
+}
+.container-fluid{
+    height:100%;
+    padding-left: $G-container-padding;
+    padding-right: $G-container-padding;
+}
+.row{
+    margin-left: $G-container-padding*-1;
+    margin-right: $G-container-padding*-1;
+    
+    &.row-v-center{
+        [class^="col"]{
+            height:100%;
+            align-content: center;
+        }
+    }
+    [class^="col"]{
+        padding-left:$G-container-padding;
+        padding-right:$G-container-padding;
+    }
+}
+
+.container-fluid.little-gatter{
+    $container-padding:5px;
+    padding-left:$G-container-padding;
+    padding-right:$G-container-padding;
+
+    
+    .row{
+        margin-left: $container-padding*-1;
+        margin-right: $container-padding*-1;
+        
+        &.row-v-center{
+            [class^="col"]{
+                height:100%;
+                align-content: center;
+            }
+        }
+        [class^="col"]{
+            padding-left:$container-padding;
+            padding-right:$container-padding;
+        }
+
+        &.full-row{
+            margin-left: $G-container-padding*-1;
+            margin-right: $G-container-padding*-1;
+        }
+    }
+}
+
+//페이지 공통
+.subpage-wrap{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.page-title{
+    padding-bottom:22px;
+    font-family: $G-font-B;
+}
+.page-sub-title{
+    padding-bottom:10px;
+    font-family: $G-font-B;
+}
+.nodata{
+    padding-top:$G-section-padding*2;
+    padding-bottom:$G-section-padding*2;
+    text-align: center;
+}
+
+.img-cover-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background:#D9D9D9;
+
+    img{
+        width:100%;
+        min-height:100%;
+        object-fit: cover;
+    }
+}

@@ -1,0 +1,21 @@
+결과데이터 : {
+"country":"KR","orderId":"sample-1713192634434","cashReceipts":null,"isPartialCancelable":true,
+"lastTransactionKey":"55590DCBFCA13053972FEA95D171C7F6","discount":null,"taxExemptionAmount":0,"suppliedAmount":45455,
+"secret":"ps_0RnYX2w532eqpyqP5KeP8NeyqApQ","type":"NORMAL","cultureExpense":false,"taxFreeAmount":0,
+"requestedAt":"2024-04-15T23:59:17+09:00","currency":"KRW","paymentKey":"tviva20240415235917bLzt7","virtualAccount":null,
+"checkout":{"url":"https:\/\/api.tosspayments.com\/v1\/payments\/tviva20240415235917bLzt7\/checkout"},
+"orderName":"토스 티셔츠 외 2건","method":"카드","useEscrow":false,"vat":4545,"mId":"tvivarepublica",
+"approvedAt":"2024-04-15T23:59:45+09:00","balanceAmount":50000,"version":"2022-11-16","easyPay":null,
+"totalAmount":50000,"cancels":null,"transfer":null,"mobilePhone":null,"failure":null,
+"receipt":{"url":"https:\/\/dashboard.tosspayments.com\/receipt\/redirection?transactionId=tviva20240415235917bLzt7&ref=PX"},
+"giftCertificate":null,"cashReceipt":null,
+"card":{"ownerType":"개인","number":"94106186****191*","amount":50000,"acquireStatus":"READY","isInterestFree":false,"cardType":"신용",
+        "approveNo":"00000000","installmentPlanMonths":0,"interestPayer":null,"issuerCode":"41","acquirerCode":"41","useCardPoint":false},
+"status":"DONE"
+}
+
+orderName : 토스 티셔츠 외 2건
+
+method : 카드
+
+cardNumber94106186****191*

@@ -1,0 +1,73 @@
+
+.mento-info{
+    //S: mento-profile
+    .mento-profile{
+        position: relative;
+        height:360px;
+        overflow: hidden;
+        background:#D9D9D9;
+
+        img{
+            position: absolute;
+            top:50%;
+            width:100%;
+            min-height:100%;
+            object-fit: cover;
+            transform: translateY(-50%);
+        }
+    }
+    //E: mento-profile
+    //S: mento-info-summary
+    .mento-info-summary{
+        .visual-txt{
+            margin-bottom: 48px;
+            word-break: keep-all;
+            font-family: $G-font-M;
+        }
+        .summary-top{
+            padding-bottom:20px;
+            border-bottom:1px solid $G-grey;
+        }
+        .summary-title{
+            margin-bottom:20px;
+            font-size: $G-font-size-lg;
+            font-family: $G-font-DR;
+        }
+        .summary-title .mento-grade{
+            margin-left:10px;
+            opacity: 0.5;
+        }
+        .list-specialty{
+            font-size:$G-font-size;
+        }
+        .list-specialty .list-label{
+            min-width:0;
+            padding-right:16px;
+            color:#fff;  
+            font-family: $G-font-DR;
+            font-size:$G-font-size-md;
+            line-height:$G-font-size * 1.5;
+        }
+        .list-specialty .list-item{
+            font-family: $G-font-DR;
+            font-size:$G-font-size;
+        }
+        .summary-bottom{
+            padding-top:20px;
+        }
+
+        .bottom-btns-wrap{
+            padding-top:20px;
+        }
+    }
+    //E: mento-info-summary
+    //S: mento-message
+    .mento-message{
+        padding-top:0;
+        p{
+            margin-bottom:20px;
+            line-height:2;
+        }
+    }
+    //S: mento-message
+}
