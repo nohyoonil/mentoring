@@ -24,7 +24,7 @@ public class MessageJsonParser {
         //Reader reader = new FileReader("/Users/kimdonghyun/Desktop/sumichan/message.json");
         // 하드 코딩인데이거... 시발 이걸 절대경로로 박아두네ㅠ 쩝....
 
-        Reader reader = new FileReader("/Users/kimdonghyun/Desktop/sumichan/spring_boot_study/message.json");
+        Reader reader = new FileReader("C:/aaaa/mentoring/message.json");
         messageArray = (JSONObject) parser.parse(reader);
         this.setMessageData();
     }
