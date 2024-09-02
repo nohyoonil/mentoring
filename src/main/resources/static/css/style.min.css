@@ -493,6 +493,7 @@ p {
 }
 .list-wrap .list-label {
   min-width: 80px;
+  padding-top: 1em;
   padding-right: 10px;
   color: #787878;
   font-size: 12px;
@@ -642,6 +643,10 @@ p {
   background: rgba(255, 255, 255, 0.1);
 }
 
+.modal .modal-title {
+  color: #303030;
+}
+
 /* layout */
 .content-area {
   padding-top: 48px;
@@ -728,15 +733,27 @@ p {
   height: 100px;
   background: #151515;
 }
+.header .container-fluid {
+  display: flex;
+}
 .header .row {
   height: 100%;
+}
+.header .logo-wrap {
+  display: flex;
+  align-items: center;
 }
 .header .logo-wrap .img-frame {
   display: block;
   width: 65px;
   height: 54px;
-  background: url("../images/logo_white.svg") no-repeat;
+  background: url("/images/logo_white.svg") no-repeat;
   background-position: center center;
+}
+.header nav {
+  flex: 1 1 auto;
+  align-content: center;
+  align-items: center;
 }
 .header .menu-list {
   display: flex;
@@ -766,9 +783,10 @@ p {
 }
 .login-wrap .btn-signup {
   display: inline-flex;
+  width: auto;
+  padding: 0;
   color: #fff;
   font-family: NotoSansKoreanB;
-  padding: 0;
   vertical-align: baseline;
 }
 
@@ -820,7 +838,7 @@ p {
   width: 100%;
   min-height: 140px;
   padding: 20px;
-  background: url(../images/bg_intro_banner.png) no-repeat;
+  background: url(/images/bg_intro_banner.png) no-repeat;
   background-size: 100% 100%;
   background-position: center center;
 }

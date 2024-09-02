@@ -1,11 +1,17 @@
 .header{
     height:100px;
     background:#151515;
-
+    .container-fluid{
+        display:flex;
+    }
     .row{
         height:100%;
     }
+
     .logo-wrap{
+        display:flex;
+        align-items: center;
+        
         .img-frame{
             display: block;
             width:65px;
@@ -13,6 +19,11 @@
             background:url('#{$G-path-img}/logo_white.svg') no-repeat;
             background-position: center center;
         }
+    }
+    nav{
+        flex: 1 1 auto;
+        align-content: center;
+        align-items: center;
     }
     .menu-list{
         display: flex;

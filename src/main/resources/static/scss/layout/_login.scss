@@ -7,9 +7,10 @@
     }
     .btn-signup{
         display: inline-flex;
+        width:auto;
+        padding:0;
         color:#fff;
         font-family: $G-font-B;
-        padding:0;
         vertical-align: baseline;
     }
 }
