@@ -46,13 +46,13 @@
                 <form method="post">
                     <div class="form-group">
                         <label for="reviewText">1. 준마이 멘토에게 리뷰 남기</label>
-                        <textarea class="form-control" id="reviewText" placeholder="두서 없이 작성해도 되니, 부담없이 작성해주세요." rows="10"></textarea>
+                        <textarea class="form-control" id="reviewText" placeholder="두서 없이 작성해도 되니, 부담없이 작성해주세요." rows="10" maxlength="100"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="reviewText">2. 준마이 멘토가 제공한 멘토링에 얼마나 만족하셨나요?<br>(1: 매우 불만족 / 4: 보통 / 7: 매우 만족)</label>
                         <div class="custom-chk-btns">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="reviewScore" id="reviewScore01" value="1" checked>
+                                <input class="form-check-input" type="radio" name="reviewScore" id="reviewScore01" value="1" >
                                 <label class="form-check-label" for="reviewScore01">
                                     1
                                 </label>
@@ -70,7 +70,7 @@
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="reviewScore" id="reviewScore04" value="4">
+                                <input class="form-check-input" type="radio" name="reviewScore" id="reviewScore04" value="4" checked>
                                 <label class="form-check-label" for="reviewScore04">
                                     4
                                 </label>

@@ -42,7 +42,7 @@
                 <form method="post">
                     <div class="form-group">
                         <label for="currentLesson">재학 중인 학과</label>
-                        <input type="text" class="form-control" id="currentLesson" placeholder="-학과 형식으로 작성해주세요.">
+                        <input type="text" class="form-control" id="currentLesson" placeholder="-학과 형식으로 작성해주세요." required maxlength="16">
                     </div>
                     <div class="form-group">
                         <label for="askTopic">묻고싶은 주제</label>
@@ -56,17 +56,17 @@
                     </div>
                     <div class="form-group">
                         <label for="freeAskText">궁금한 분야 / 학과 / 내용 (자유 작성)</label>
-                        <textarea class="form-control" id="freeAskText" placeholder="두서 없이 작성해도 되니, 부담없이 작성해주세요." rows="10"></textarea>
+                        <textarea class="form-control" id="freeAskText" placeholder="두서 없이 작성해도 되니, 부담없이 작성해주세요." rows="10" required maxlength="100"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="wishDate1">희망 멘토링 날짜1</label>
                         <div class="form-row">
                             <div class="col">
-                                <input type="date" class="form-control" id="wishDate1">
+                                <input type="date" class="form-control" id="wishDate1" required>
                             </div>
                             <div class="col">
                                 <label for="wishDateTime1" class="hidden-label">시간</label>
-                                <input type="time" class="form-control" id="wishDateTime1">
+                                <input type="time" class="form-control" id="wishDateTime1" required>
                             </div>
                           </div>
                     </div>
@@ -74,11 +74,11 @@
                         <label for="wishDate2">희망 멘토링 날짜2</label>
                         <div class="form-row">
                             <div class="col">
-                                <input type="date" class="form-control" id="wishDate2">
+                                <input type="date" class="form-control" id="wishDate2" required>
                             </div>
                             <div class="col">
                                 <label for="wishDateTime2" class="hidden-label">시간</label>
-                                <input type="time" class="form-control" id="wishDateTime2">
+                                <input type="time" class="form-control" id="wishDateTime2" required>
                             </div>
                           </div>
                     </div>
@@ -91,7 +91,7 @@
                     </div>
                     <div class="form-group">
                         <label for="phone">전화번호</label>
-                        <input type="tel" class="form-control" id="phone" placeholder="-없이 입력해주세요">
+                        <input type="tel" class="form-control" id="phone" placeholder="-없이 입력해주세요" required maxlength="16">
                     </div>
                     <div class="btns-wrap">
                         <input type="submit" class="btn btn-primary" value="다음 단계">
