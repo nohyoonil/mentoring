@@ -23,7 +23,10 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="loginEmail">이메일</label>
-                            <input type="email" class="form-control" id="loginEmail" placeholder="국민대학교 이메일로만 가입 가능" required maxlength="40">
+                            <div class="d-flex">
+                                <input type="email" class="flex-grow-1 form-control" id="loginEmail" placeholder="국민대학교 이메일로만 가입 가능" required maxlength="40">
+                                <a href="#" id="btnEmailCheck" class="w-auto flex-shrink-0 h-auto ml-2 btn btn-secondary">이메일 인증</a>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="loginPassword">비밀번호</label>

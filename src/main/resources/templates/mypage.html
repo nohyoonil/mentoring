@@ -18,25 +18,25 @@
     <!--S: mypage-->
     <div class="subpage-wrap mypage">
         <div class="container-fluid">
-            <p class="page-title">준마이님의 마이페이지</p>
+            <p class="page-title"><span th:text="${session.loginUser.nickname}"></span>님의 마이페이지</p>
             <!-- S: 위의 숫자 정보들-->
             <div class="content-area my-info-nums">
                 <div class="verticals-list">
                     <div class="list-item">
-                        <p class="big-value">1</p>
+                        <p class="big-value" th:text="${myInfoNums.noConfirmedNum}"></p>
                         <p class="info-label">확정 대기</p>
                     </div>
                     <div class="list-item">
-                        <p class="big-value">1</p>
+                        <p class="big-value" th:text="${myInfoNums.confirmedNum}"></p>
                         <p class="info-label">예약 확정</p>
                     </div>
                     <div class="list-item">
-                        <p class="big-value">1</p>
-                        <p class="info-label">리뷰 미 작성</p>
+                        <p class="big-value" th:text="${myInfoNums.noReviewedNum}"></p>
+                        <p class="info-label">리뷰 미작성</p>
                     </div>
                     <div class="list-item">
-                        <p class="big-value">1</p>
-                        <p class="info-label">완료 대기</p>
+                        <p class="big-value" th:text="${myInfoNums.RefundApplyNum}"></p>
+                        <p class="info-label">환불 대기</p>
                     </div>
                 </div>
             </div>
@@ -49,23 +49,63 @@
                         <div class="list-wrap">
                             <div class="list-item">
                                 <div class="list-label">학과</div>
-                                <div class="list-content">정보 없음</div>
+                                <div class="list-content">
+                                    <th:block th:if="${session.loginUser.getDepartment() == null}">
+                                        <span>정보 없음</span>
+                                    </th:block>
+                                    <th:block th:if="${session.loginUser.getDepartment() != null}">
+                                        <span th:text="${session.loginUser.getDepartment()}"></span>
+                                    </th:block>
+                                </div>
                             </div>
                             <div class="list-item">
                                 <div class="list-label">학번</div>
-                                <div class="list-content">정보 없음</div>
+                                <div class="list-content">
+                                    <th:block th:if="${session.loginUser.getStudentNumber() == null}">
+                                        <span>정보 없음</span>
+                                    </th:block>
+                                    <th:block th:if="${session.loginUser.getStudentNumber() != null}">
+                                        <span th:text="${session.loginUser.getStudentNumber()}"></span>
+                                    </th:block>
+                                </div>
                             </div>
                             <div class="list-item">
                                 <div class="list-label">학년</div>
-                                <div class="list-content">정보 없음</div>
+                                <div class="list-content">
+                                    <th:block th:if="${session.loginUser.getGrade() == 0}">
+                                        <span>정보 없음</span>
+                                    </th:block>
+                                    <th:block th:if="${session.loginUser.getGrade() != 0}">
+                                        <span th:text="${session.loginUser.getGrade()}"></span>
+                                    </th:block>
+                                </div>
                             </div>
                             <div class="list-item">
                                 <div class="list-label">출생년도</div>
-                                <div class="list-content">정보 없음</div>
+                                <div class="list-content">
+                                    <th:block th:if="${session.loginUser.getBirthYear() == 0}">
+                                        <span>정보 없음</span>
+                                    </th:block>
+                                    <th:block th:if="${session.loginUser.getBirthYear() != 0}">
+                                        <span th:text="${session.loginUser.getBirthYear()}"></span>
+                                    </th:block>
+                                </div>
                             </div>
                             <div class="list-item">
                                 <div class="list-label">신분상태</div>
-                                <div class="list-content">정보 없음</div>
+                                <div class="list-content">
+                                    <th:block th:if="${session.loginUser.getBirthYear() == 0}">
+                                        <span>정보 없음</span>
+                                    </th:block>
+                                    <th:block th:if="${session.loginUser.getCurrentStatus() != 0}">
+                                        <th:block th:switch="${session.loginUser.getCurrentStatus()}">
+                                            <span th:case="1">재학</span>
+                                            <span th:case="2">휴학</span>
+                                            <span th:case="3">졸업</span>
+                                            <span th:case="4">졸업유예</span>
+                                        </th:block>
+                                    </th:block>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -76,15 +116,82 @@
             </div>
             <!-- E: 내 정보-->
             <!-- S: NO data-->
-            <div class="mentoring-nodata nodata">
-                <p>아직 멘토링을 신청하지 않았습니다.</p>
-            </div>
+            <th:block th:if="${myReservations == null}">
+                <div class="mentoring-nodata nodata">
+                    <p>아직 멘토링을 신청하지 않았습니다.</p>
+                </div>
+            </th:block>
             <!-- E: NO data-->
             <!-- S: 멘토링 신청 현황 -->
+            <th:block th:if="${myReservations != null}">
+
              <div class="content-area current-status">
                 <p class="page-sub-title">멘토링 신청 현황</p>
-                <div class="card">
+
+                <div class="card mb-3" th:each="r:${beforeCurrent}">
                     <div class="card-body">
+                        <div class="list-wrap">
+                            <div class="list-item">
+                                <div class="list-label">신청일자</div>
+                                <div class="list-content" th:text="${#dates.format(r.reservationDate, 'YYYY-MM-dd')}">2024-01-01</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">멘토닉네임</div>
+                                <div class="list-content">꺄악</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">멘토 학과</div>
+                                <div class="list-content">시각디자인학과</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">멘토 학년</div>
+                                <div class="list-content">4학년</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">질문종류</div>
+                                <div class="list-content">부전공</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">질문</div>
+                                <div class="list-content">부전공부전공부전공부전공부전공부전공부전공부전공부전공부전공부전공부전공</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">신청플랜</div>
+                                <div class="list-content">궁금해요 플랜</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">플랜금액</div>
+                                <div class="list-content">4500원</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">희망날짜1</div>
+                                <div class="list-content">2024-01-01 오후 2시 30분</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">희망날짜2</div>
+                                <div class="list-content">2024-01-01 오후 2시 30분</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">약속장소</div>
+                                <div class="list-content">북악관 로비</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">예약확정</div>
+                                <div class="list-content">확정</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btns-wrap bottom-btns-wrap">
+                    <a href="#" class="btn btn-line-white" data-toggle="modal" data-target="#cancelReservation">취소하기</a>
+                </div>
+             </div>
+                <!-- E: 멘토링 신청 현황 -->
+                <!-- S: 멘토링 신청 이력 -->
+                <div class="content-area mentoring-history">
+                    <p class="page-sub-title">멘토링 신청 이력</p>
+                    <!--S: 신청 이력-->
+                    <div class="history-item">
                         <div class="list-wrap">
                             <div class="list-item">
                                 <div class="list-label">신청일자</div>
@@ -135,135 +242,74 @@
                                 <div class="list-content">확정</div>
                             </div>
                         </div>
+                        <div class="btns-wrap bottom-btns-wrap">
+                            <a href="#" class="btn btn-line-white">리뷰 작성</a>
+                            <a href="#" class="btn btn-line-orange">재예약</a>
+                        </div>
                     </div>
+                    <!--E: 신청 이력-->
+                    <!--S: 신청 이력-->
+                    <div class="history-item">
+                        <div class="list-wrap">
+                            <div class="list-item">
+                                <div class="list-label">신청일자</div>
+                                <div class="list-content">2024-01-01</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">아이디</div>
+                                <div class="list-content">꺄악</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">학과</div>
+                                <div class="list-content">시각디자인학과</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">학년</div>
+                                <div class="list-content">4학년</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">질문종류</div>
+                                <div class="list-content">부전공</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">질문</div>
+                                <div class="list-content">부전공부전공부전공부전공부전공부전공부전공부전공부전공부전공부전공부전공</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">신청플랜</div>
+                                <div class="list-content">궁금해요 플랜</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">플랜금액</div>
+                                <div class="list-content">4500원</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">희망날짜1</div>
+                                <div class="list-content">2024-01-01 오후 2시 30분</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">희망날짜2</div>
+                                <div class="list-content">2024-01-01 오후 2시 30분</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">약속장소</div>
+                                <div class="list-content">북악관 로비</div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">예약확정</div>
+                                <div class="list-content">확정</div>
+                            </div>
+                        </div>
+                        <div class="btns-wrap bottom-btns-wrap">
+                            <a href="#" class="btn btn-line-white">리뷰 작성</a>
+                            <a href="#" class="btn btn-line-orange">재예약</a>
+                        </div>
+                    </div>
+                    <!--E: 신청 이력-->
+
                 </div>
-                <div class="btns-wrap bottom-btns-wrap">
-                    <a href="#" class="btn btn-line-white" data-toggle="modal" data-target="#cancelReservation">취소하기</a>
-                </div>
-             </div>
-            <!-- E: 멘토링 신청 현황 -->
-            <!-- S: 멘토링 신청 이력 -->
-            <div class="content-area mentoring-history">
-                <p class="page-sub-title">멘토링 신청 이력</p>
-                <!--S: 신청 이력-->
-                <div class="history-item">
-                    <div class="list-wrap">
-                        <div class="list-item">
-                            <div class="list-label">신청일자</div>
-                            <div class="list-content">2024-01-01</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">아이디</div>
-                            <div class="list-content">꺄악</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">학과</div>
-                            <div class="list-content">시각디자인학과</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">학년</div>
-                            <div class="list-content">4학년</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">질문종류</div>
-                            <div class="list-content">부전공</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">질문</div>
-                            <div class="list-content">부전공부전공부전공부전공부전공부전공부전공부전공부전공부전공부전공부전공</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">신청플랜</div>
-                            <div class="list-content">궁금해요 플랜</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">플랜금액</div>
-                            <div class="list-content">4500원</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">희망날짜1</div>
-                            <div class="list-content">2024-01-01 오후 2시 30분</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">희망날짜2</div>
-                            <div class="list-content">2024-01-01 오후 2시 30분</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">약속장소</div>
-                            <div class="list-content">북악관 로비</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">예약확정</div>
-                            <div class="list-content">확정</div>
-                        </div>
-                    </div>
-                    <div class="btns-wrap bottom-btns-wrap">
-                        <a href="#" class="btn btn-line-white">리뷰 작성</a>
-                        <a href="#" class="btn btn-line-orange">재예약</a>
-                    </div>
-                </div>
-                <!--E: 신청 이력-->
-                <!--S: 신청 이력-->
-                <div class="history-item">
-                    <div class="list-wrap">
-                        <div class="list-item">
-                            <div class="list-label">신청일자</div>
-                            <div class="list-content">2024-01-01</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">아이디</div>
-                            <div class="list-content">꺄악</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">학과</div>
-                            <div class="list-content">시각디자인학과</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">학년</div>
-                            <div class="list-content">4학년</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">질문종류</div>
-                            <div class="list-content">부전공</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">질문</div>
-                            <div class="list-content">부전공부전공부전공부전공부전공부전공부전공부전공부전공부전공부전공부전공</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">신청플랜</div>
-                            <div class="list-content">궁금해요 플랜</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">플랜금액</div>
-                            <div class="list-content">4500원</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">희망날짜1</div>
-                            <div class="list-content">2024-01-01 오후 2시 30분</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">희망날짜2</div>
-                            <div class="list-content">2024-01-01 오후 2시 30분</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">약속장소</div>
-                            <div class="list-content">북악관 로비</div>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-label">예약확정</div>
-                            <div class="list-content">확정</div>
-                        </div>
-                    </div>
-                    <div class="btns-wrap bottom-btns-wrap">
-                        <a href="#" class="btn btn-line-white">리뷰 작성</a>
-                        <a href="#" class="btn btn-line-orange">재예약</a>
-                    </div>
-                </div>
-                <!--E: 신청 이력-->
-                
-            </div>
-            <!-- S: 멘토링 신청 이력 -->
+                <!-- S: 멘토링 신청 이력 -->
+            </th:block>
         </div>
     </div>
     <!--E: mypage-->
@@ -271,7 +317,7 @@
     <div class="modal fade" id="editInfoModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="" method="post">
+                <form action="/userInfoUpdate" method="post">
                     <div class="modal-header">
                         <h5 class="modal-title">내 정보 수정</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -282,32 +328,32 @@
                         <div class="list-wrap list-form">
                             <div class="list-item">
                                 <div class="list-label"><label for="department">학과</label></div>
-                                <div class="list-content"><input id="department" class="form-control" type="text" placeholder="~학과 형식으로 작성" maxlength="16"></div>
+                                <div class="list-content"><input id="department" name="department" class="form-control" type="text" placeholder="~학과 형식으로 작성" maxlength="16" th:value="${session.loginUser.getDepartment()}"></div>
                             </div>
                             <div class="list-item">
-                                <div class="list-label"><label for="student_number">학번</label></div>
-                                <div class="list-content"><input id="student_number" class="form-control" type="text" placeholder="숫자만 작성" maxlength="16"></div>
+                                <div class="list-label"><label for="studentNumber">학번</label></div>
+                                <div class="list-content"><input id="studentNumber" name="studentNumber" class="form-control" type="number" placeholder="숫자만 작성" maxlength="16" th:value="${session.loginUser.getStudentNumber()}"></div>
                             </div>
                             <div class="list-item">
                                 <div class="list-label"><label for="grade">학년</label></div>
-                                <div class="list-content"><input id="grade" class="form-control" type="text" placeholder="숫자만 작성" maxlength="2"></div>
+                                <div class="list-content"><input id="grade" name="grade" class="form-control" type="number" placeholder="숫자만 작성" maxlength="2" th:value="${session.loginUser.getGrade()}"></div>
                             </div>
                             <div class="list-item">
                                 <div class="list-label"><label for="phone">전화번호</label></div>
-                                <div class="list-content"><input id="phone" class="form-control" type="tel" placeholder="-빼고 숫자만 작성" maxlength="16"></div>
+                                <div class="list-content"><input id="phone" name="phone" class="form-control" type="tel" placeholder="-빼고 숫자만 작성" maxlength="16" th:value="${session.loginUser.getPhone()}"></div>
                             </div>
                             <div class="list-item">
-                                <div class="list-label"><label for="birth_year">출생년도</label></div>
-                                <div class="list-content"><input id="birth_year" class="form-control" type="text" placeholder="숫자만 작성" maxlength="4"></div>
+                                <div class="list-label"><label for="birthYear">출생년도</label></div>
+                                <div class="list-content"><input id="birthYear" name="birthYear" class="form-control" type="Number" placeholder="숫자만 작성" maxlength="4" th:value="${session.loginUser.getBirthYear()}"></div>
                             </div>
                             <div class="list-item">
-                                <div class="list-label"><label for="current_status">신분상태</label></div>
+                                <div class="list-label"><label for="currentStatus">신분상태</label></div>
                                 <div class="list-content">
-                                    <select id="current_status" class="form-control">
-                                        <option value="1">재학</option>
-                                        <option value="2">휴학</option>
-                                        <option value="3">졸업</option>
-                                        <option value="4">졸업유예</option>
+                                    <select id="currentStatus" name="currentStatus" class="form-control">
+                                        <option value="1" th:selected="${session.loginUser.getCurrentStatus()} == 1">재학</option>
+                                        <option value="2" th:selected="${session.loginUser.getCurrentStatus()} == 2">휴학</option>
+                                        <option value="3" th:selected="${session.loginUser.getCurrentStatus()} == 3">졸업</option>
+                                        <option value="4" th:selected="${session.loginUser.getCurrentStatus()} == 4">졸업유예</option>
                                     </select>
                                 </div>
                             </div>

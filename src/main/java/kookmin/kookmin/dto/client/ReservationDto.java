@@ -9,7 +9,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReservationDto {
-    private UUID reservationId;
+    private String reservationId;
     private int askType;
     private String askContent;
     private Date desiredDate1;
@@ -17,8 +17,8 @@ public class ReservationDto {
     private Date reservationDate;
     private Date confirmedDate;
     private String position;
-    private UUID userId;
-    private UUID mentoId;
+    private String userId;
+    private String mentoId;
     private String planTitle;
     private int reviewScore;
     private String reviewContent;

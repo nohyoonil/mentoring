@@ -14,5 +14,5 @@ public class ActDto {
     private String title;
     private String content;
     private Boolean campusAct;
-    private UUID mentoId;
+    private String mentoId;
 }

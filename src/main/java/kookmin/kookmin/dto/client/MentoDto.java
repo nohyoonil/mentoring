@@ -10,11 +10,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MentoDto {
-    private UUID mentoId;
+    private String mentoId;
     private String primary_major;
     private String sub_major;
     private String introduce_title;
     private String introduce_content;
-    private UUID userId;
+    private String userId;
     private String multi_major;
 }
