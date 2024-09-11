@@ -9,4 +9,16 @@
     email = #{email}
     order by reservation_date
   </select>
+  <select id="findById" resultType="ReservationDto">
+    select * from reservation
+    where reservation_id = #{reservationId}
+  </select>
+  <update id="update" parameterType="ReservationDto">
+    update reservation set
+    reservation_status = 4,
+    refund_time = now(),
+    refund_bank_name = #{refundBankName},
+    refund_bank_num = #{refundBankNum}
+    where reservation_id = #{reservationId}
+  </update>
 </mapper>
