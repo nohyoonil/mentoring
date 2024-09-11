@@ -15,6 +15,7 @@
 
 <body>
 <th:block th:replace="fragments/header :: headerFragment"></th:block>
+<th:block th:if="${session.loginUser != null}">
     <!--S: mypage-->
     <div class="subpage-wrap mypage">
         <div class="container-fluid">
@@ -371,12 +372,24 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input type="submit" value="취소정책 확인 및 예약 취소">
+                        <input class="btn btn-primary" type="submit" value="취소정책 확인 및 예약 취소">
                     </div>
                 </form>
             </div>
         </div>
     </div>
     <!-- E: 취소하기 모달 -->
+</th:block>
+<th:block th:if="${session.loginUser == null}">
+    <div class="container-fluid">
+        <p class="page-center-txt">
+            로그인 정보가 만료되었습니다. <br>다시 로그인해주세요
+        </p>
+        <div class="btns-wrap">
+            <a href="/login" class="btn btn-line-white">로그인</a>
+            <a href="/" class="btn btn-line-white">홈으로</a>
+        </div>
+    </div>
+</th:block>
 </body>
 </html>

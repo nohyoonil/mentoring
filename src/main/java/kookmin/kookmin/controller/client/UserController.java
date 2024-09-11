@@ -45,7 +45,10 @@ public class UserController {
     @GetMapping("/mypage")
     public void mypage(Model model, HttpSession session) {
         UserDto loginUser = (UserDto) session.getAttribute("loginUser");
-        String userEmail = loginUser.getEmail();
+        String userEmail = "";
+        if(loginUser != null){
+            userEmail = loginUser.getEmail();
+        }
 
         if(reservationService.findByEmail(userEmail) != null && !reservationService.findByEmail(userEmail).isEmpty()){
             model.addAttribute("myReservations", "존재함.");
