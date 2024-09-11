@@ -1,8 +1,6 @@
 package kookmin.kookmin.controller.client;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import kookmin.kookmin.dto.client.ReservationDto;
 import kookmin.kookmin.dto.client.UserDto;
 import kookmin.kookmin.service.client.ReservationService;
 import kookmin.kookmin.service.client.UserService;
@@ -11,10 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 public class UserController {
@@ -53,12 +47,12 @@ public class UserController {
         UserDto loginUser = (UserDto) session.getAttribute("loginUser");
         String userEmail = loginUser.getEmail();
 
-        if(reservationService.findByEmail(userEmail) != null){
+        if(reservationService.findByEmail(userEmail) != null && !reservationService.findByEmail(userEmail).isEmpty()){
             model.addAttribute("myReservations", "존재함.");
         }
-        model.addAttribute("myInfoNums", reservationService.findByMyInfo(userEmail));
-        model.addAttribute("beforeCurrent", reservationService.findByEmailSplitCurrent(userEmail).get("before"));
-        model.addAttribute("afterCurrent", reservationService.findByEmailSplitCurrent(userEmail).get("after"));
+        model.addAttribute("myInfoNums", reservationService.myInfoNums(userEmail));
+        model.addAttribute("reservationStayList", reservationService.findByEmailSplitStatus(userEmail).get(2));
+        model.addAttribute("reservationHistorysList", reservationService.findByEmailSplitStatus(userEmail).get(3));
     }
 
     @PostMapping("/userInfoUpdate")

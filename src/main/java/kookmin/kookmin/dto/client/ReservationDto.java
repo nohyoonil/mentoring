@@ -15,7 +15,7 @@ public class ReservationDto {
     private Date desiredDate1;
     private Date desiredDate2;
     private Date reservationDate;
-    private Date confirmedDate;
+    private int reservationStatus;
     private String position;
     private String userId;
     private String mentoId;

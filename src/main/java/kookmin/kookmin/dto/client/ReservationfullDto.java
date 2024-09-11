@@ -1,14 +1,16 @@
 package kookmin.kookmin.dto.client;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.apache.catalina.User;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReservationDto {
+public class ReservationfullDto {
     private String reservationId;
     private int askType;
     private String askContent;
@@ -17,9 +19,9 @@ public class ReservationDto {
     private Date reservationDate;
     private int reservationStatus;
     private String position;
-    private String userId;
-    private String mentoId;
-    private String planTitle;
+    private UserDto user;
+    private UserDto mento;
+    private PlanDto plan;
     private int reviewScore;
     private String reviewContent;
     private Date reviewDate;

@@ -24,7 +24,16 @@ public class UserService {
     public UserDto findByEmail(String email){
         return userMapper.findByEmail(email);
     }
+
     public void update(UserDto userdto){
         userMapper.update(userdto);
+    }
+
+    public UserDto findByUserId(String userId){
+        return userMapper.findByUserId(userId);
+    }
+
+    public UserDto findByMentoUserInfoReservation(String reservationId){
+        return userMapper.findByMentoUserInfoReservation(reservationId);
     }
 }

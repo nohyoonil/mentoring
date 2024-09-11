@@ -9,6 +9,9 @@
   <select id="findByEmail" resultType="UserDto">
     select * from user where email=#{email}
   </select>
+  <select id="findByUserId" resultType="UserDto">
+    select * from user where user_id=#{user_id}
+  </select>
   <insert id="insert" parameterType="UserDto">
     INSERT INTO user VALUES(#{user_id}, #{email}, #{pwd}, #{nickname}, #{department}, #{student_number}, #{grade}, #{birth_year}, #{current_status}, #{phone})
   </insert>
@@ -22,4 +25,10 @@
     current_status = #{currentStatus}
     where email = #{email}
   </update>
+  <select id="findByMentoUserInfoReservation" resultType="UserDto">
+    select mu.* from reservation r, mento m, user mu
+    where r.mento_id = m.mento_id and
+    m.user_id = mu.user_id and
+    reservation_id = #{reservationId}
+  </select>
 </mapper>

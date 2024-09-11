@@ -9,5 +9,4 @@ import java.util.List;
 @Mapper
 public interface ReservationMapper {
     List<ReservationDto> findByEmail(String email);
-    UserDto findByMentoInfo(ReservationDto reservationDto);
 }
