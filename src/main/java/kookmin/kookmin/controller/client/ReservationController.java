@@ -16,7 +16,7 @@ public class ReservationController {
 
     @PostMapping("/refund")
     public String refund(ReservationDto reservationDto, Model model){
-        reservationService.update(reservationDto);
+        reservationService.refund(reservationDto);
         return "redirect:/mypage";
     }
 
@@ -25,5 +25,11 @@ public class ReservationController {
         ReservationDto reservationDto= reservationService.findById(id);
         model.addAttribute("r", reservationService.replaceFullDto(reservationDto));
         return "reviewWrite";
+    }
+
+    @PostMapping("/mypage/reviewSuccess")
+    public String reviewSuccess(ReservationDto r){
+
+        return "reviewWriteOk";
     }
 }

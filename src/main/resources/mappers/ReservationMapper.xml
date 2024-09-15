@@ -13,12 +13,19 @@
     select * from reservation
     where reservation_id = #{reservationId}
   </select>
-  <update id="update" parameterType="ReservationDto">
+  <update id="refund" parameterType="ReservationDto">
     update reservation set
     reservation_status = 4,
     refund_time = now(),
     refund_bank_name = #{refundBankName},
     refund_bank_num = #{refundBankNum}
+    where reservation_id = #{reservationId}
+  </update>
+  <update id="review" parameterType="ReservationDto">
+    update reservation set
+    review_score=7,
+    review_date=now(),
+    review_content='졸령'
     where reservation_id = #{reservationId}
   </update>
 </mapper>

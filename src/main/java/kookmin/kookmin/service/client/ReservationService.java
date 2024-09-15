@@ -66,8 +66,8 @@ public class ReservationService {
         return map;
     }
 
-    public void update(ReservationDto reservationDto){
-        reservationMapper.update(reservationDto);
+    public void refund(ReservationDto reservationDto){
+        reservationMapper.refund(reservationDto);
     }
 
     public ReservationDto findById(String reservationId){

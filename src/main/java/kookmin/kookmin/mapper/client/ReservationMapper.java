@@ -9,6 +9,6 @@ import java.util.List;
 @Mapper
 public interface ReservationMapper {
     List<ReservationDto> findByEmail(String email);
-    void update(ReservationDto reservationDto);
+    void refund(ReservationDto reservationDto);
     ReservationDto findById(String reservationId);
 }
