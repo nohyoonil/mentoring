@@ -57,6 +57,7 @@
                     <div class="form-group">
                         <label for="reviewText">2. 준마이 멘토가 제공한 멘토링에 얼마나 만족하셨나요?<br>(1: 매우 불만족 / 4: 보통 / 7: 매우 만족)</label>
                         <div class="custom-chk-btns">
+                            <input type="hidden" name="reservationId" th:value="${r.reservationId}">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="reviewScore" id="reviewScore01" value="1" th:checked="${r.reviewScore} == 1">
                                 <label class="form-check-label" for="reviewScore01">

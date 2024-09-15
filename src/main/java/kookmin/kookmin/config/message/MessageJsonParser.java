@@ -32,8 +32,12 @@ public class MessageJsonParser {
     public void setMessageData() {
         messageComponent.setEMAIL_CHECK_FAILED((String) messageArray.get("EMAIL_CHECK_FAILED"));
         messageComponent.setPWD_CHECK_FAILED((String) messageArray.get("PWD_CHECK_FAILED"));
-        messageComponent.setPWD_IS_NOTEQUAL((String) messageArray.get("PWD_IS_NOTEQUAL"));
+        messageComponent.setPWD_IS_NOT_EQUAL((String) messageArray.get("PWD_IS_NOT_EQUAL"));
         messageComponent.setNICKNAME_IS_NOT_KOREAN((String) messageArray.get("NICKNAME_IS_NOT_KOREAN"));
         messageComponent.setSIGNUP_SUCCESS((String) messageArray.get("SIGNUP_SUCCESS"));
+        messageComponent.setSIGNUP_FAIL((String) messageArray.get("SIGNUP_FAIL"));
+        messageComponent.setCOWEEF_MAIL_ADDRESS((String) messageArray.get("COWEEF_MAIL_ADDRESS"));
+        messageComponent.setAUTH_MAIL_SEND((String) messageArray.get("AUTH_MAIL_SEND"));
+        messageComponent.setAUTH_CODE((String) messageArray.get("AUTH_CODE"));
     }
 }

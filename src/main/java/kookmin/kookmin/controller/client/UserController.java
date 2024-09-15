@@ -10,8 +10,7 @@ import kookmin.kookmin.config.message.MessageComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,13 +22,13 @@ public class UserController {
     @Autowired
     private ReservationService reservationService;
 
+    @Autowired
+    private MessageComponent messageComponent;
+
     @GetMapping("/login")
     public void login(){
 
     }
-
-    @Autowired
-    private MessageComponent messageComponent;
 
     // 로그인 플로우는 내가 해야하는것이니까 재구성
     // 추가적으로 회원가입 플로우 구현하기
@@ -54,45 +53,64 @@ public class UserController {
         return "redirect:/";
     }
 
+    @PostMapping("/emailSend")
+    @ResponseBody
+    public String emailSend(String email) {
+        String[] parts = email.split("@");
+        if (parts.length != 2 && parts[1].equals("gmail.com")) {
+            return "이메일 형식이 유효하지 않습니다. 국민대 이메일로만 가입 가능합니다.";
+        }
+        if (userService.isAlreadyRegister(email)) {
+            return "이미 가입된 회원입니다.";
+        }
+        if (!userService.sendEmail(email)) {
+            return "메일 발송에 실패하였습니다. 관리자에게 문의해주세요.";
+        }
+        return "메일 발송이 완료되었습니다. 입력하신 국민대학교 이메일 수신함에서 인증번호를 확인해주세요.";
+    }
+
+    @PostMapping("/authEmailCode")
+    @ResponseBody
+    public String authEmailCode(String email, String emailCheckCode) {
+        if (userService.emailCodeCheck(email, emailCheckCode)) {
+            return "이메일 인증을 완료하였습니다.";
+        }
+        else {
+            return "이메일 인증을 실패하였습니다. 다시 메일 발송 후, 재입력 해주세요";
+        }
+    }
+
     @GetMapping("/signup")
     public void signup(Model model) {
 
     }
 
     @PostMapping("/signup")
-    public void signupSubmit(SignupDto signupDto, Model model) {
-        // 구현해야 하는 로직
-        // 1. 이메일 인증 발송 코드 확인
-        // 2. 비밀번호 규격에 맞는가?
-        // 3. 비밀번호 둘이 동일한가?
-        // 4. DB에 밀어넣기
-        //
-        // 추가적으로 남은거,
-        // 이메일 확인 버튼 누르면 팝업 뜨면서 기 가입된 이메일인지 확인하면서 이메일 발송 및 인증 코드 확인
-        // 이메일 인증코드 입력하는 칸 하나만 만들어주세요 모래느님 ㅠㅠ
-        if (!userService.emailCodeCheck(signupDto.getEmail())) {
-            model.addAttribute("emailCheckFailed", messageComponent.getEMAIL_CHECK_FAILED());
+    public void signupSubmit(SignupDto signupDtoDto, Model model) {
+        if (!userService.finishAuthEmail(signupDtoDto.getEmail())) {
+            model.addAttribute("emailNotCheck", messageComponent.getEMAIL_CHECK_FAILED());
         }
 
-        else if (!userService.pwdCheck(signupDto.getPwd())) {
+        else if (!userService.pwdCheck(signupDtoDto.getPwd())) {
             model.addAttribute("pwdCheckFailed", messageComponent.getPWD_CHECK_FAILED());
         }
 
-        else if (!userService.isPwdEqual(signupDto.getPwd(), signupDto.getPwdCheck())) {
-            model.addAttribute("pwdIsNotEqual", messageComponent.getPWD_IS_NOTEQUAL());
+        else if (!userService.isPwdEqual(signupDtoDto.getPwd(), signupDtoDto.getPwdCheck())) {
+            model.addAttribute("pwdIsNotEqual", messageComponent.getPWD_IS_NOT_EQUAL());
         }
 
-        else if (!userService.isNicknameKorean(signupDto.getNickname())) {
+        else if (!userService.isNicknameKorean(signupDtoDto.getNickname())) {
             model.addAttribute("nicknameIsNotKorean", messageComponent.getNICKNAME_IS_NOT_KOREAN());
         }
 
         else {
-            if (!userService.registerUserInfo(signupDto)) {
+            if (!userService.registerUserInfo(signupDtoDto.getEmail(), signupDtoDto.getPwd(), signupDtoDto.getNickname())) {
                 // 이거 메세지 바꿔야함
-                model.addAttribute("signupFail", messageComponent.getSIGNUP_SUCCESS());
-                return;
+                model.addAttribute("signupFail", messageComponent.getSIGNUP_FAIL());
             }
-            model.addAttribute("signupSuccess", messageComponent.getSIGNUP_SUCCESS());
+            else {
+                model.addAttribute("signupSuccess", messageComponent.getSIGNUP_SUCCESS());
+            }
         }
     }
 
@@ -128,5 +146,4 @@ public class UserController {
 
     @GetMapping("/userInfoEnd")
     public void userInfoEnd(){}
-
 }

@@ -1,20 +1,36 @@
 package kookmin.kookmin.service.client;
 
+import kookmin.kookmin.config.message.MessageComponent;
 import kookmin.kookmin.dto.client.SignupDto;
 import kookmin.kookmin.dto.client.UserDto;
 import kookmin.kookmin.mapper.client.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
+
 
 @Service
 public class UserService {
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private JavaMailSender emailSender;
+
+    @Autowired
+    private MessageComponent messageComponent;
+
+    final private HashMap<String, String> authCodeMap = new HashMap<>();
+    final private HashMap<String, Integer> authEmailStatus = new HashMap<>();
 
     public List<UserDto> findAll() {
         return userMapper.findAll();
@@ -58,9 +74,19 @@ public class UserService {
         return userMapper.findByMentoUserInfoReservation(reservationId);
     }
 
-    public boolean emailCodeCheck(String email){
-        // do something for emailCodeCheck
-        return true;
+    public boolean finishAuthEmail(String email) {
+        if (authEmailStatus.containsKey(email)) {
+            if (authEmailStatus.get(email) == 1) {
+                authEmailStatus.remove(email);
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
     }
 
     public boolean pwdCheck(String pwd){
@@ -113,18 +139,68 @@ public class UserService {
         return true;
     }
 
-    public boolean registerUserInfo(SignupDto signupDto){
+    public boolean registerUserInfo(String email, String pwd, String nickname){
         String pwdHashing = "";
         try {
-            pwdHashing = hashingSha256(signupDto.getPwd());
+            pwdHashing = hashingSha256(pwd);
         }
         catch (NoSuchAlgorithmException e) {
             return false;
         }
-        userMapper.insertBySignupInfo(signupDto.getEmail(), pwdHashing, signupDto.getNickname());
+        userMapper.insertBySignupInfo(email, pwdHashing, nickname);
         return true;
     }
 
+    public boolean isAlreadyRegister(String email) {
+        String pwd = userMapper.findPwdByEmail(email);
+        if (pwd != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public boolean sendEmail(String email) {
+        try
+        {
+            SimpleMailMessage message = new SimpleMailMessage();
+            String authCode = makeRandomAuthCode();
+            message.setFrom(messageComponent.getCOWEEF_MAIL_ADDRESS());
+            message.setTo(email);
+            message.setSubject(messageComponent.getAUTH_MAIL_SEND());
+            message.setText(messageComponent.getAUTH_CODE() + " : " + authCode);
+            emailSender.send(message);
+            authCodeMap.put(email, authCode);
+            authEmailStatus.put(email, 0);
+            return true;
+        }
+        catch (MailException e)
+        {
+            return false;
+        }
+    }
+
+    public boolean emailCodeCheck(String email, String emailCheckCode) {
+        String sendCode = authCodeMap.get(email);
+        if (authCodeMap.containsKey(email))
+        {
+            if (sendCode.equals(emailCheckCode))
+            {
+                authCodeMap.remove(email);
+                authEmailStatus.put(email, 1);
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
+    }
+
+    // 모래씨 주목!! 여기서 message digest이자 단방향 암호화입니다.
     private String hashingSha256(String pwd) throws NoSuchAlgorithmException {
         // SHA-256 알고리즘을 사용하는 MessageDigest 인스턴스 생성
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -140,5 +216,14 @@ public class UserService {
             hexString.append(hex);
         }
         return hexString.toString();
+    }
+
+    private String makeRandomAuthCode () {
+        Random random = new Random();
+        // 100000에서 999999 사이의 랜덤 숫자 생성
+        int randomNumber = 100000 + random.nextInt(900000);
+        // 숫자를 문자열로 변환
+        String randomNumberString = Integer.toString(randomNumber);
+        return randomNumberString;
     }
 }
