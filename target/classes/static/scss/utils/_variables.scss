@@ -1,0 +1,81 @@
+//경로
+$G-path-img : '/images';
+$G-path-font: '/fonts';
+
+//기본색상
+$G-main-color: #F68536;
+$G-white: #fff;
+$G-white-1:#f7f7f7;
+
+$G-black: #000;
+$G-black-1: #222;
+$G-black-2 :#303030;
+$G-grey:#787878;
+
+$G-font-color:$G-white-1;
+$G-font-grey-color: rgba($G-font-color, 0.5);
+
+//레이아웃 색상
+$G-header-bg:#151515;
+$G-border-color: $G-white-1;
+$G-bg-contents: $G-black-2;
+$G-box-padding: 12px 20px;
+
+//전체 컴포넌트 기본 셋팅
+$G-border-radius: 8px;
+
+//그림자
+$G-contens-shadow: 0 3px 6px rgba(159, 141, 141, 0.16);
+
+// 전체 레이아웃
+$G-container-padding:24px;
+$G-section-padding:48px;
+
+
+//font-size
+$G-font-size: 16px;
+$G-font-size-sm: 12px;
+$G-font-size-md: 14px;
+$G-font-size-lg: 24px;
+$G-font-size-xl: 36px;
+
+//font-face
+@font-face{
+    font-family: 'NotoSansKoreanDR';
+    font-style: normal;
+    src: local('Noto Sans DemiLight'), local('NotoSans-DemiLight'),
+    url('../fonts/NotoSansKR-DemiLight-Hestia.woff') format('woff');
+}
+@font-face{
+    font-family: 'NotoSansKoreanR';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Noto Sans Regular'), local('NotoSans-Regular'),
+    url('../fonts/NotoSansKR-Regular-Hestia.woff') format('woff');
+}
+
+@font-face{
+    font-family: 'NotoSansKoreanM';
+    font-style: normal;
+    font-weight: 500;
+    src: local('Noto Sans Medium'), local('NotoSans-Medium'),
+    url('../fonts/NotoSansKR-Medium-Hestia.woff') format('woff');
+}
+
+@font-face{
+    font-family: 'NotoSansKoreanB';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Noto Sans Bold'), local('NotoSans-Bold'),
+    url('../fonts/NotoSansKR-Bold-Hestia.woff') format('woff');
+}
+
+//font-family
+$G-font-DR: NotoSansKoreanDR;
+$G-font-R: NotoSansKoreanR;
+$G-font-M: NotoSansKoreanM;
+$G-font-B: NotoSansKoreanB;
+//$G-font-family: NotoSansKoreanR, 'Noto Sans KR', '본고딕', 'Apple SD Gothic Neo', 'Malgun Gothic','맑은 고딕',dotum,'돋움',sans-serif;
+
+
+

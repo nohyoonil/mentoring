@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.min.css" type="text/css">
+    <link rel="icon" href="/images/favicon.ico">
+    <script src="/js/lib/jquery-3.5.1.min.js"></script>
+    <script src="/js/lib/bootstrap.min.js"></script>
+    <script src="/js/slider.js"></script>
+    <title>메인페이지</title>
+</head>
+
+<body>
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
+    <!--S: main-wrap-->
+    <div class="main-wrap">
+        <!--S: intro-->
+        <div class="content-area intro">
+            <div class="container-fluid">
+                <p class="intro-text-wrap">우리 다 같은 국민대생이잖아요.<br>편하게 궁금한 것들을 물어보세요.</p>
+                <p class="visual-txt">
+                    <span class="implement-txt">공강시간</span>에<br>
+                    <span class="implement-txt">북악관</span> 카페에서<br>
+                    <span class="implement-txt">커피 한잔</span> 마시며<br>
+                    진로 고민 끝내기<span class="implement-txt">.</span><br>
+                </p>
+                <div class="row justify-content-end">
+                    <div class="col-8 col-lg-6">
+                        <div class="bubble bubble-yellow">
+                            <p>저는 2학년 2학기인데... 경영학과를 복수 전공을 지금부터 준비하면 늦었을까요?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8 col-lg-6">
+                        <div class="bubble bubble-orange">
+                            <p>저는 상경계열 학과를 다니고 있긴 하지만 디자인을 배워보려고 합니다! 혹시 디자인과로 전과하려면 그림을 얼마나 잘 그려야하나요?ㅠㅠ</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-end">
+                    <div class="col-8 col-lg-6">
+                        <div class="bubble bubble-yellow">
+                            <p>원하는 학과로 전과를 하려고 하는데 부전공도 해보고 싶어요ㅠ 혹시 꼭 추가학기를 해야하는 걸까요?</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <!--E: intro-->
+        <!--S: point-3-info-->
+        <div class="content-area point-3-info">
+            <div class="container-fluid little-gatter">
+                <div class="row full-row">
+                    <div class="intro-banner">
+                        <p class="visual-txt visual-txt-sm">
+                            이젠 혼자 고민하지 말고<br>
+                            <span class="implement-txt">직접 물어보세요!</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row little point-3">
+                    <div class="col">
+                        <div class="card point-3-card">
+                            <div class="card-body">
+                                <p>학과 인증<br>학부 재학생</p>
+                                <div class="icon-wrap">
+                                    <img src="/images/ico_point01.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card point-3-card">
+                            <div class="card-body">
+                                <p>공강시간에<br>학교 안에서</p>
+                                <div class="icon-wrap">
+                                    <img src="/images/ico_point02.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card point-3-card">
+                            <div class="card-body">
+                                <p>고민 상담<br>1 : 1 멘토링</p>
+                                <div class="icon-wrap">
+                                    <img src="/images/ico_point03.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row little point-3">
+                    <div class="col">
+                        <p class="point-txt">신원이 확인된 국민대 소속 학부생이 직접 알려드려요.</p>
+                    </div>
+                    <div class="col">
+                        <p class="point-txt">북악관, 본부관 카페 등 공개된 장소에서 공강 시간을 활용해서 만나요.</p>
+                    </div>
+                    <div class="col">
+                        <p class="point-txt">궁금했던 것들을 해당 학과생에게 직접 물어보세요.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--E: point-3-info-->
+        <!--S: ex-review-->
+        <div class="content-area ex-review">
+            <div class="container-fluid">
+                <p class="visual-txt visual-txt-sm">
+                    벌써 <span class="implement-txt">10명</span>의 학우분들과<br>
+                    도움을 주고 받았습니다.
+                </p>
+                <div class="review-card-wrap">
+                    <!--S: card-->
+                    <div class="card card-separater">
+                        <div class="card-body">
+                            <div class="card-top">
+                                <div class="list-wrap">
+                                    <div class="list-item">
+                                        <div class="list-label">북악관 로비 / 약 1시간 진행</div>
+                                        <div class="list-content"><span class="txt-review">7점 / 7점</span></div>
+                                    </div>
+                                    <div class="list-item">
+                                        <div class="list-label">융합전공 복수전공 관련</div>
+                                        <div class="list-content">
+                                            <span class="txt-review">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-bottom">
+                                <p class="card-text">궁금한 점이 좀 많아서 에브리타임 메신저로 묻기가 부담스러웠는데, 커피챗(대면)을 통해 하다보니 세세한 궁금증들을 바로바로 해결할 수  있어 좋았어요.</p>
+                                <p class="card-subtext">2024.05</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--E: card-->
+                    <!--S: card-->
+                    <div class="card card-separater">
+                        <div class="card-body">
+                            <div class="card-top">
+                                <div class="list-wrap">
+                                    <div class="list-item">
+                                        <div class="list-label">북악관 로비 / 약 1시간 진행</div>
+                                        <div class="list-content"><span class="txt-review">7점 / 7점</span></div>
+                                    </div>
+                                    <div class="list-item">
+                                        <div class="list-label">융합전공 복수전공 관련</div>
+                                        <div class="list-content">
+                                            <span class="txt-review">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-bottom">
+                                <p class="card-text">궁금한 점이 좀 많아서 에브리타임 메신저로 묻기가 부담스러웠는데, 커피챗(대면)을 통해 하다보니 세세한 궁금증들을 바로바로 해결할 수  있어 좋았어요.</p>
+                                <p class="card-subtext">2024.05</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--E: card-->
+                </div>
+            </div>
+        </div>
+        <!--E: ex-review-->
+        <!--S: mentos-->
+        <div class="content-area mentos">
+            <div class="container-fluid">
+                <p class="visual-txt visual-txt-sm">
+                    당신의 <span class="implement-txt">고민을 들어줄<br>멘토단</span>을 소개합니다.
+                </p>
+                <div class="slider-area">
+                    <div class="slider-btns-wrap">
+                        <button class="btn-slider btn-slider-prev">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                        <button class="btn-slider btn-slider-next">
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="slider">
+                        <div class="slider-items-wrap">
+                            <div class="slider-item">
+                                <!--S: card-->
+                                <div class="card dark-card">
+                                    <div class="card-img-top-area">
+                                        <img src="/images/upload/upload01.png" alt="">
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-title">준마이 멘토1<span class="card-sub-title">4학년</span></p>
+                                        <div class="list-wrap">
+                                            <div class="list-item">
+                                                <div class="list-label">주전공</div>
+                                                <div class="list-content">조형대학 시각디자인학과</div>
+                                            </div>
+                                            <div class="list-item">
+                                                <div class="list-label">주전공</div>
+                                                <div class="list-content">경영대학 AI빅데이터융합경영학과</div>
+                                            </div>
+                                            <div class="list-item">
+                                                <div class="list-label">소개글</div>
+                                                <div class="list-content">금속공예학과로 입학해 시각디자인학과로 2번의 전과를 시도했습니다. 이후 공업디자인까지 부전공으로 졸업을 앞두고, 통계에 관심이 커져 AI빅데이터융합경영학과를 부전공으로 졸업하게 되었습니다.</div>
+                                            </div>
+                                        </div>
+                                        <div class="btns-wrap">
+                                            <a href="#" class="btn btn-primary">더 알아보기</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--E: card-->
+                            </div>
+                            <div class="slider-item">
+                                <!--S: card-->
+                                <div class="card dark-card">
+                                    <div class="card-img-top-area">
+                                        <img src="/images/upload/upload02.jpg" alt="">
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-title">준마이 멘토2<span class="card-sub-title">4학년</span></p>
+                                        <div class="list-wrap">
+                                            <div class="list-item">
+                                                <div class="list-label">주전공</div>
+                                                <div class="list-content">조형대학 시각디자인학과</div>
+                                            </div>
+                                            <div class="list-item">
+                                                <div class="list-label">주전공</div>
+                                                <div class="list-content">경영대학 AI빅데이터융합경영학과</div>
+                                            </div>
+                                            <div class="list-item">
+                                                <div class="list-label">소개글</div>
+                                                <div class="list-content">흠</div>
+                                            </div>
+                                        </div>
+                                        <div class="btns-wrap">
+                                            <a href="#" class="btn btn-primary">더 알아보기</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--E: card-->
+                            </div>
+                            <div class="slider-item">
+                                <!--S: card-->
+                                <div class="card dark-card">
+                                    <div class="card-img-top-area">
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-title">준마이 멘토3<span class="card-sub-title">4학년</span></p>
+                                        <div class="list-wrap">
+                                            <div class="list-item">
+                                                <div class="list-label">주전공</div>
+                                                <div class="list-content">조형대학 시각디자인학과</div>
+                                            </div>
+                                            <div class="list-item">
+                                                <div class="list-label">주전공</div>
+                                                <div class="list-content">경영대학 AI빅데이터융합경영학과</div>
+                                            </div>
+                                            <div class="list-item">
+                                                <div class="list-label">소개글</div>
+                                                <div class="list-content">금속공예학과로 입학해 시각디자인학과로 2번의 전과를 시도했습니다. 이후 공업디자인까지 부전공으로 졸업을 앞두고, 통계에 관심이 커져 AI빅데이터융합경영학과를 부전공으로 졸업하게 되었습니다.</div>
+                                            </div>
+                                        </div>
+                                        <div class="btns-wrap">
+                                            <a href="#" class="btn btn-primary">더 알아보기</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--E: card-->
+                            </div>
+    
+                            <div class="slider-item">
+                                <!--S: card-->
+                                <div class="card dark-card">
+                                    <div class="card-img-top-area">
+                                        <img src="/images/upload/upload03.jpg" alt="">
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-title">준마이 멘토4<span class="card-sub-title">4학년</span></p>
+                                        <div class="list-wrap">
+                                            <div class="list-item">
+                                                <div class="list-label">주전공</div>
+                                                <div class="list-content">조형대학 시각디자인학과</div>
+                                            </div>
+                                            <div class="list-item">
+                                                <div class="list-label">주전공</div>
+                                                <div class="list-content">경영대학 AI빅데이터융합경영학과</div>
+                                            </div>
+                                            <div class="list-item">
+                                                <div class="list-label">소개글</div>
+                                                <div class="list-content">금속공예학과로 입학해 시각디자인학과로 2번의 전과를 시도했습니다. 이후 공업디자인까지 부전공으로 졸업을 앞두고, 통계에 관심이 커져 AI빅데이터융합경영학과를 부전공으로 졸업하게 되었습니다.</div>
+                                            </div>
+                                        </div>
+                                        <div class="btns-wrap">
+                                            <a href="#" class="btn btn-primary">더 알아보기</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--E: card-->
+                            </div>
+    
+                            <div class="slider-item">
+                                <!--S: card-->
+                                <div class="card dark-card">
+                                    <div class="card-img-top-area">
+                                        <img src="/images/upload/upload04.jpeg" alt="">
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-title">준마이 멘토5<span class="card-sub-title">4학년</span></p>
+                                        <div class="list-wrap">
+                                            <div class="list-item">
+                                                <div class="list-label">주전공</div>
+                                                <div class="list-content">조형대학 시각디자인학과</div>
+                                            </div>
+                                            <div class="list-item">
+                                                <div class="list-label">주전공</div>
+                                                <div class="list-content">경영대학 AI빅데이터융합경영학과</div>
+                                            </div>
+                                            <div class="list-item">
+                                                <div class="list-label">소개글</div>
+                                                <div class="list-content">금속공예학과로 입학해 시각디자인학과로 2번의 전과를 시도했습니다. 이후 공업디자인까지 부전공으로 졸업을 앞두고, 통계에 관심이 커져 AI빅데이터융합경영학과를 부전공으로 졸업하게 되었습니다.</div>
+                                            </div>
+                                        </div>
+                                        <div class="btns-wrap">
+                                            <a href="#" class="btn btn-primary">더 알아보기</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--E: card-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--E: mentos-->
+        <!--S: last-appeal-->
+        <div class="content-area last-appeal">
+            <div class="container-fluid">
+                <p class="visual-txt visual-txt-sm">
+                    20대 때의 대학 생활은<br>
+                    다시 돌아오지 않아요.
+                </p>
+            </div>
+        </div>
+        <!--E: last-appeal-->
+        <!--S: team-section-->
+        <div class="content-area team-section">
+            <div class="container-fluid">
+                <p class="visual-txt">
+                    Team section
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa. Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit. Ornare arcu dui vivamus arcu felis. Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus. Pulvinar elementum integer enim neque volutpat ac.
+                </p>
+            </div>
+        </div>
+        <!--E: team-section-->
+    </div>
+    <!--E: main-wrap-->
+    <!--S: footer-->
+    <footer class="footer">
+        <div class="container-fluid">
+            @Copyright
+        </div>
+    </footer>
+    <!--E: footer-->
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+.btn-collapse{
+    .bi{
+        margin-left:5px;
+    }
+    .bi::before{
+        content:"\f282";
+    }
+
+    //열렸을 때
+    &:not(.collapsed){
+        .bi::before{
+            content:"\f286";
+        }
+    }
+}
+
+.collapse-stack{
+    .btns-wrap{
+        padding-bottom:0;
+    }
+    .btn-collapse{
+        border-radius: $G-border-radius;
+        transition: 0.5s all;
+    }
+
+    //열렸을 때
+    .btn-collapse:not(.collapsed){
+        border-radius: $G-border-radius $G-border-radius 0 0;
+        background: rgba($G-black, 0.8);
+    }
+    .collaps-area{
+        padding:16px;
+        border-radius: 0 0 $G-border-radius $G-border-radius;
+        margin-bottom:10px;
+        background: rgba($G-white, 0.1);
+    }
+}

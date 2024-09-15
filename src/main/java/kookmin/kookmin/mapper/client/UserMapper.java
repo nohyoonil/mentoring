@@ -14,4 +14,7 @@ public interface UserMapper {
     void update(UserDto user);
     UserDto findByMentoUserInfoReservation(String reservationId);
     UserDto findByUserId(String userId);
+    void insertBySignupInfo(String email, String pwd, String nickname);
+
+    String findPwdByEmail(String email);
 }

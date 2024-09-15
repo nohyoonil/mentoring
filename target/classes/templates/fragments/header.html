@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:fragment="headerFragment">
+    <header class="header">
+        <div class="container-fluid">
+            <h1 class="logo-wrap">
+                <a class="logo" href="/">
+                    <img src="/images/logo_white.svg" alt="COWEEF">
+                </a>
+            </h1>
+            <nav>
+                <ul class="menu-list">
+                    <th:block th:if="${session.loginUser == null}">
+                        <li class="menu-item">
+                            <a href="/login">로그인</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/login" id="btnMyPageForNotUser">마이페이지</a>
+                        </li>
+                    </th:block>
+                    <th:block th:if="${session.loginUser != null}">
+                        <li class="menu-item">
+                            <a href="/logout">로그아웃</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/mypage">마이페이지</a>
+                        </li>
+                    </th:block>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <script src="/js/header.js"></script>
+</th:block>
+</body>
+</html>

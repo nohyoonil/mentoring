@@ -1,0 +1,77 @@
+.list-wrap{
+    line-height:1.5;
+    font-size:$G-font-size-md;
+
+    .list-item{
+        display:flex;
+        padding:3px 0;
+    }
+    .list-label{
+        min-width: 80px;
+        
+        padding-right:10px;
+        color:$G-grey;
+        font-size: $G-font-size-sm;
+        white-space: nowrap;
+    }
+
+    .txt-review{
+        font-family: $G-font-B;
+        color:$G-main-color;
+
+    }
+
+    .bi{
+        font-size:$G-font-size-sm;
+    }
+}
+.list-form{
+    .list-label{
+        padding-top:1em;
+    }
+}
+.verticals-list{
+    display:flex;
+
+    .list-item{
+        flex: 1 1 auto;
+    }
+    .list-item p{
+        text-align: center;
+    }
+    .big-value{
+        font-size:$G-font-size-lg;
+        font-family: $G-font-B;
+        color:$G-main-color;
+    }
+    .info-label{
+        font-family: $G-font-DR;
+        font-size:$G-font-size-md;
+    }
+    .info-value{
+        color:$G-main-color;
+    }
+
+    &.item-txt-left p{
+        text-align: left;
+    }
+}
+.circle-chklist-wrap{
+    .circle-chklist-item{
+        display:flex;
+        align-items: center;
+        margin-bottom: 12px;
+        font-family: $G-font-M;
+        font-size:$G-font-size;
+        color:#848199;
+
+        &:last-child{
+            margin-bottom:0;
+        }
+    }
+    .ico-circle-chk{
+        width:24px;
+        height:24px;
+        margin-right:8px;
+    }
+}

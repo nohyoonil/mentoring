@@ -111,27 +111,27 @@ public class JwtUtil {
                     .setSigningKey(key)
                     .build()
                     .parseClaimsJws(token));
-            return messageComponent.getSUCCESS();
+            return "success";
         }
         catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e)
         {
             log.info("Invalid JWT Token", e);
-            throw new RuntimeException(messageComponent.getINVAILD_ACCESS());
+            throw new RuntimeException("invalid access token");
         }
         catch (ExpiredJwtException e)
         {
             log.info("Expired JWT Token", e);
-            throw new RuntimeException(messageComponent.getEXPIRED_TOKEN());
+            throw new RuntimeException("expired token");
         }
         catch (UnsupportedJwtException e)
         {
             log.info("Unsupported JWT Token", e);
-            throw new RuntimeException(messageComponent.getINVAILD_ACCESS());
+            throw new RuntimeException("unsupported token");
         }
         catch (IllegalArgumentException e)
         {
             log.info("JWT claims string is empty.", e);
-            throw new RuntimeException(messageComponent.getINVAILD_ACCESS());
+            throw new RuntimeException("claims string is empty");
         }
     }
 

@@ -1,0 +1,60 @@
+.step2-wrap{
+    .plan-detail-wrap{
+        padding-bottom:10px;
+    }
+
+    .plans-card{
+        .visual-txt{
+            margin-bottom:12px;
+        }
+
+        .visual-txt-sm{
+            margin-bottom:10px;
+        }
+
+        .plan-txt{
+            margin-bottom:24px;
+            font-family: $G-font-DR;
+            color:#848199;
+            word-break: keep-all;
+        }
+        .sub-txt{
+            text-decoration: underline;
+        }
+        .implement-txt{
+            color:$G-black;
+            font-family: $G-font-M;
+        }
+    }
+    .circle-check .form-check-label{
+        color:#848199;
+    }
+    .plans-card{
+        border-radius: 24px;
+    }
+    .plan01 .visual-txt{
+        color : #231D4F;
+    }
+    .plan02 .visual-txt{
+        color : #5243C2;
+    }
+    .plan03 .visual-txt{
+        color : #BB6BD9;
+    }
+}
+.step3-wrap{
+    .bank-info-wrap{
+        margin-bottom:20px;
+
+        .card-body{
+            display:flex;
+            align-items: center;
+        }
+        .bank-info-txt{
+            color:$G-main-color;
+            font-family: $G-font-B;
+            margin-left:10px;
+            line-height:1;
+        }
+    }
+}

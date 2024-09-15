@@ -1,0 +1,38 @@
+.mypage{
+    .my-info-nums{
+        padding-top:$G-section-padding * 0.5;
+    }
+    .mentoring-history{
+        padding-top:$G-section-padding * 0.5;
+
+        .page-sub-title{
+            border-bottom: 1px solid $G-white;
+        }
+
+        .history-item{
+            position:relative;
+            padding-top:$G-section-padding * 0.25;
+            padding-bottom:$G-section-padding * 0.5;
+        }
+
+        .history-item:not(:last-child){
+            border-bottom:1px solid $G-white;
+        }
+        .history-item:not(:last-child)::before, .history-item:not(:last-child)::after{
+            content:'';
+            display: block;
+            position: absolute;
+            left:0;
+            bottom:-3px;
+            width:5px;
+            height:5px;
+            background:$G-white;
+            transform: rotate(45deg);
+        }
+
+        .history-item:not(:last-child)::after{
+            left:auto;
+            right:0;
+        }
+    }
+}

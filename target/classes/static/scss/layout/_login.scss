@@ -1,0 +1,17 @@
+//S: login
+.login-wrap{
+    font-size: $G-font-size-md;
+    .login-sub-txt{
+        padding-top:12px;
+        text-align: center;
+    }
+    .btn-signup{
+        display: inline-flex;
+        width:auto;
+        padding:0;
+        color:#fff;
+        font-family: $G-font-B;
+        vertical-align: baseline;
+    }
+}
+//E: login

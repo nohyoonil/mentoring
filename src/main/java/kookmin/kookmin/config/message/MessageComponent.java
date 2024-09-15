@@ -10,13 +10,9 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 public class MessageComponent {
-    private String LOG_IN;
-    private String NO_MEMBER;
-    private String REGISTER_SUCCESS;
-    private String AUTH_FAIL;
-    private String AUTH_SUCCESS;
-    private String EXPIRED_TOKEN;
-    private String SUCCESS;
-    private String FAIL;
-    private String INVAILD_ACCESS;
+    private String EMAIL_CHECK_FAILED;
+    private String PWD_CHECK_FAILED;
+    private String PWD_IS_NOTEQUAL;
+    private String NICKNAME_IS_NOT_KOREAN;
+    private String SIGNUP_SUCCESS;
 }
