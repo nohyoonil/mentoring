@@ -105,7 +105,6 @@ public class UserController {
 
         else {
             if (!userService.registerUserInfo(signupDtoDto.getEmail(), signupDtoDto.getPwd(), signupDtoDto.getNickname())) {
-                // 이거 메세지 바꿔야함
                 model.addAttribute("signupFail", messageComponent.getSIGNUP_FAIL());
             }
             else {
