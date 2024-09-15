@@ -23,42 +23,42 @@
         <!--S: mento-info-summary-->
         <div class="content-area mento-info-summary">
             <div class="container-fluid">
-                <p class="visual-txt">"조형대학 공디, 시디, 금공 경영대학 에빅융까지 총 4개의 학과에 대해 전과, 부전공까지 경험한 국민대 고인물입니다."</p>
+                <p class="visual-txt">"<span th:text="${mento.introduceTitle}"></span>"</p>
                 <!--S : summary-area -->
                 <div class="summary-area">
                     <div class="summary-top">
                         <div class="summary-title">
-                            <span class="mento-name">준마이 멘토</span>
-                            <span class="mento-grade">4학년</span>
+                            <span class="mento-name" th:text="${mentoU.nickname}"></span>
+                            <span class="mento-grade"><span th:text="${mentoU.grade}"></span>학년</span>
                         </div>
                         <div class="list-wrap list-specialty">
                             <div class="list-item">
                                 <div class="list-label">주전공</div>
-                                <div class="list-content">조형대학 시각디자인학과</div>
+                                <div class="list-content" th:text="${mento.primaryMajor}"></div>
                             </div>
                             <div class="list-item">
                                 <div class="list-label">부전공</div>
-                                <div class="list-content">경영대학 AI빅데이터융합경영학과</div>
+                                <div class="list-content" th:text="${mento.subMajor}"></div>
                             </div>
                         </div>
                     </div>
                     <div class="summary-bottom">
                         <div class="verticals-list">
                             <div class="list-item">
-                                <p class="big-value">7</p>
+                                <p class="big-value" th:text="${mentoInfoNums.count}"></p>
                                 <p class="info-label">누적 멘토링 횟수</p>
                             </div>
                             <div class="list-item">
-                                <p class="big-value">100%</p>
+                                <p class="big-value"><span th:text="${mentoInfoNums.satisfaction}"></span>%</p>
                                 <p class="info-label">멘토링 만족도</p>
                             </div>
                             <div class="list-item">
-                                <p class="big-value">4,900</p>
+                                <p class="big-value" th:text="${mentoInfoNums.moneyAvg}"></p>
                                 <p class="info-label">평균 멘토링 금액</p>
                             </div>
                         </div>
                         <div class="btns-wrap bottom-btns-wrap">
-                            <a href="#" class="btn btn-primary">멘토링 문의하기</a>
+                            <a th:href="@{/reservation/1(mentoId=${mento.mentoId})}" class="btn btn-primary">멘토링 예약하기</a>
                         </div>
                     </div>
                 </div>
@@ -70,9 +70,7 @@
         <!--S : mento-message -->
         <div class="content-area mento-message">
             <div class="container-fluid">
-                <p class="message">
-                    대학생활은 사실 꽤 고통스럽습니다. 특히 내가 원래 배우고 싶던 분야가 아닌, 혹은 아직 능력이 부족한 분야에 계속해서 머무르는 생활을 한다면 인생이 고통스럽게 느껴지기도 합니다. 대학이라는 공간 안에서 4년이라는 시간동안 배운 지식으로 향후 10년~20년의 미래를 대비해야 한다는 점을 고민해본다면, 그 자체로서 너무나도 아픈 고민입니다. 그러나 이 문서를 읽는 당신은 이미 이러한 불안과 고통을 피하는 것이 아니라, 이 고통을 그대로 안고 직시하기로 결정하셨다고 생각합니다. 따라서 그 결정을 다짐한 당신을 응원합니다. 미리 말씀드리지만, 이 문서를 읽는다고 해서 당신의 인생이 송두리째 바뀌거나, '불가능'의 영역에서 순식간에 '가능'의 영역으로 바뀌진 않습니다. 그러나 미래를 바꾸기 위한 작은 노력의 조각을 쌓고 있는 중이라고 생각해주셨으면 합니다. 당신이 꿈꾸는 부전공, 복수전공, 전과에 대한 결과가 어떻게 되든간에 이런 노력의 조각들이 쌓이면 결국 5년 10년 후의 본인은 지금의 나를 보고 '참 잘했다'고 칭찬하게 되기 때문입니다. 노력은 절대 한 순간에 1에서 100을 만들지 못합니다. 오히려 1에서 100까지 천천히 하나씩 세어가는 과정입니다. '0.9'를 10번 곱하면, 0.34라는 값이 나옵니다. 10번이나 곱했음에도 불구하고 1이라는 값보다 멀어지기만 합니다. 그러나 '1.1'을 10번 곱하면 2.59라는 값이 나옵니다. 0.1정도만 더 얹었을 뿐인데 처음 숫자의 2배 이상의 결과가 나오는 겁니다. 0.9가 아닌 1.1의 노력을 하고 계시고 있는 만큼, 당장 지금 노력한 것들의 결과가 좋을 것이라는 큰 기대를 가지지는 않으시길 빕니다. 다만 지금의 순간들이 모여 몇배는 더 뛰어난 미래가 올 것이라 생각해주셨으면 좋겠습니다. 당신은 적어도 '1'을 수천 수만번 곱하는 선택을 하진 않았습니다. 제자리 걸음이 아닌 앞으로 나아가길 선택한 당신을 응원합니다.
-                </p>
+                <p class="message" th:text="${mento.introduceContent}"></p>
                 <!--S: card-->
                 <div class="card-wrap">
                     <div class="card card-separater">
@@ -84,26 +82,11 @@
                                 </div>
                             </div>
                             <div class="table-wrap">
-                                <table class="table table-borderless">
-                                    <tr>
-                                        <td>2020</td>
-                                        <td>마케터</td>
-                                        <td>스몰링굿모닝</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2021</td>
-                                        <td>콘텐츠 마케터</td>
-                                        <td>콜로소</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2022</td>
-                                        <td>제품 기획</td>
-                                        <td>파이어버스터</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2023</td>
-                                        <td>서비스 기획</td>
-                                        <td>윤디자인그룹</td>
+                                <table class="table table-borderless table-act">
+                                    <tr th:each="a:${mentoActCampus.get(false)}">
+                                        <td th:text="${a.campusYear}"></td>
+                                        <td th:text="${a.title}"></td>
+                                        <td th:text="${a.content}"></td>
                                     </tr>
                                 </table>
                             </div>
@@ -115,31 +98,16 @@
                         <div class="card-body">
                             <div class="card-top">
                                 <div class="card-label-wrap">
-                                    <span class="card-label">교외활동</span>
-                                    <p class="card-title">세상 밖에서 걸어온 길을 소개합니다.</p>
+                                    <span class="card-label">교내활동</span>
+                                    <p class="card-title">학교 안에서 걸어온 길을 소개합니다.</p>
                                 </div>
                             </div>
                             <div class="table-wrap">
-                                <table class="table table-borderless">
-                                    <tr>
-                                        <td>2017</td>
-                                        <td>조형대학</td>
-                                        <td>금속공예학과 입학</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2020</td>
-                                        <td>콘텐츠 마케터</td>
-                                        <td>콜로소</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2022</td>
-                                        <td>제품 기획</td>
-                                        <td>파이어버스터</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2023</td>
-                                        <td>서비스 기획</td>
-                                        <td>윤디자인그룹</td>
+                                <table class="table table-borderless table-act">
+                                    <tr th:each="a:${mentoActCampus.get(true)}">
+                                        <td th:text="${a.campusYear}"></td>
+                                        <td th:text="${a.title}"></td>
+                                        <td th:text="${a.content}"></td>
                                     </tr>
                                 </table>
                             </div>

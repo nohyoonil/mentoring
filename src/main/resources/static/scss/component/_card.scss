@@ -52,6 +52,10 @@
 }
 
 .card.card-separater{
+    .card-title{
+        font-size:$G-font-size;
+        font-family: $G-font-M;
+    }
     .card-body{
         padding:10px;
     }
@@ -61,6 +65,17 @@
     }
     .card-bottom{
         padding-top:10px;
+    }
+}
+.table-act{
+    tr td{
+        padding: 8px;
+    }
+    tr td:first-child{
+        padding-left:0;
+    }
+    tr td:last-child{
+        padding-right:0;
     }
 }
 .dark-card{

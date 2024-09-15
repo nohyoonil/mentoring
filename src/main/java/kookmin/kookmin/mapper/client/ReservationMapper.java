@@ -12,4 +12,5 @@ public interface ReservationMapper {
     void refund(ReservationDto reservationDto);
     ReservationDto findById(String reservationId);
     void review(ReservationDto reservationDto);
+    List<ReservationDto> findByMentoId(String mentoId);
 }

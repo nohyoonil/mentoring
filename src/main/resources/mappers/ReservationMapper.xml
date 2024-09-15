@@ -13,6 +13,10 @@
     select * from reservation
     where reservation_id = #{reservationId}
   </select>
+  <select id="findByMentoId" resultType="ReservationDto">
+    select * from reservation
+    where mento_id=#{mentoId}
+  </select>
   <update id="refund" parameterType="ReservationDto">
     update reservation set
     reservation_status = 4,

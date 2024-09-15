@@ -603,6 +603,10 @@ p {
   margin-top: 40px;
 }
 
+.card.card-separater .card-title {
+  font-size: 16px;
+  font-family: NotoSansKoreanM;
+}
 .card.card-separater .card-body {
   padding: 10px;
 }
@@ -612,6 +616,16 @@ p {
 }
 .card.card-separater .card-bottom {
   padding-top: 10px;
+}
+
+.table-act tr td {
+  padding: 8px;
+}
+.table-act tr td:first-child {
+  padding-left: 0;
+}
+.table-act tr td:last-child {
+  padding-right: 0;
 }
 
 .dark-card {
@@ -1040,7 +1054,7 @@ p {
 .mento-info .mento-message {
   padding-top: 0;
 }
-.mento-info .mento-message p {
+.mento-info .mento-message .message {
   margin-bottom: 20px;
   line-height: 2;
 }
