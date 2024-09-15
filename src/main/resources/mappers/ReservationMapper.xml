@@ -13,6 +13,10 @@
     select * from reservation
     where reservation_id = #{reservationId}
   </select>
+  <select id="findByMentoId" resultType="ReservationDto">
+    select * from reservation
+    where mento_id=#{mentoId}
+  </select>
   <update id="refund" parameterType="ReservationDto">
     update reservation set
     reservation_status = 4,
@@ -23,9 +27,9 @@
   </update>
   <update id="review" parameterType="ReservationDto">
     update reservation set
-    review_score=7,
+    review_score=#{reviewScore},
     review_date=now(),
-    review_content='졸령'
+    review_content=#{reviewContent}
     where reservation_id = #{reservationId}
   </update>
 </mapper>

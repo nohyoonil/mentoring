@@ -21,6 +21,10 @@ public class ReservationService {
     public List<ReservationDto> findByEmail(String email) {
         return reservationMapper.findByEmail(email);
     }
+    public List<ReservationDto> findByMentoId(String mentoId){
+        return reservationMapper.findByMentoId(mentoId);
+    }
+
     public ReservationfullDto replaceFullDto(ReservationDto r) {
         ReservationfullDto rf = new ReservationfullDto();
         rf.setReservationId(r.getReservationId());
@@ -72,5 +76,9 @@ public class ReservationService {
 
     public ReservationDto findById(String reservationId){
         return reservationMapper.findById(reservationId);
+    }
+
+    public void review(ReservationDto reservationDto){
+        reservationMapper.review(reservationDto);
     }
 }

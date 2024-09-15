@@ -11,10 +11,10 @@ import java.util.UUID;
 @NoArgsConstructor
 public class MentoDto {
     private String mentoId;
-    private String primary_major;
-    private String sub_major;
-    private String introduce_title;
-    private String introduce_content;
+    private String primaryMajor;
+    private String subMajor;
+    private String introduceTitle;
+    private String introduceContent;
     private String userId;
-    private String multi_major;
+    private String multiMajor;
 }
