@@ -1,6 +1,7 @@
 package kookmin.kookmin.controller.client;
 
 import jakarta.servlet.http.HttpSession;
+import kookmin.kookmin.dto.client.ReservationDto;
 import kookmin.kookmin.dto.client.SignupDto;
 import kookmin.kookmin.dto.client.UserDto;
 import kookmin.kookmin.service.client.ReservationService;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -94,21 +97,26 @@ public class UserController {
     }
 
     @GetMapping("/mypage")
-    public void mypage(Model model, HttpSession session) {
+    public String mypage(Model model, HttpSession session) {
+        List<ReservationDto> userReservationlist;
         UserDto loginUser = (UserDto) session.getAttribute("loginUser");
         String userEmail = "";
+
         if(loginUser != null){
             userEmail = loginUser.getEmail();
+        }else{
+            return "redirect:/userInfoEnd";
         }
-
-        // findByEmail DB 를 2번조회는 안좋다. 그냥 변수에 받아서 쓰도록하기
-        if(reservationService.findByEmail(userEmail) != null && !reservationService.findByEmail(userEmail).isEmpty()){
+        userReservationlist =  reservationService.findByEmail(userEmail);
+        if(userReservationlist != null && !(userReservationlist.isEmpty())){
             model.addAttribute("myReservations", "존재함.");
         }
         model.addAttribute("myInfoNums", reservationService.myInfoNums(userEmail));
         model.addAttribute("reservationStayList", reservationService.findByEmailSplitStatus(userEmail).get(2));
         model.addAttribute("reservationHistorysList", reservationService.findByEmailSplitStatus(userEmail).get(3));
+        return "mypage";
     }
+
     // 하단 mapping은 정보수정 모달에서 '저장하기'하고 매핑
     @PostMapping("/userInfoUpdate")
     public String userInfoUpdate(UserDto InputUserDto, HttpSession session) {
@@ -117,5 +125,8 @@ public class UserController {
         session.setAttribute("loginUser", userService.findByEmail(InputUserDto.getEmail()));
         return "redirect:/mypage";
     }
+
+    @GetMapping("/userInfoEnd")
+    public void userInfoEnd(){}
 
 }
