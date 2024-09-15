@@ -73,4 +73,8 @@ public class ReservationService {
     public ReservationDto findById(String reservationId){
         return reservationMapper.findById(reservationId);
     }
+
+    public void review(ReservationDto reservationDto){
+        reservationMapper.review(reservationDto);
+    }
 }

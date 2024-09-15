@@ -1,6 +1,8 @@
 package kookmin.kookmin.controller.client;
 
+import jakarta.servlet.http.HttpSession;
 import kookmin.kookmin.dto.client.ReservationDto;
+import kookmin.kookmin.dto.client.UserDto;
 import kookmin.kookmin.service.client.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,15 +23,19 @@ public class ReservationController {
     }
 
     @GetMapping("/mypage/reviewWrite")
-    public String reviewWrite(@RequestParam("reservationId") String id, Model model){
+    public String reviewWrite(@RequestParam("reservationId") String id, Model model, HttpSession session){
+        UserDto loginUser = (UserDto) session.getAttribute("loginUser");
+        if(loginUser == null){
+            return "redirect:/userInfoEnd";
+        }
         ReservationDto reservationDto= reservationService.findById(id);
         model.addAttribute("r", reservationService.replaceFullDto(reservationDto));
         return "reviewWrite";
     }
 
     @PostMapping("/mypage/reviewSuccess")
-    public String reviewSuccess(ReservationDto r){
-
+    public String reviewSuccess(ReservationDto reservationDto){
+        reservationService.review(reservationDto);
         return "reviewWriteOk";
     }
 }

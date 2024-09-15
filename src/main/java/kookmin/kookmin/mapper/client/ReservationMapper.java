@@ -11,4 +11,5 @@ public interface ReservationMapper {
     List<ReservationDto> findByEmail(String email);
     void refund(ReservationDto reservationDto);
     ReservationDto findById(String reservationId);
+    void review(ReservationDto reservationDto);
 }
