@@ -34,14 +34,18 @@ public class UserController {
     // 추가적으로 회원가입 플로우 구현하기
     @PostMapping("/login")
     public String loginSubmit(UserDto InputUserDto, Model model, HttpSession session) {
-        if (userService.validationInputPwd(InputUserDto)) {
-            UserDto loginUser = new UserDto();
-            loginUser.setEmail(InputUserDto.getEmail());
-            session.setAttribute("loginUser", loginUser);
+        UserDto userDto = userService.getUserInfo(InputUserDto.getEmail());
+        if (userDto == null) {
+            model.addAttribute("userNotFound", "존재하지 않는 회원입니다. 회원가입을 진행해주세요.");
+            return "redirect:/signup";
+        }
+
+        if (userService.validationInputPwd(InputUserDto.getPwd(), userDto.getPwd())) {
+            session.setAttribute("loginUser", userDto);
             return "redirect:/";
         }
         else {
-            model.addAttribute("userNotFound", "이메일 또는 비밀번호를 확인해주세요");
+            model.addAttribute("userNotFound", "비밀번호를 확인해주세요");
             return "/login";
         }
     }

@@ -3,6 +3,7 @@ package kookmin.kookmin.service.client;
 import kookmin.kookmin.config.message.MessageComponent;
 import kookmin.kookmin.dto.client.SignupDto;
 import kookmin.kookmin.dto.client.UserDto;
+import kookmin.kookmin.dto.client.user.UserInfoDto;
 import kookmin.kookmin.mapper.client.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -44,16 +45,14 @@ public class UserService {
         return userMapper.findByEmail(email);
     }
 
-    public boolean validationInputPwd(UserDto userdto) {
+    public boolean validationInputPwd(String inputPwd , String pwdByDatabase) {
         String pwdByInput = "";
         try {
-            pwdByInput = hashingSha256(userdto.getPwd());
+            pwdByInput = hashingSha256(inputPwd);
         }
         catch (NoSuchAlgorithmException e) {
             return false;
         }
-
-        String pwdByDatabase = userMapper.findPwdByEmail(userdto.getEmail());
         if (pwdByInput.equals(pwdByDatabase))
         {
             return true;
@@ -61,6 +60,14 @@ public class UserService {
         return false;
     }
 
+    public UserDto getUserInfo(String email) {
+        UserDto userDto = userMapper.findByEmail(email);
+        if (userDto == null)
+        {
+            return null;
+        }
+        return userDto;
+    }
 
     public void update(UserDto userdto){
         userMapper.update(userdto);
