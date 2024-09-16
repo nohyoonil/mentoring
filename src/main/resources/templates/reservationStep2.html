@@ -11,14 +11,13 @@
     <script src="/js/lib/bootstrap.min.js"></script>
     <title>멘토링 예약 2단계</title>
 </head>
-
 <body>
 <th:block th:replace="fragments/header :: headerFragment"></th:block>
     <!--S: step2-->
     <div class="subpage-wrap step2-wrap">
         <div class="container-fluid">
             <div class="btns-wrap">
-                <a href="#" class="btn btn-link btn-inline"><i class="bi bi-chevron-left"></i><span>이전으로</span></a>
+                <a th:href="@{/reservation/1(mentoId=${mentoId})}" class="btn btn-link btn-inline"><i class="bi bi-chevron-left"></i><span>이전으로</span></a>
             </div>
             <div class="steps-wrap">
                 <div class="step on">
