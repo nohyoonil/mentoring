@@ -66,6 +66,10 @@ public class UserService {
         userMapper.update(userdto);
     }
 
+    public void updateBaseInfo(UserDto userdto){
+        userMapper.updateBaseInfo(userdto);
+    }
+
     public UserDto findByUserId(String userId){
         return userMapper.findByUserId(userId);
     }
