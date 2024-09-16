@@ -91,11 +91,7 @@ public class UserController {
 
     @PostMapping("/signup")
     public void signupSubmit(SignupDto signupDtoDto, Model model) {
-        if (!userService.finishAuthEmail(signupDtoDto.getEmail())) {
-            model.addAttribute("emailNotCheck", messageComponent.getEMAIL_CHECK_FAILED());
-        }
-
-        else if (!userService.pwdCheck(signupDtoDto.getPwd())) {
+        if (!userService.pwdCheck(signupDtoDto.getPwd())) {
             model.addAttribute("pwdCheckFailed", messageComponent.getPWD_CHECK_FAILED());
         }
 
@@ -105,6 +101,10 @@ public class UserController {
 
         else if (!userService.isNicknameKorean(signupDtoDto.getNickname())) {
             model.addAttribute("nicknameIsNotKorean", messageComponent.getNICKNAME_IS_NOT_KOREAN());
+        }
+
+        else if (!userService.finishAuthEmail(signupDtoDto.getEmail())) {
+            model.addAttribute("emailNotCheck", messageComponent.getEMAIL_CHECK_FAILED());
         }
 
         else {
