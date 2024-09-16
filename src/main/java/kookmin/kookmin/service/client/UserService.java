@@ -1,10 +1,11 @@
 package kookmin.kookmin.service.client;
 
 import kookmin.kookmin.config.message.MessageComponent;
-import kookmin.kookmin.dto.client.SignupDto;
 import kookmin.kookmin.dto.client.UserDto;
-import kookmin.kookmin.dto.client.user.UserInfoDto;
 import kookmin.kookmin.mapper.client.UserMapper;
+import kookmin.kookmin.Utility.CryptoUtil;
+import kookmin.kookmin.Utility.MailUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
-import java.security.MessageDigest;
+
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
@@ -48,7 +49,7 @@ public class UserService {
     public boolean validationInputPwd(String inputPwd , String pwdByDatabase) {
         String pwdByInput = "";
         try {
-            pwdByInput = hashingSha256(inputPwd);
+            pwdByInput = CryptoUtil.hashingSha256(inputPwd);
         }
         catch (NoSuchAlgorithmException e) {
             return false;
@@ -153,7 +154,7 @@ public class UserService {
     public boolean registerUserInfo(String email, String pwd, String nickname){
         String pwdHashing = "";
         try {
-            pwdHashing = hashingSha256(pwd);
+            pwdHashing = CryptoUtil.hashingSha256(pwd);
         }
         catch (NoSuchAlgorithmException e) {
             return false;
@@ -173,23 +174,32 @@ public class UserService {
     }
 
     public boolean sendEmail(String email) {
-        try
-        {
-            SimpleMailMessage message = new SimpleMailMessage();
-            String authCode = makeRandomAuthCode();
-            message.setFrom(messageComponent.getCOWEEF_MAIL_ADDRESS());
-            message.setTo(email);
-            message.setSubject(messageComponent.getAUTH_MAIL_SEND());
-            message.setText(messageComponent.getAUTH_CODE() + " : " + authCode);
-            emailSender.send(message);
+        String authCode = makeRandomAuthCode();
+        String content = messageComponent.getAUTH_CODE() + " : " + authCode;
+        boolean ret = MailUtil.sendEmail(emailSender, messageComponent.getCOWEEF_MAIL_ADDRESS(), email, messageComponent.getAUTH_MAIL_SEND(), content);
+        if (ret) {
             authCodeMap.put(email, authCode);
             authEmailStatus.put(email, 0);
             return true;
         }
-        catch (MailException e)
-        {
+        else {
             return false;
         }
+//        try
+//        {
+//            SimpleMailMessage message = new SimpleMailMessage();
+//            String authCode = makeRandomAuthCode();
+//            message.setFrom(messageComponent.getCOWEEF_MAIL_ADDRESS());
+//            message.setTo(email);
+//            message.setSubject(messageComponent.getAUTH_MAIL_SEND());
+//            message.setText(messageComponent.getAUTH_CODE() + " : " + authCode);
+//            emailSender.send(message);
+//
+//        }
+//        catch (MailException e)
+//        {
+//            return false;
+//        }
     }
 
     public boolean emailCodeCheck(String email, String emailCheckCode) {
@@ -209,24 +219,6 @@ public class UserService {
         else {
             return false;
         }
-    }
-
-    // 모래씨 주목!! 여기서 message digest이자 단방향 암호화입니다.
-    private String hashingSha256(String pwd) throws NoSuchAlgorithmException {
-        // SHA-256 알고리즘을 사용하는 MessageDigest 인스턴스 생성
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] hash = digest.digest(pwd.getBytes());
-
-        // 해싱된 바이트 배열을 16진수 문자열로 변환
-        StringBuilder hexString = new StringBuilder();
-        for (byte b : hash) {
-            String hex = Integer.toHexString(0xff & b);
-            if (hex.length() == 1) {
-                hexString.append('0');
-            }
-            hexString.append(hex);
-        }
-        return hexString.toString();
     }
 
     private String makeRandomAuthCode () {
