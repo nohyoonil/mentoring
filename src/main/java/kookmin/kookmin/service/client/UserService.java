@@ -34,6 +34,7 @@ public class UserService {
     final private HashMap<String, String> authCodeMap = new HashMap<>();
     final private HashMap<String, Integer> authEmailStatus = new HashMap<>();
 
+
     public List<UserDto> findAll() {
         return userMapper.findAll();
     }
@@ -202,7 +203,7 @@ public class UserService {
 //        }
     }
 
-    public boolean emailCodeCheck(String email, String emailCheckCode) {
+    public MailUtil.EmailAuthStatus emailCodeCheck(String email, String emailCheckCode) {
         String sendCode = authCodeMap.get(email);
         if (authCodeMap.containsKey(email))
         {
@@ -210,14 +211,18 @@ public class UserService {
             {
                 authCodeMap.remove(email);
                 authEmailStatus.put(email, 1);
-                return true;
+                return MailUtil.EmailAuthStatus.EMAIL_AUTH_SUCCESS;
             }
             else {
-                return false;
+                return MailUtil.EmailAuthStatus.EMAIL_AUTH_CODE_DIFF;
             }
         }
         else {
-            return false;
+            // 이미 인증 받은거임!
+            if (authEmailStatus.containsKey(email)) {
+                return MailUtil.EmailAuthStatus.EMAIL_AUTH_ALREADY_SUCCESS;
+            }
+            return MailUtil.EmailAuthStatus.EMAIL_AUTH_CODE_NOT_SEND;
         }
     }
 

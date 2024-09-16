@@ -76,6 +76,8 @@
                         });
                 }
             });
+
+        var gotError = true;
         if("[[${emailNotCheck}]]" != null && "[[${emailNotCheck}]]" != ""){
             alert("[[${emailNotCheck}]]");
             console.log("[[${emailNotCheck}]]");
@@ -100,7 +102,28 @@
             alert("[[${signupSuccess}]]");
             console.log("[[${signupSuccess}]]");
             window.location.href = "http://localhost:8080/login";
-        }});
+        }
+        else {
+            gotError = false;
+        }
+        if (gotError == true) {
+            if ("[[${email}]]" != null && "[[${email}]]" != "") {
+                document.getElementById('email').value = "[[${email}]]";
+            }
+            if ("[[${emailCheckCode}]]" != null && "[[${emailCheckCode}]]" != "") {
+                document.getElementById('emailCheckCode').value = "[[${emailCheckCode}]]";
+            }
+            if ("[[${pwd}]]" != null && "[[${pwd}]]" != "") {
+                document.getElementById('pwd').value = "[[${pwd}]]";
+            }
+            if ("[[${pwdCheck}]]" != null && "[[${pwdCheck}]]" != "") {
+                document.getElementById('pwdCheck').value = "[[${pwdCheck}]]";
+            }
+            if ("[[${nickname}]]" != null && "[[${nickname}]]" != "") {
+                document.getElementById('nickname').value = "[[${nickname}]]";
+            }
+        }
+        });
     </script>
 </head>
 
@@ -116,7 +139,7 @@
                         <div class="form-group">
                             <label for="email">이메일</label>
                             <div class="d-flex">
-                                <input type="text" name="email" class="flex-grow-1 form-control" id="email" placeholder="국민대학교 이메일로만 가입 가능" required maxlength="40">
+                                <input type="email" name="email" class="flex-grow-1 form-control" id="email" placeholder="국민대학교 이메일로만 가입 가능" required maxlength="40">
                                 <a href="#" id="btnEmailCheck" class="w-auto flex-shrink-0 h-auto ml-2 btn btn-secondary">이메일 인증</a>
                             </div>
                         </div>

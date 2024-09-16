@@ -7,6 +7,14 @@ import org.springframework.mail.javamail.JavaMailSender;
 
 
 public class MailUtil {
+
+    public enum EmailAuthStatus {
+        EMAIL_AUTH_CODE_NOT_SEND,
+        EMAIL_AUTH_CODE_DIFF,
+        EMAIL_AUTH_ALREADY_SUCCESS,
+        EMAIL_AUTH_SUCCESS
+    }
+
     public static boolean sendEmail(JavaMailSender emailSender, String fromEmail, String toEmail, String subject, String content) {
         try
         {

@@ -1,6 +1,7 @@
 package kookmin.kookmin.controller.client;
 
 import jakarta.servlet.http.HttpSession;
+import kookmin.kookmin.Utility.MailUtil;
 import kookmin.kookmin.dto.client.ReservationDto;
 import kookmin.kookmin.dto.client.SignupDto;
 import kookmin.kookmin.dto.client.UserDto;
@@ -24,6 +25,8 @@ public class UserController {
 
     @Autowired
     private MessageComponent messageComponent;
+
+
 
     @GetMapping("/login")
     public void login(){
@@ -76,12 +79,22 @@ public class UserController {
     @PostMapping("/authEmailCode")
     @ResponseBody
     public String authEmailCode(String email, String emailCheckCode) {
-        if (userService.emailCodeCheck(email, emailCheckCode)) {
+        MailUtil.EmailAuthStatus emailAuthStatus = userService.emailCodeCheck(email, emailCheckCode);
+
+        if (emailAuthStatus == MailUtil.EmailAuthStatus.EMAIL_AUTH_SUCCESS) {
             return "이메일 인증을 완료하였습니다.";
         }
-        else {
-            return "이메일 인증을 실패하였습니다. 다시 메일 발송 후, 재입력 해주세요";
+        else if (emailAuthStatus == MailUtil.EmailAuthStatus.EMAIL_AUTH_ALREADY_SUCCESS) {
+            return "이메일 인증이 이미 완료되었습니다.";
         }
+        else if (emailAuthStatus == MailUtil.EmailAuthStatus.EMAIL_AUTH_CODE_DIFF) {
+            return "이메일 인증번호가 다릅니다. 재입력 해주세요";
+        }
+        else if (emailAuthStatus == MailUtil.EmailAuthStatus.EMAIL_AUTH_CODE_NOT_SEND) {
+            return "이메일 인증번호가 발송되지 않은 상태입니다.";
+        }
+
+        return "이메일 인증을 실패하였습니다. 다시 메일 발송 후, 재입력 해주세요. 문제가 반복될시, 관리자에게 문의부탁드립니다.";
     }
 
     @GetMapping("/signup")
@@ -90,30 +103,40 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public void signupSubmit(SignupDto signupDtoDto, Model model) {
-        if (!userService.pwdCheck(signupDtoDto.getPwd())) {
+    public void signupSubmit(SignupDto signupDto, Model model) {
+        boolean successOrFailFlag = false;
+        if (!userService.pwdCheck(signupDto.getPwd())) {
             model.addAttribute("pwdCheckFailed", messageComponent.getPWD_CHECK_FAILED());
         }
 
-        else if (!userService.isPwdEqual(signupDtoDto.getPwd(), signupDtoDto.getPwdCheck())) {
+        else if (!userService.isPwdEqual(signupDto.getPwd(), signupDto.getPwdCheck())) {
             model.addAttribute("pwdIsNotEqual", messageComponent.getPWD_IS_NOT_EQUAL());
         }
 
-        else if (!userService.isNicknameKorean(signupDtoDto.getNickname())) {
+        else if (!userService.isNicknameKorean(signupDto.getNickname())) {
             model.addAttribute("nicknameIsNotKorean", messageComponent.getNICKNAME_IS_NOT_KOREAN());
         }
 
-        else if (!userService.finishAuthEmail(signupDtoDto.getEmail())) {
+        else if (!userService.finishAuthEmail(signupDto.getEmail())) {
             model.addAttribute("emailNotCheck", messageComponent.getEMAIL_CHECK_FAILED());
         }
 
         else {
-            if (!userService.registerUserInfo(signupDtoDto.getEmail(), signupDtoDto.getPwd(), signupDtoDto.getNickname())) {
+            if (!userService.registerUserInfo(signupDto.getEmail(), signupDto.getPwd(), signupDto.getNickname())) {
                 model.addAttribute("signupFail", messageComponent.getSIGNUP_FAIL());
             }
             else {
                 model.addAttribute("signupSuccess", messageComponent.getSIGNUP_SUCCESS());
+                successOrFailFlag = true;
             }
+        }
+
+        if (!successOrFailFlag) {
+            model.addAttribute("email", signupDto.getEmail());
+            model.addAttribute("emailCheckCode", signupDto.getEmailCheckCode());
+            model.addAttribute("pwd", signupDto.getPwd());
+            model.addAttribute("pwdCheck", signupDto.getPwdCheck());
+            model.addAttribute("nickname", signupDto.getNickname());
         }
     }
 
