@@ -16,19 +16,12 @@ public class MailUtil {
     }
 
     public static boolean sendEmail(JavaMailSender emailSender, String fromEmail, String toEmail, String subject, String content) {
-        try
-        {
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(fromEmail);
-            message.setTo(toEmail);
-            message.setSubject(subject);
-            message.setText(content);
-            emailSender.send(message);
-            return true;
-        }
-        catch (MailException e)
-        {
-            return false;
-        }
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(fromEmail);
+        message.setTo(toEmail);
+        message.setSubject(subject);
+        message.setText(content);
+        emailSender.send(message);
+        return true;
     }
 }

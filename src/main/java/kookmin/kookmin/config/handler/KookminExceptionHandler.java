@@ -1,9 +1,9 @@
 package kookmin.kookmin.config.handler;
 
+import kookmin.kookmin.Logging.LoggerForDeveloper;
 import kookmin.kookmin.config.message.MessageComponent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -11,23 +11,24 @@ import java.sql.SQLException;
 
 @ControllerAdvice
 public class KookminExceptionHandler {
+
     @Autowired
-    private MessageComponent messageComponent;
+    private LoggerForDeveloper loggerForDeveloper;
 
     // 여기서 계속 필요한 exception class 정의해서 갖다 쓰기
     @ExceptionHandler(value = SQLException.class)
     public void sqlException(SQLException e) {
-        // log class 정의해서 로그를 뿌려주고
-        // 리다이렉션도 여기서 가능하려나??? 하아 골치아파지네... 설계하기 싫다....
-        System.out.println("sql ");
+        loggerForDeveloper.error(e, LoggerForDeveloper.ExceptionList.SQL_EXCEPTION);
     }
 
+    @ExceptionHandler(value = MailException.class)
+    public void mailException(MailException e) {
+        loggerForDeveloper.error(e, LoggerForDeveloper.ExceptionList.MAIL_EXCEPTIOM);
+    }
 
-    // 기타 예외 클래스 처리
+//    이거는 모든 에러 잡아가는 괴물임 ㅋ.ㅋ
 //    @ExceptionHandler(value = Exception.class)
 //    public void commonException(Exception e) {
-//        // log class 정의해서 로그를 뿌려주고
-//        // 리다이렉션도 여기서 가능하려나??? 하아 골치아파지네... 설계하기 싫다....
 //        System.out.println("common error");
 //    }
 }
