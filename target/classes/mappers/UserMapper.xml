@@ -37,4 +37,10 @@
     m.user_id = mu.user_id and
     reservation_id = #{reservationId}
   </select>
+  <update id="updateBaseInfo" parameterType="UserDto">
+    update user set
+    department = #{department},
+    phone = #{phone},
+    where email = #{email}
+  </update>
 </mapper>

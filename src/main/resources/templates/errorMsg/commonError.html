@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.min.css" type="text/css">
+    <link rel="icon" href="/images/favicon.ico">
+    <script src="/js/lib/jquery-3.5.1.min.js"></script>
+    <script src="/js/lib/bootstrap.min.js"></script>
+    <script src="/js/slider.js"></script>
+    <title>에러페이지</title>
+    <script>
+        alert("해당 요청에 실패하였습니다. 문제가 지속되면 관리자에게 문의해주세요.");
+    </script>
+</head>
+
+<body>
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
+<!--S: main-wrap-->
+<div class="main-wrap">
+    <!--S: intro-->
+    <div class="content-area intro">
+        <div class="container-fluid">
+            <p class="intro-text-wrap">에러생겨서 미안해요<br>얼른 해결할게요</p>
+            <p class="visual-txt">
+                <span class="implement-txt">공강시간</span>에<br>
+                <span class="implement-txt">북악관</span> 카페에서<br>
+                <span class="implement-txt">커피 한잔</span> 마시며<br>
+                진로 고민 끝내기<span class="implement-txt">.</span><br>
+            </p>
+        </div>
+    </div>
+</div>
+<!--E: main-wrap-->
+</body>
+
+</html>
