@@ -40,7 +40,7 @@
   <update id="updateBaseInfo" parameterType="UserDto">
     update user set
     department = #{department},
-    phone = #{phone},
+    phone = #{phone}
     where email = #{email}
   </update>
 </mapper>

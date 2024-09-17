@@ -13,4 +13,5 @@ public interface ReservationMapper {
     ReservationDto findById(String reservationId);
     void review(ReservationDto reservationDto);
     List<ReservationDto> findByMentoId(String mentoId);
+    void newReservation(ReservationDto reservationDto);
 }

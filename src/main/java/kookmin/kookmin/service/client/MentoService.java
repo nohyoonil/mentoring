@@ -24,6 +24,9 @@ public class MentoService {
     public MentoDto findByMentoId(String mentoId) {
         return mentoMapper.findByMentoId(mentoId);
     }
+    public UserDto findUserByMentoId(String mentoId) {
+        return mentoMapper.findUserByMentoId(mentoId);
+    }
 
     public Map<Boolean, List<ActDto>> findActByMentoId(String mentoId) {
         Map<Boolean, List<ActDto>> map= mentoMapper.findActByMentoId(mentoId).stream().collect(Collectors.groupingBy(a -> a.getCampusAct()));

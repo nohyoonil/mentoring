@@ -30,51 +30,67 @@
                         <div class="list-wrap">
                             <div class="list-item">
                                 <div class="list-label">신청일자</div>
-                                <div class="list-content">2024-01-01</div>
+                                <div class="list-content" th:text="${#dates.format(newReservation.reservationDate, 'YYYY-MM-dd')}"></div>
                             </div>
                             <div class="list-item">
-                                <div class="list-label">아이디</div>
-                                <div class="list-content">꺄악</div>
+                                <div class="list-label">멘토닉네임</div>
+                                <div class="list-content" th:text="${newReservation.mento.nickname}"></div>
                             </div>
                             <div class="list-item">
                                 <div class="list-label">학과</div>
-                                <div class="list-content">시각디자인학과</div>
+                                <div class="list-content" th:text="${newReservation.mento.department}"></div>
                             </div>
                             <div class="list-item">
                                 <div class="list-label">학년</div>
-                                <div class="list-content">4학년</div>
+                                <div class="list-content" th:text="${newReservation.mento.grade} + '학년'"></div>
                             </div>
                             <div class="list-item">
                                 <div class="list-label">질문종류</div>
-                                <div class="list-content">부전공</div>
+                                <div class="list-content" th:switch="${newReservation.askType}">
+                                    <span th:case="1">전과</span>
+                                    <span th:case="2">복수전공</span>
+                                    <span th:case="3">부전공</span>
+                                    <span th:case="4">그 외</span>
+                                    <span th:case="5">잘 모르겠음</span>
+                                </div>
                             </div>
                             <div class="list-item">
                                 <div class="list-label">질문</div>
-                                <div class="list-content">부전공부전공부전공부전공부전공부전공부전공부전공부전공부전공부전공부전공</div>
+                                <div class="list-content" th:text="${newReservation.askContent}"></div>
                             </div>
                             <div class="list-item">
                                 <div class="list-label">신청플랜</div>
-                                <div class="list-content">궁금해요 플랜</div>
+                                <div class="list-content" th:text="${newReservation.plan.planTitle}"></div>
                             </div>
                             <div class="list-item">
                                 <div class="list-label">플랜금액</div>
-                                <div class="list-content">4500원</div>
+                                <div class="list-content" th:text="${newReservation.plan.planPrice}+'원'">\</div>
                             </div>
                             <div class="list-item">
                                 <div class="list-label">희망날짜1</div>
-                                <div class="list-content">2024-01-01 오후 2시 30분</div>
+                                <div class="list-content" th:text="${#dates.format(newReservation.desiredDate1, 'YYYY-MM-dd aa h시 mm분')}"></div>
                             </div>
                             <div class="list-item">
                                 <div class="list-label">희망날짜2</div>
-                                <div class="list-content">2024-01-01 오후 2시 30분</div>
+                                <div class="list-content"  th:text="${#dates.format(newReservation.desiredDate2, 'YYYY-MM-dd aa h시 mm분')}"></div>
                             </div>
                             <div class="list-item">
                                 <div class="list-label">약속장소</div>
-                                <div class="list-content">북악관 로비</div>
+                                <div class="list-content" th:switch="${newReservation.position}">
+                                    <span th:case="headquartersCafe">본부관 카페</span>
+                                    <span th:case="bukakHalllobby">북악관 로비</span>
+                                </div>
                             </div>
                             <div class="list-item">
                                 <div class="list-label">예약확정</div>
-                                <div class="list-content">확정</div>
+                                <div class="list-content">
+                                    <th:block th:switch="${newReservation.reservationStatus}">
+                                        <span th:case="1">확정 대기</span>
+                                        <span th:case="2">예약 확정</span>
+                                        <span th:case="3">멘토링 완료</span>
+                                        <span th:case="4">환불 신청</span>
+                                    </th:block>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -82,7 +98,7 @@
              </div>
             <!-- E: 멘토링 신청 현황 -->
             <div class="btns-wrap">
-                <a class="btn btn-line-orange" href="#">홈으로</a>
+                <a class="btn btn-line-orange" href="/">홈으로</a>
             </div>
         </div>
     </div>

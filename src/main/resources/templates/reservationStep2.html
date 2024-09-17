@@ -10,6 +10,15 @@
     <script src="/js/lib/jquery-3.5.1.min.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
     <title>멘토링 예약 2단계</title>
+    <script>
+        window.addEventListener("load", function(){
+           document.getElementById("btnPrev").addEventListener("click", function(e){
+               if(!confirm("이전 페이지로 돌아가면, 현재 작성된 내용을 잃을 수 있습니다. 그래도 돌아가시겠습니까?")){
+                   e.preventDefault();
+               }
+           });
+        });
+    </script>
 </head>
 <body>
 <th:block th:replace="fragments/header :: headerFragment"></th:block>
@@ -17,7 +26,7 @@
     <div class="subpage-wrap step2-wrap">
         <div class="container-fluid">
             <div class="btns-wrap">
-                <a th:href="@{/reservation/1(mentoId=${mentoId})}" class="btn btn-link btn-inline"><i class="bi bi-chevron-left"></i><span>이전으로</span></a>
+                <a th:href="@{/reservation/1(mentoId=${mentoId})}" id="btnPrev" class="btn btn-link btn-inline"><i class="bi bi-chevron-left"></i><span>이전으로</span></a>
             </div>
             <div class="steps-wrap">
                 <div class="step on">
@@ -38,12 +47,12 @@
             </p>
             <!-- S: 쓰는 영역-->
             <div class="write-area">
-                <form method="post">
+                <form method="post" action="/reservation/2">
                     <div class="form-group">
                         <!--S: 궁금해요 Plan-->
                         <div class="custom-chk-card">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="plan" id="planCurious" value="planCurious" checked>
+                                <input class="form-check-input" type="radio" name="planTitle" id="planCurious" value="궁금해요" checked th:checked="${session.newReservation.planTitle}">
                                 <label class="form-check-label card-label" for="planCurious">
                                     <span class="thumnail-wrap">
                                         <img src="/images/starbucks_img.png" alt="">
@@ -89,7 +98,7 @@
                         <!--S: 답답해요 Plan-->
                         <div class="custom-chk-card">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="plan" id="planFrustrated" value="planFrustrated">
+                                <input class="form-check-input" type="radio" name="planTitle" id="planFrustrated" value="답답해요" th:checked="${session.newReservation.planTitle}">
                                 <label class="form-check-label card-label" for="planFrustrated">
                                     <span class="thumnail-wrap">
                                         <img src="/images/starbucks_img.png" alt="">
@@ -147,7 +156,7 @@
                         <!--S: 살려줘요 Plan-->
                         <div class="custom-chk-card">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="plan" id="planSave" value="3">
+                                <input class="form-check-input" type="radio" name="planTitle" id="planSave" value="살려줘요" th:checked="${session.newReservation.planTitle}">
                                 <label class="form-check-label card-label" for="planSave">
                                     <span class="thumnail-wrap">
                                         <img src="/images/starbucks_img.png" alt="">
