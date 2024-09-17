@@ -2,10 +2,15 @@ package kookmin.kookmin.service.client;
 
 import kookmin.kookmin.dto.client.ReservationDto;
 import kookmin.kookmin.dto.client.ReservationfullDto;
+import kookmin.kookmin.mapper.client.MentoMapper;
 import kookmin.kookmin.mapper.client.ReservationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -17,6 +22,8 @@ public class ReservationService {
     private UserService userService;
     @Autowired
     private PlanService planService;
+    @Autowired
+    private MentoMapper mentoMapper;
 
     public List<ReservationDto> findByEmail(String email) {
         return reservationMapper.findByEmail(email);
@@ -27,6 +34,10 @@ public class ReservationService {
 
     public ReservationfullDto replaceFullDto(ReservationDto r) {
         ReservationfullDto rf = new ReservationfullDto();
+        if(r == null){
+            System.out.println("r 이 null임");
+            return null;
+        }
         rf.setReservationId(r.getReservationId());
         rf.setAskType(r.getAskType());
         rf.setAskContent(r.getAskContent());
@@ -36,7 +47,7 @@ public class ReservationService {
         rf.setReservationStatus(r.getReservationStatus());
         rf.setPosition(r.getPosition());
         rf.setUser(userService.findByUserId(r.getUserId()));
-        rf.setMento(userService.findByMentoUserInfoReservation(r.getReservationId()));
+        rf.setMento(mentoMapper.findUserByMentoId(r.getMentoId()));
         rf.setPlan(planService.findByPlanTitle(r.getPlanTitle()));
         rf.setReviewScore(r.getReviewScore());
         rf.setReviewContent(r.getReviewContent());
@@ -55,7 +66,7 @@ public class ReservationService {
 
     public HashMap<String, Integer> myInfoNums(String email){
         HashMap<String, Integer> map = new HashMap<>();
-        String keyset [] = {"yetMoneyNum", "moneyGet","reviewNo","refundStay"};
+        String []keyset = {"yetMoneyNum", "moneyGet","reviewNo","refundStay"};
         for(int i = 0; i < keyset.length; i++){
             List<ReservationfullDto> list =findByEmailSplitStatus(email).get(i+1);
             if(list != null){
@@ -80,5 +91,33 @@ public class ReservationService {
 
     public void review(ReservationDto reservationDto){
         reservationMapper.review(reservationDto);
+    }
+
+    public Date replaceDate(LocalDate ld, LocalTime lt){
+        LocalDateTime ldt = LocalDateTime.of(ld, lt);
+        Date d = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
+        return d;
+    }
+
+    public ReservationDto stepSetReservation01(String mentoId, String userId, LocalDate desiredDateDay1, LocalTime desiredDateTime1, LocalDate desiredDateDay2, LocalTime desiredDateTime2, ReservationDto InputReservation){
+        ReservationDto reservationDto = new ReservationDto();
+        Date d1 = replaceDate(desiredDateDay1, desiredDateTime1);
+        Date d2 = replaceDate(desiredDateDay2, desiredDateTime2);
+        reservationDto.setUserId(userId);
+        if(mentoId != null && !mentoId.equals("")){
+            reservationDto.setMentoId(mentoId);
+        }
+        reservationDto.setAskType(InputReservation.getAskType());
+        reservationDto.setAskContent(InputReservation.getAskContent());
+        reservationDto.setPosition(InputReservation.getPosition());
+        reservationDto.setDesiredDate1(d1);
+        reservationDto.setDesiredDate2(d2);
+        reservationDto.setReservationDate(new Date());
+        reservationDto.setReservationStatus(1);
+        return reservationDto;
+    }
+
+    public void newReservation(ReservationDto reservationDto){
+        reservationMapper.newReservation(reservationDto);
     }
 }

@@ -28,7 +28,7 @@ public class MentoController {
     private ReservationService reservationService;
 
     @GetMapping("/mento")
-    public String mentoInfo(@RequestParam("mentoId") String id, Model model) {
+    public String mentoInfo(@RequestParam("mentoId") String id, Model model, HttpSession session) {
         //임시
         String aid = "e64a76aa-6dba-11ef-8422-4ccc6a800e07";
 
@@ -37,7 +37,8 @@ public class MentoController {
         model.addAttribute("mentoU", userService.findByUserId(m.getUserId()));
         model.addAttribute("mentoInfoNums", mentoService.mentoNumInfo(aid));
         model.addAttribute("mentoActCampus", mentoService.findActByMentoId(aid));
-        
+        session.removeAttribute("r");
+
         return "mentoInfo";
     }
 }

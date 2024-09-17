@@ -155,6 +155,7 @@ public class UserController {
         if(userReservationlist != null && !(userReservationlist.isEmpty())){
             model.addAttribute("myReservations", "존재함.");
         }
+        System.out.println("userEmail : "+userEmail);
         model.addAttribute("myInfoNums", reservationService.myInfoNums(userEmail));
         model.addAttribute("reservationStayList", reservationService.findByEmailSplitStatus(userEmail).get(2));
         model.addAttribute("reservationHistorysList", reservationService.findByEmailSplitStatus(userEmail).get(3));
