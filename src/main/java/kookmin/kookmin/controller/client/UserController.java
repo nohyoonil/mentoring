@@ -172,4 +172,10 @@ public class UserController {
 
     @GetMapping("/userInfoEnd")
     public void userInfoEnd(){}
+
+    @PostMapping("/getLog")
+    @ResponseBody
+    public void getLog(String scrollingPercentage) {
+        System.out.println(scrollingPercentage);
+    }
 }
