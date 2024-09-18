@@ -14,4 +14,8 @@ public interface ReservationMapper {
     void review(ReservationDto reservationDto);
     List<ReservationDto> findByMentoId(String mentoId);
     void newReservation(ReservationDto reservationDto);
+    void updateSign(String signature, String reservationId);
+    void replaceBankNum(String refundBankNum, String reservationId);
+    String findSignatureById(String reservationId);
+    void refundEdit(ReservationDto reservationDto);
 }

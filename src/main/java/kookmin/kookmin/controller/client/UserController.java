@@ -159,6 +159,9 @@ public class UserController {
         model.addAttribute("myInfoNums", reservationService.myInfoNums(userEmail));
         model.addAttribute("reservationStayList", reservationService.findByEmailSplitStatus(userEmail).get(2));
         model.addAttribute("reservationHistorysList", reservationService.findByEmailSplitStatus(userEmail).get(3));
+        model.addAttribute("reservationRefundList", reservationService.findByEmailSplitStatus(userEmail).get(4));
+
+
         return "mypage";
     }
 
@@ -173,10 +176,4 @@ public class UserController {
 
     @GetMapping("/userInfoEnd")
     public void userInfoEnd(){}
-
-    @PostMapping("/getLog")
-    @ResponseBody
-    public void getLog(String scrollingPercentage) {
-        System.out.println(scrollingPercentage);
-    }
 }

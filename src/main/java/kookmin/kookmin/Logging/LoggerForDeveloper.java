@@ -35,6 +35,7 @@ public class LoggerForDeveloper implements CommonLoggerInterface {
     public enum ExceptionList {
         SQL_EXCEPTION,
         MAIL_EXCEPTION,
+        SIGNITURE_NOMATCH_EXCEPTION
     }
 
     LoggerForDeveloper() {

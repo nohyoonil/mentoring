@@ -15,10 +15,21 @@
     <script>
         window.addEventListener("load", function(){
            let $btnRefundList = document.querySelectorAll(".btn-refund");
-           let $refundReservation = document.getElementById("refund_reservation");
+           let $refundReservation = document.getElementById("refundReservation");
             $btnRefundList.forEach($btnRefund => {
                 $btnRefund.addEventListener("click", function(){
-                    $refundReservation.value = this.getAttribute("data-reservation");
+                    let reservationId = this.getAttribute("data-reservation");
+                    $refundReservation.value = reservationId;
+                    $.ajax({
+                        url:"/findRefund",
+                        method:"POST",
+                        data: {"reservationId": reservationId},
+                        success:function(r){
+                            console.log(r);
+                            document.getElementById("refundBankName").value=r.refundBankName;
+                            document.getElementById("refundBankNum").value=r.refundBankNum;
+                        }
+                    });
                 });
             });
         });
@@ -270,7 +281,10 @@
                             </div>
                             <div class="list-item">
                                 <div class="list-label">약속장소</div>
-                                <div class="list-content" th:text="${r.position}"></div>
+                                <div class="list-content" th:switch="${r.position}">
+                                    <span th:case="headquartersCafe">본부관 카페</span>
+                                    <span th:case="bukakHalllobby">북악관 로비</span>
+                                </div>
                             </div>
                             <div class="list-item">
                                 <div class="list-label">예약확정</div>
@@ -297,6 +311,37 @@
 
             </div>
             <!-- S: 멘토링 신청 이력 -->
+            <!-- S: 환불 대기 이력 -->
+            <div class="content-area refund-stay">
+                <p class="page-sub-title border-bottom border-secondary">환불 대기</p>
+
+                <th:block th:each="r:${reservationRefundList}">
+                    <div class="refund-item border-bottom border-secondary pt-3">
+                        <div class="list-wrap">
+                            <div class="list-item">
+                                <div class="list-label">신청일자</div>
+                                <div class="list-content" th:text="${#dates.format(r.reservationDate, 'YYYY-MM-dd')}"></div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">멘토닉네임</div>
+                                <div class="list-content" th:text="${r.mento.nickname}"></div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">환불 은행명</div>
+                                <div class="list-content" th:text="${r.refundBankName}"></div>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-label">환불 은행 계좌</div>
+                                <div class="list-content" th:text="${r.refundBankNum}"></div>
+                            </div>
+                        </div>
+                        <div class="btns-wrap bottom-btns-wrap pb-3">
+                            <a href="#" class="btn btn-line-white btn-refund btn-refund-edit" data-toggle="modal" data-target="#cancelReservation" th:attr="data-reservation=${r.reservationId}">환불 정보 변경</a>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+            <!-- E: 환불 대기 이력 -->
         </th:block>
     </div>
 </div>
@@ -378,14 +423,14 @@
                                 <p>문의 : 010-4059-3741</p>
                             </div>
                         </div>
-                        <input id="refund_reservation" type="hidden" name="reservationId"/>
+                        <input id="refundReservation" type="hidden" name="reservationId"/>
                         <div class="list-item">
-                            <div class="list-label"><label for="refund_bank_name">환불 은행 입력</label></div>
-                            <div class="list-content"><input id="refund_bank_name" name="refundBankName" class="form-control" type="text" placeholder="은행명을 입력하세요" required></div>
+                            <div class="list-label"><label for="refundBankName">환불 은행 입력</label></div>
+                            <div class="list-content"><input id="refundBankName" name="refundBankName" class="form-control" type="text" placeholder="은행명을 입력하세요" required></div>
                         </div>
                         <div class="list-item">
-                            <div class="list-label"><label for="refund_bank_num">환불 계좌 입력</label></div>
-                            <div class="list-content"><input id="refund_bank_num" name="refundBankNum" class="form-control" type="text" placeholder="계좌번호를 입력하세요" required></div>
+                            <div class="list-label"><label for="refundBankNum">환불 계좌 입력</label></div>
+                            <div class="list-content"><input id="refundBankNum" name="refundBankNum" class="form-control" type="text" placeholder="계좌번호를 입력하세요" required></div>
                         </div>
                     </div>
                 </div>
