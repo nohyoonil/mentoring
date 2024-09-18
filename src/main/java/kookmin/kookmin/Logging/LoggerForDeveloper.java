@@ -34,7 +34,8 @@ public class LoggerForDeveloper implements CommonLoggerInterface {
 
     public enum ExceptionList {
         SQL_EXCEPTION,
-        MAIL_EXCEPTIOM
+        MAIL_EXCEPTIOM,
+        SIGNITURE_NOMATCH_EXCEPTION
     }
 
     LoggerForDeveloper() {
@@ -44,7 +45,7 @@ public class LoggerForDeveloper implements CommonLoggerInterface {
         }
         else {
             // 여기서 모래씨 개발 환경에 맞게 로그찍을 폴더 경로 설정해서 편하게 사용하세요~
-            logFilePath = "/Users/kimdonghyun/Desktop/";
+            logFilePath = "C:/Users/cmr/";
         }
         String newLogFileName = makeLogFileName();
         boolean ret = createLogFile(newLogFileName);

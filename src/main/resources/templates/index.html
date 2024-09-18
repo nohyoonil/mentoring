@@ -10,7 +10,20 @@
     <script src="/js/lib/jquery-3.5.1.min.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/slider.js"></script>
-    <script src="/js/log/scrolling.js"></script>
+    <script>
+        let pageHeight;
+        let scrollPer = 0;
+        window.addEventListener("load", function(){
+            let html = document.documentElement;
+            pageHeight = html.scrollHeight - html.offsetHeight; //전체 페이지 높이 - 디바이스 높이
+        });
+        window.addEventListener("scroll", function(e){
+            scrollPer = Math.round((window.scrollY / pageHeight * 100));    // 스크롤 한 만큼 /스크롤 전체 경로 길이 * 100
+            console.log(scrollPer+"%");
+        });
+    </script>
+
+
     <title>메인페이지</title>
 </head>
 

@@ -26,6 +26,11 @@ public class KookminExceptionHandler {
         loggerForDeveloper.error(e, LoggerForDeveloper.ExceptionList.MAIL_EXCEPTIOM);
     }
 
+    @ExceptionHandler(value = SignatureNomatchException.class)
+    public void signatureNomatchException(SignatureNomatchException e) {
+        loggerForDeveloper.error(e, LoggerForDeveloper.ExceptionList.SIGNITURE_NOMATCH_EXCEPTION);
+    }
+
 //    이거는 모든 에러 잡아가는 괴물임 ㅋ.ㅋ
 //    @ExceptionHandler(value = Exception.class)
 //    public void commonException(Exception e) {

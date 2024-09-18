@@ -1,7 +1,9 @@
 package kookmin.kookmin.controller.client;
 
 import jakarta.servlet.http.HttpSession;
+import kookmin.kookmin.Utility.CryptoUtil;
 import kookmin.kookmin.dto.client.ReservationDto;
+import kookmin.kookmin.dto.client.ReservationfullDto;
 import kookmin.kookmin.dto.client.UserDto;
 import kookmin.kookmin.service.client.ReservationService;
 import kookmin.kookmin.service.client.UserService;
@@ -9,19 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZoneId;
-import java.util.Date;
 
 @Controller
 public class ReservationController {
@@ -30,11 +26,7 @@ public class ReservationController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/refund")
-    public String refund(ReservationDto reservationDto, Model model){
-        reservationService.refund(reservationDto);
-        return "redirect:/mypage";
-    }
+
 
     @GetMapping("/mypage/reviewWrite")
     public String reviewWrite(@RequestParam("reservationId") String id, Model model, HttpSession session){
@@ -121,53 +113,26 @@ public class ReservationController {
             }
         }
     }
-    /*
-    @PostMapping("/reservation/{step}")
-    public String reservationSubmit(
-            @PathVariable("step") int step,
-            HttpSession session,
-            UserDto InputUserDto,
-            @RequestParam(name = "mentoId", required = false) String mentoId,
-            @RequestParam(name = "desiredDateDay1", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate desiredDateDay1,
-            @RequestParam(name = "desiredDateTime1", required = false) @DateTimeFormat(pattern="HH:mm") LocalTime desiredDateTime1,
-            @RequestParam(name = "desiredDateDay2", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate desiredDateDay2,
-            @RequestParam(name = "desiredDateTime2", required = false) @DateTimeFormat(pattern="HH:mm") LocalTime desiredDateTime2,
-            ReservationDto InputReservation,
-            Model model)
-    {
-        String loginUserId = ((UserDto) session.getAttribute("loginUser")).getUserId();
 
-        switch (step){
-            case 1 -> {
-                ReservationDto reservationDto = new ReservationDto();
-                LocalDateTime ldt1 = LocalDateTime.of(desiredDateDay1, desiredDateTime1);
-                Date d1 = Date.from(ldt1.atZone(ZoneId.systemDefault()).toInstant());
-                LocalDateTime ldt2 = LocalDateTime.of(desiredDateDay2, desiredDateTime2);
-                Date d2 = Date.from(ldt2.atZone(ZoneId.systemDefault()).toInstant());
-                reservationDto.setUserId(loginUserId);
-                if(mentoId != null){
-                    reservationDto.setMentoId(mentoId);
-                }
-                reservationDto.setAskType(InputReservation.getAskType());
-                reservationDto.setAskContent(InputReservation.getAskContent());
-                reservationDto.setPosition(InputReservation.getPosition());
-                reservationDto.setDesiredDate1(d1);
-                reservationDto.setDesiredDate2(d2);
-
-                userService.updateBaseInfo(InputUserDto);
-                session.setAttribute("r", reservationDto);
-                return "redirect:/reservation/2";
-            }
-            case 2 -> {
-                ReservationDto reservationDto = (ReservationDto)session.getAttribute("r");
-                reservationDto.setPlanTitle(InputReservation.getPlanTitle());
-                session.setAttribute("r", reservationDto);  //이전으로 버튼때문에 model 이 아닌 session 에 저장 필요
-                return "redirect:/reservation/3";
-            }
-            default -> {
-                ReservationDto reservationDto = (ReservationDto)session.getAttribute("r");
-                return "redirect:/reservation/4";
-            }
+    @PostMapping("/refund")
+    public String refund(ReservationDto reservationDto){
+        ReservationDto r = reservationService.findById(reservationDto.getReservationId());
+        if(r.getReservationStatus() != 4){
+            System.out.println("새거 입력~");
+            reservationService.refund(reservationDto);
+        }else{
+            System.out.println("기존꺼 입력~");
+            reservationService.refundEdit(reservationDto);
         }
-    }*/
+        return "redirect:/mypage";
+    }
+
+    //단순히 값을 채워주는 메소드
+    @PostMapping("/findRefund")
+    @ResponseBody
+    public ReservationfullDto findRefund(@RequestParam String reservationId){
+        ReservationDto r = reservationService.findById(reservationId);
+        ReservationfullDto rf = reservationService.replaceFullDto(r);
+        return rf;
+    }
 }

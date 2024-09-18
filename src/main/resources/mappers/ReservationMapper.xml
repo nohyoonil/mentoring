@@ -29,6 +29,12 @@
     refund_bank_num = #{refundBankNum}
     where reservation_id = #{reservationId}
   </update>
+  <update id="refundEdit" parameterType="ReservationDto">
+    update reservation set
+    refund_bank_name = #{refundBankName},
+    refund_bank_num = #{refundBankNum}
+    where reservation_id = #{reservationId}
+  </update>
   <update id="review" parameterType="ReservationDto">
     update reservation set
     review_score=#{reviewScore},
@@ -36,4 +42,18 @@
     review_content=#{reviewContent}
     where reservation_id = #{reservationId}
   </update>
+  <update id="updateSign">
+    update reservation set
+    signature=#{signature}
+    where reservation_id = #{reservationId}
+  </update>
+  <update id="replaceBankNum">
+    update reservation set
+    refund_bank_num=#{refundBankNum}
+    where reservation_id = #{reservationId}
+  </update>
+  <select id="findSignatureById" resultType="string">
+    select signature from reservation
+    where reservation_id = #{reservationId}
+  </select>
 </mapper>
