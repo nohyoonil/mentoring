@@ -21,6 +21,7 @@ public class ReservationfullDto {
     private String position;
     private UserDto user;
     private UserDto mento;
+    private String mentoId;
     private PlanDto plan;
     private int reviewScore;
     private String reviewContent;

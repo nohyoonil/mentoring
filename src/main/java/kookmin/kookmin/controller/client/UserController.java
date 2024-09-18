@@ -2,9 +2,11 @@ package kookmin.kookmin.controller.client;
 
 import jakarta.servlet.http.HttpSession;
 import kookmin.kookmin.Utility.MailUtil;
+import kookmin.kookmin.dto.client.MentoDto;
 import kookmin.kookmin.dto.client.ReservationDto;
 import kookmin.kookmin.dto.client.SignupDto;
 import kookmin.kookmin.dto.client.UserDto;
+import kookmin.kookmin.service.client.MentoService;
 import kookmin.kookmin.service.client.ReservationService;
 import kookmin.kookmin.service.client.UserService;
 import kookmin.kookmin.config.message.MessageComponent;
@@ -25,9 +27,15 @@ public class UserController {
 
     @Autowired
     private MessageComponent messageComponent;
+    @Autowired
+    private MentoService mentoService;
 
 
-
+    @GetMapping("/")
+    public String index(Model model) {
+        model.addAttribute("mentoList", mentoService.findMentoBig3());
+        return "index";
+    }
     @GetMapping("/login")
     public void login(){
 

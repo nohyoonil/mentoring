@@ -73,6 +73,7 @@ public class ReservationController {
             default -> {
                 ReservationDto reservationDto = (ReservationDto)session.getAttribute("newReservation");
                 model.addAttribute("newReservation", reservationService.replaceFullDto(reservationDto));
+                reservationService.newReservationMailSend(reservationDto);
                 session.removeAttribute("newReservation");
                 yield "reservationOk";
             }
@@ -118,12 +119,15 @@ public class ReservationController {
     public String refund(ReservationDto reservationDto){
         ReservationDto r = reservationService.findById(reservationDto.getReservationId());
         if(r.getReservationStatus() != 4){
-            System.out.println("새거 입력~");
             reservationService.refund(reservationDto);
+            //매개변수 dto 에는 input 데이터만 있는 부분 깡통 dto이므로 새로 내용들을 끌어와야하므로 함수 호출
+            reservationService.refundMailSend(reservationService.findById(reservationDto.getReservationId()),  "환불 신청의 건");
         }else{
-            System.out.println("기존꺼 입력~");
             reservationService.refundEdit(reservationDto);
+            //위 메소드로 인하여 변경된 값의 dto 로 다시 찾아야 하므로 다시 함수 호출해야 함.
+            reservationService.refundMailSend(reservationService.findById(reservationDto.getReservationId()),  "환불 신청 계좌 변경의 건");
         }
+
         return "redirect:/mypage";
     }
 

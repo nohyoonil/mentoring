@@ -11,4 +11,5 @@ public interface MentoMapper {
     MentoDto findByMentoId(String mentoId);
     List<ActDto> findActByMentoId(String mentoId);
     UserDto findUserByMentoId(String mentoId);
+    List<MentoDto> findMentoBig3();
 }

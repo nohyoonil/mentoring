@@ -15,4 +15,22 @@
     select * from act where mento_id =#{mentoId}
     order by campus_year desc
   </select>
+  <select id="findMentoBig3" resultType="MentoDto">
+    SELECT *
+    FROM mento
+    WHERE mento_id IN (
+    SELECT men FROM (
+    SELECT m.mento_id AS men, COUNT(*) AS c
+    FROM mento m, reservation r
+    WHERE m.mento_id = r.mento_id
+    GROUP BY m.mento_id
+    ) AS a
+    )
+    ORDER BY (
+    SELECT COUNT(*)
+    FROM reservation r
+    WHERE r.mento_id = mento.mento_id
+    ) DESC
+    LIMIT 3
+  </select>
 </mapper>
