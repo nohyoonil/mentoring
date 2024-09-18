@@ -23,7 +23,7 @@ public class KookminExceptionHandler {
 
     @ExceptionHandler(value = MailException.class)
     public void mailException(MailException e) {
-        loggerForDeveloper.error(e, LoggerForDeveloper.ExceptionList.MAIL_EXCEPTIOM);
+        loggerForDeveloper.error(e, LoggerForDeveloper.ExceptionList.MAIL_EXCEPTION);
     }
 
 //    이거는 모든 에러 잡아가는 괴물임 ㅋ.ㅋ

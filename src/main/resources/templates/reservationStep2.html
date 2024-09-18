@@ -9,6 +9,7 @@
     <link rel="icon" href="/images/favicon.ico">
     <script src="/js/lib/jquery-3.5.1.min.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
+    <script src="/js/log/PageLog.js"></script>
     <title>멘토링 예약 2단계</title>
     <script>
         window.addEventListener("load", function(){
@@ -69,7 +70,7 @@
                         <!--S: 궁금해요 Plan - 자세히 알아보기-->
                         <div class="collapse-wrap collapse-stack plan-detail-wrap">
                             <div class="btns-wrap top-btns-wrap">
-                                <button class="btn btn-sm btn-collapse collapsed" type="button" data-toggle="collapse" data-target="#plan01Collapse"
+                                <button class="btn btn-sm btn-collapse collapsed" id="planCuriousDetail" type="button" data-toggle="collapse" data-target="#plan01Collapse"
                                     aria-expanded="false" aria-controls="plan01Collapse">자세히 알아보기 <i class="bi"></i></button>
                             </div>
                             <div class="collaps-area collapse" id="plan01Collapse">
@@ -115,7 +116,7 @@
                         <!--S: 답답해요 Plan - 자세히 알아보기-->
                         <div class="collapse-wrap collapse-stack plan-detail-wrap">
                             <div class="btns-wrap top-btns-wrap">
-                                <button class="btn btn-sm btn-collapse collapsed" type="button" data-toggle="collapse" data-target="#plan02Collapse"
+                                <button class="btn btn-sm btn-collapse collapsed" id="planFrustratedDetail" type="button" data-toggle="collapse" data-target="#plan02Collapse"
                                     aria-expanded="false" aria-controls="plan02Collapse">자세히 알아보기 <i class="bi"></i></button>
                             </div>
                             <div class="collaps-area collapse" id="plan02Collapse">
@@ -173,7 +174,7 @@
                         <!--S: 살려줘요 Plan - 자세히 알아보기-->
                         <div class="collapse-wrap collapse-stack plan-detail-wrap">
                             <div class="btns-wrap top-btns-wrap">
-                                <button class="btn btn-sm btn-collapse collapsed" type="button" data-toggle="collapse" data-target="#plan03Collapse"
+                                <button class="btn btn-sm btn-collapse collapsed" id="planSaveDetail" type="button" data-toggle="collapse" data-target="#plan03Collapse"
                                     aria-expanded="false" aria-controls="plan03Collapse">자세히 알아보기 <i class="bi"></i></button>
                             </div>
                             <div class="collaps-area collapse" id="plan03Collapse">

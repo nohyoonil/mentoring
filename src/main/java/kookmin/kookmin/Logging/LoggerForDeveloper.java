@@ -34,7 +34,7 @@ public class LoggerForDeveloper implements CommonLoggerInterface {
 
     public enum ExceptionList {
         SQL_EXCEPTION,
-        MAIL_EXCEPTIOM
+        MAIL_EXCEPTION,
     }
 
     LoggerForDeveloper() {
@@ -98,7 +98,7 @@ public class LoggerForDeveloper implements CommonLoggerInterface {
 //                System.out.println("Exception casting fail : " + e.getMessage());
 //            }
         }
-        else if (exceptionList == ExceptionList.MAIL_EXCEPTIOM) {
+        else if (exceptionList == ExceptionList.MAIL_EXCEPTION) {
             message += "####################MAIL Error!!####################\n";
         }
 
@@ -121,7 +121,7 @@ public class LoggerForDeveloper implements CommonLoggerInterface {
                 HttpServletResponse response = attributes.getResponse();
                 // 리다이렉션 처리
                 try {
-                    if (exceptionList != ExceptionList.MAIL_EXCEPTIOM) {
+                    if (exceptionList != ExceptionList.MAIL_EXCEPTION) {
                         response.sendRedirect("http://localhost:8080/commonError");
                     }
                     else {

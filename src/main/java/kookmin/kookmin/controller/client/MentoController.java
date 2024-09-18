@@ -2,8 +2,6 @@ package kookmin.kookmin.controller.client;
 
 import jakarta.servlet.http.HttpSession;
 import kookmin.kookmin.dto.client.MentoDto;
-import kookmin.kookmin.dto.client.ReservationDto;
-import kookmin.kookmin.dto.client.UserDto;
 import kookmin.kookmin.service.client.MentoService;
 import kookmin.kookmin.service.client.ReservationService;
 import kookmin.kookmin.service.client.UserService;
@@ -30,7 +28,7 @@ public class MentoController {
     @GetMapping("/mento")
     public String mentoInfo(@RequestParam("mentoId") String id, Model model, HttpSession session) {
         //임시
-        String aid = "e64a76aa-6dba-11ef-8422-4ccc6a800e07";
+        String aid = "f9c1e528-7304-11ef-978d-f98ac74a1ba7";
 
         MentoDto m = mentoService.findByMentoId(aid);
         model.addAttribute("mento", m);
