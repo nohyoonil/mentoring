@@ -1,6 +1,7 @@
 package kookmin.kookmin.service.client;
 
 import kookmin.kookmin.Utility.CryptoUtil;
+import kookmin.kookmin.Utility.MailUtil;
 import kookmin.kookmin.config.handler.SignatureNomatchException;
 import kookmin.kookmin.dto.client.ReservationDto;
 import kookmin.kookmin.dto.client.ReservationfullDto;
@@ -8,7 +9,10 @@ import kookmin.kookmin.mapper.client.MentoMapper;
 import kookmin.kookmin.mapper.client.ReservationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -26,8 +30,93 @@ public class ReservationService {
     private PlanService planService;
     @Autowired
     private MentoMapper mentoMapper;
+
+    @Autowired
+    private JavaMailSender emailSender;
+
     @Value("${crypto.kookmin.key}")
     private String kookminKey;
+
+    @Value("${spring.mail.username}")
+    private String email;
+
+    //private final String testEmail = "greylife5451@gmail.com";
+
+    public boolean newReservationMailSend(ReservationDto reservationDto) {
+        SimpleDateFormat sdfAddTime = new SimpleDateFormat("yyyy-MM-dd a hh:mm");
+        SimpleDateFormat sdfDay = new SimpleDateFormat("yyyy-MM-dd");
+        ReservationfullDto reservationfullDto = replaceFullDto(reservationDto);
+        String title = "COFFWEE : ["+reservationfullDto.getUser().getNickname()+"]님의 예약 신청의 건";
+        String content = "";
+        String asktype = switch (reservationfullDto.getAskType()){
+            case 1 -> "전과";
+            case 2 -> "복수전공";
+            case 3 -> "부전공";
+            case 4 -> "그 외";
+            default -> "잘모르겠음";
+        };
+        String status = switch (reservationfullDto.getReservationStatus()){
+            case 1 -> "확정 대기(입금 전)";
+            case 2 -> "예약 확정(입금 후)";
+            case 3 -> "멘토링 완료(희망날짜가 모두 지남)";
+            default -> "환불 신청 중";
+        };
+        String position = switch (reservationfullDto.getPosition()){
+            case "bukakHalllobby" -> "북악관 로비";
+            case "headquartersCafe" -> "본부관 카페";
+            default -> "그 외의 장소";
+        };
+        content += "[예약 내용]\n";
+        content += "질문타입 : " + asktype + "\n";
+        content += "질문내용 : " + reservationfullDto.getAskContent() + "\n";
+        content += "예약한날짜 : " + sdfDay.format(reservationfullDto.getReservationDate()) + "\n";
+        content += "희망날짜1 : " + sdfAddTime.format(reservationfullDto.getDesiredDate1()) + "\n";
+        content += "희망날짜2 : " + sdfAddTime.format(reservationfullDto.getDesiredDate2()) + "\n";
+        content += "예약상태 : " + status + "\n";
+        content += "위치 : "+ position + "\n";
+        content += "\n";
+        content += "[신청자 정보]\n";
+        content += "닉네임 : "+ reservationfullDto.getUser().getNickname() + "\n";
+        content += "메일주소 : "+ reservationfullDto.getUser().getEmail() + "\n";
+        content += "연락처 : "+ reservationfullDto.getUser().getPhone() + "\n";
+        content += "학과 : "+ reservationfullDto.getUser().getDepartment() + "\n";
+        content += "학번 : "+ reservationfullDto.getUser().getStudentNumber() + "\n";
+        content += "학년 : "+ reservationfullDto.getUser().getGrade()+"학년\n";
+        content += "\n";
+        content += "[멘토 정보]\n";
+        content += "닉네임 : "+ reservationfullDto.getMento().getNickname() + "\n";
+        content += "메일주소 : "+ reservationfullDto.getMento().getEmail() + "\n";
+        content += "연락처 : "+ reservationfullDto.getMento().getPhone() + "\n";
+        content += "학과 : "+ reservationfullDto.getMento().getDepartment() + "\n";
+        content += "학번 : "+ reservationfullDto.getMento().getStudentNumber() + "\n";
+        content += "학년 : "+ reservationfullDto.getMento().getGrade()+"학년\n";
+
+        boolean ret = MailUtil.sendEmail(emailSender, email, email, title, content);
+        return ret;
+    }
+    public boolean refundMailSend(ReservationDto reservationDto, String titleAddTxt) {
+        SimpleDateFormat sdfAddTime = new SimpleDateFormat("yyyy-MM-dd a hh:mm");
+        ReservationfullDto reservationfullDto = replaceFullDto(reservationDto);
+        String title = "COFFWEE : ["+reservationfullDto.getUser().getNickname()+"]님의 "+ titleAddTxt;
+        String content = "";
+        content += "[환불 정보]\n";
+        content += "환불 신청 날짜 : "+ sdfAddTime.format(reservationfullDto.getRefundTime()) + "\n";
+        content += "환불 은행 : "+ reservationfullDto.getRefundBankName() + "\n";
+        content += "환불 계좌 : " +reservationfullDto.getRefundBankNum() + "\n";
+        content += "\n";
+        content += "[환불 신청자 정보]\n";
+        content += "닉네임 : "+ reservationfullDto.getUser().getNickname() + "\n";
+        content += "메일주소 : "+ reservationfullDto.getUser().getEmail() + "\n";
+        content += "연락처 : "+ reservationfullDto.getUser().getPhone() + "\n";
+        content += "\n";
+        content += "[멘토 정보]\n";
+        content += "닉네임 : "+ reservationfullDto.getMento().getNickname() + "\n";
+        content += "메일주소 : "+ reservationfullDto.getMento().getEmail() + "\n";
+        content += "연락처 : "+ reservationfullDto.getMento().getPhone() + "\n";
+
+        boolean ret = MailUtil.sendEmail(emailSender, email, email, title, content);
+        return ret;
+    }
 
     public List<ReservationDto> findByEmail(String email) {
         return reservationMapper.findByEmail(email);
@@ -42,6 +131,7 @@ public class ReservationService {
             System.out.println("r 이 null임");
             return null;
         }
+        rf.setMentoId(r.getMentoId());
         rf.setReservationId(r.getReservationId());
         rf.setAskType(r.getAskType());
         rf.setAskContent(r.getAskContent());
