@@ -12,18 +12,10 @@
     <script src="/js/slider.js"></script>
     <script src="/js/log/PageLog.js"></script>
     <script>
-        let pageHeight;
-        let scrollPer = 0;
-        window.addEventListener("load", function(){
-            let html = document.documentElement;
-            pageHeight = html.scrollHeight - html.offsetHeight; //전체 페이지 높이 - 디바이스 높이
-        });
-        window.addEventListener("scroll", function(e){
-            scrollPer = Math.round((window.scrollY / pageHeight * 100));    // 스크롤 한 만큼 /스크롤 전체 경로 길이 * 100
-            console.log(scrollPer+"%");
-        });
+        function sendPostRequest(mentoId) {
+            window.location.href = `http://localhost:8080/mento?mentoId=${encodeURIComponent(mentoId)}`;
+        }
     </script>
-
 
     <title>메인페이지</title>
 </head>
@@ -241,129 +233,129 @@
                                             </div>
                                         </div>
                                         <div class="btns-wrap">
-                                            <a href="#" class="btn btn-primary">더 알아보기</a>
+                                            <a href="#" class="btn btn-primary" onclick="sendPostRequest('f9c1eeec-7304-11ef-978d-f98ac74a1ba7')">더 알아보기</a>
                                         </div>
                                     </div>
                                 </div>
                                 <!--E: card-->
                             </div>
-                            <div class="slider-item">
-                                <!--S: card-->
-                                <div class="card dark-card">
-                                    <div class="card-img-top-area">
-                                        <img src="/images/upload/upload02.jpg" alt="">
-                                    </div>
-                                    <div class="card-body">
-                                        <p class="card-title">준마이 멘토2<span class="card-sub-title">4학년</span></p>
-                                        <div class="list-wrap">
-                                            <div class="list-item">
-                                                <div class="list-label">주전공</div>
-                                                <div class="list-content">조형대학 시각디자인학과</div>
-                                            </div>
-                                            <div class="list-item">
-                                                <div class="list-label">주전공</div>
-                                                <div class="list-content">경영대학 AI빅데이터융합경영학과</div>
-                                            </div>
-                                            <div class="list-item">
-                                                <div class="list-label">소개글</div>
-                                                <div class="list-content">흠</div>
-                                            </div>
-                                        </div>
-                                        <div class="btns-wrap">
-                                            <a href="#" class="btn btn-primary">더 알아보기</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--E: card-->
-                            </div>
-                            <div class="slider-item">
-                                <!--S: card-->
-                                <div class="card dark-card">
-                                    <div class="card-img-top-area">
-                                    </div>
-                                    <div class="card-body">
-                                        <p class="card-title">준마이 멘토3<span class="card-sub-title">4학년</span></p>
-                                        <div class="list-wrap">
-                                            <div class="list-item">
-                                                <div class="list-label">주전공</div>
-                                                <div class="list-content">조형대학 시각디자인학과</div>
-                                            </div>
-                                            <div class="list-item">
-                                                <div class="list-label">주전공</div>
-                                                <div class="list-content">경영대학 AI빅데이터융합경영학과</div>
-                                            </div>
-                                            <div class="list-item">
-                                                <div class="list-label">소개글</div>
-                                                <div class="list-content">금속공예학과로 입학해 시각디자인학과로 2번의 전과를 시도했습니다. 이후 공업디자인까지 부전공으로 졸업을 앞두고, 통계에 관심이 커져 AI빅데이터융합경영학과를 부전공으로 졸업하게 되었습니다.</div>
-                                            </div>
-                                        </div>
-                                        <div class="btns-wrap">
-                                            <a href="#" class="btn btn-primary">더 알아보기</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--E: card-->
-                            </div>
-    
-                            <div class="slider-item">
-                                <!--S: card-->
-                                <div class="card dark-card">
-                                    <div class="card-img-top-area">
-                                        <img src="/images/upload/upload03.jpg" alt="">
-                                    </div>
-                                    <div class="card-body">
-                                        <p class="card-title">준마이 멘토4<span class="card-sub-title">4학년</span></p>
-                                        <div class="list-wrap">
-                                            <div class="list-item">
-                                                <div class="list-label">주전공</div>
-                                                <div class="list-content">조형대학 시각디자인학과</div>
-                                            </div>
-                                            <div class="list-item">
-                                                <div class="list-label">주전공</div>
-                                                <div class="list-content">경영대학 AI빅데이터융합경영학과</div>
-                                            </div>
-                                            <div class="list-item">
-                                                <div class="list-label">소개글</div>
-                                                <div class="list-content">금속공예학과로 입학해 시각디자인학과로 2번의 전과를 시도했습니다. 이후 공업디자인까지 부전공으로 졸업을 앞두고, 통계에 관심이 커져 AI빅데이터융합경영학과를 부전공으로 졸업하게 되었습니다.</div>
-                                            </div>
-                                        </div>
-                                        <div class="btns-wrap">
-                                            <a href="#" class="btn btn-primary">더 알아보기</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--E: card-->
-                            </div>
-    
-                            <div class="slider-item">
-                                <!--S: card-->
-                                <div class="card dark-card">
-                                    <div class="card-img-top-area">
-                                        <img src="/images/upload/upload04.jpeg" alt="">
-                                    </div>
-                                    <div class="card-body">
-                                        <p class="card-title">준마이 멘토5<span class="card-sub-title">4학년</span></p>
-                                        <div class="list-wrap">
-                                            <div class="list-item">
-                                                <div class="list-label">주전공</div>
-                                                <div class="list-content">조형대학 시각디자인학과</div>
-                                            </div>
-                                            <div class="list-item">
-                                                <div class="list-label">주전공</div>
-                                                <div class="list-content">경영대학 AI빅데이터융합경영학과</div>
-                                            </div>
-                                            <div class="list-item">
-                                                <div class="list-label">소개글</div>
-                                                <div class="list-content">금속공예학과로 입학해 시각디자인학과로 2번의 전과를 시도했습니다. 이후 공업디자인까지 부전공으로 졸업을 앞두고, 통계에 관심이 커져 AI빅데이터융합경영학과를 부전공으로 졸업하게 되었습니다.</div>
-                                            </div>
-                                        </div>
-                                        <div class="btns-wrap">
-                                            <a href="#" class="btn btn-primary">더 알아보기</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--E: card-->
-                            </div>
+<!--                            <div class="slider-item">-->
+<!--                                &lt;!&ndash;S: card&ndash;&gt;-->
+<!--                                <div class="card dark-card">-->
+<!--                                    <div class="card-img-top-area">-->
+<!--                                        <img src="/images/upload/upload02.jpg" alt="">-->
+<!--                                    </div>-->
+<!--                                    <div class="card-body">-->
+<!--                                        <p class="card-title">준마이 멘토2<span class="card-sub-title">4학년</span></p>-->
+<!--                                        <div class="list-wrap">-->
+<!--                                            <div class="list-item">-->
+<!--                                                <div class="list-label">주전공</div>-->
+<!--                                                <div class="list-content">조형대학 시각디자인학과</div>-->
+<!--                                            </div>-->
+<!--                                            <div class="list-item">-->
+<!--                                                <div class="list-label">주전공</div>-->
+<!--                                                <div class="list-content">경영대학 AI빅데이터융합경영학과</div>-->
+<!--                                            </div>-->
+<!--                                            <div class="list-item">-->
+<!--                                                <div class="list-label">소개글</div>-->
+<!--                                                <div class="list-content">흠</div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="btns-wrap">-->
+<!--                                            <a href="#" class="btn btn-primary">더 알아보기</a>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                &lt;!&ndash;E: card&ndash;&gt;-->
+<!--                            </div>-->
+<!--                            <div class="slider-item">-->
+<!--                                &lt;!&ndash;S: card&ndash;&gt;-->
+<!--                                <div class="card dark-card">-->
+<!--                                    <div class="card-img-top-area">-->
+<!--                                    </div>-->
+<!--                                    <div class="card-body">-->
+<!--                                        <p class="card-title">준마이 멘토3<span class="card-sub-title">4학년</span></p>-->
+<!--                                        <div class="list-wrap">-->
+<!--                                            <div class="list-item">-->
+<!--                                                <div class="list-label">주전공</div>-->
+<!--                                                <div class="list-content">조형대학 시각디자인학과</div>-->
+<!--                                            </div>-->
+<!--                                            <div class="list-item">-->
+<!--                                                <div class="list-label">주전공</div>-->
+<!--                                                <div class="list-content">경영대학 AI빅데이터융합경영학과</div>-->
+<!--                                            </div>-->
+<!--                                            <div class="list-item">-->
+<!--                                                <div class="list-label">소개글</div>-->
+<!--                                                <div class="list-content">금속공예학과로 입학해 시각디자인학과로 2번의 전과를 시도했습니다. 이후 공업디자인까지 부전공으로 졸업을 앞두고, 통계에 관심이 커져 AI빅데이터융합경영학과를 부전공으로 졸업하게 되었습니다.</div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="btns-wrap">-->
+<!--                                            <a href="#" class="btn btn-primary">더 알아보기</a>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                &lt;!&ndash;E: card&ndash;&gt;-->
+<!--                            </div>-->
+<!--    -->
+<!--                            <div class="slider-item">-->
+<!--                                &lt;!&ndash;S: card&ndash;&gt;-->
+<!--                                <div class="card dark-card">-->
+<!--                                    <div class="card-img-top-area">-->
+<!--                                        <img src="/images/upload/upload03.jpg" alt="">-->
+<!--                                    </div>-->
+<!--                                    <div class="card-body">-->
+<!--                                        <p class="card-title">준마이 멘토4<span class="card-sub-title">4학년</span></p>-->
+<!--                                        <div class="list-wrap">-->
+<!--                                            <div class="list-item">-->
+<!--                                                <div class="list-label">주전공</div>-->
+<!--                                                <div class="list-content">조형대학 시각디자인학과</div>-->
+<!--                                            </div>-->
+<!--                                            <div class="list-item">-->
+<!--                                                <div class="list-label">주전공</div>-->
+<!--                                                <div class="list-content">경영대학 AI빅데이터융합경영학과</div>-->
+<!--                                            </div>-->
+<!--                                            <div class="list-item">-->
+<!--                                                <div class="list-label">소개글</div>-->
+<!--                                                <div class="list-content">금속공예학과로 입학해 시각디자인학과로 2번의 전과를 시도했습니다. 이후 공업디자인까지 부전공으로 졸업을 앞두고, 통계에 관심이 커져 AI빅데이터융합경영학과를 부전공으로 졸업하게 되었습니다.</div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="btns-wrap">-->
+<!--                                            <a href="#" class="btn btn-primary">더 알아보기</a>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                &lt;!&ndash;E: card&ndash;&gt;-->
+<!--                            </div>-->
+<!--    -->
+<!--                            <div class="slider-item">-->
+<!--                                &lt;!&ndash;S: card&ndash;&gt;-->
+<!--                                <div class="card dark-card">-->
+<!--                                    <div class="card-img-top-area">-->
+<!--                                        <img src="/images/upload/upload04.jpeg" alt="">-->
+<!--                                    </div>-->
+<!--                                    <div class="card-body">-->
+<!--                                        <p class="card-title">준마이 멘토5<span class="card-sub-title">4학년</span></p>-->
+<!--                                        <div class="list-wrap">-->
+<!--                                            <div class="list-item">-->
+<!--                                                <div class="list-label">주전공</div>-->
+<!--                                                <div class="list-content">조형대학 시각디자인학과</div>-->
+<!--                                            </div>-->
+<!--                                            <div class="list-item">-->
+<!--                                                <div class="list-label">주전공</div>-->
+<!--                                                <div class="list-content">경영대학 AI빅데이터융합경영학과</div>-->
+<!--                                            </div>-->
+<!--                                            <div class="list-item">-->
+<!--                                                <div class="list-label">소개글</div>-->
+<!--                                                <div class="list-content">금속공예학과로 입학해 시각디자인학과로 2번의 전과를 시도했습니다. 이후 공업디자인까지 부전공으로 졸업을 앞두고, 통계에 관심이 커져 AI빅데이터융합경영학과를 부전공으로 졸업하게 되었습니다.</div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="btns-wrap">-->
+<!--                                            <a href="#" class="btn btn-primary">더 알아보기</a>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                &lt;!&ndash;E: card&ndash;&gt;-->
+<!--                            </div>-->
                         </div>
                     </div>
                 </div>
