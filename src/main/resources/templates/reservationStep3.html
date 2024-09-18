@@ -10,6 +10,7 @@
     <script src="/js/lib/jquery-3.5.1.min.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/log/PageLog.js"></script>
+    <script src="/js/log/ButtonLog/Reservation3SlugBtn.js"></script>
     <script>
         window.addEventListener("load", function(){
             let bankNums = document.getElementById("bankNums").textContent;
@@ -62,7 +63,7 @@
                 </p>
                 <div class="top-btns-wrap btns-wrap-hr">
                     <button class="btn btn-line-orange">무통장 입금</button>
-                    <button class="btn btn-line-white disabled" >네이버 페이(준비중)</button>
+                    <button class="btn btn-line-white" >네이버 페이(준비중)</button>
                 </div>
                 <!-- S: 쓰는 영역-->
                 <div class="write-area">
@@ -71,7 +72,7 @@
                             <p>계좌정보</p>
                             <div class="card mt-2 bank-info-wrap">
                                 <div class="card-body">
-                                    <button class="btn btn-line-orange btn-inline btn-xs" id="btnCopy">복사</button>
+                                    <button class="btn btn-line-orange btn-inline btn-xs" id="btnCopy" onclick="copyToClipboard()">복사</button>
                                     <p class="bank-info-txt">신한은행 <span id="bankNums">110-454-977350</span></p>
                                 </div>
                             </div>
