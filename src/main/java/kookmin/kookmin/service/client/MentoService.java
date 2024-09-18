@@ -1,9 +1,6 @@
 package kookmin.kookmin.service.client;
 
-import kookmin.kookmin.dto.client.ActDto;
-import kookmin.kookmin.dto.client.MentoDto;
-import kookmin.kookmin.dto.client.ReservationDto;
-import kookmin.kookmin.dto.client.UserDto;
+import kookmin.kookmin.dto.client.*;
 import kookmin.kookmin.mapper.client.MentoMapper;
 import kookmin.kookmin.mapper.client.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +17,8 @@ public class MentoService {
     private MentoMapper mentoMapper;
     @Autowired
     private ReservationService reservationService;
+    @Autowired
+    private UserService userService;
 
     public MentoDto findByMentoId(String mentoId) {
         return mentoMapper.findByMentoId(mentoId);
@@ -48,5 +47,21 @@ public class MentoService {
             map.put("moneyAvg", 0);
         }
         return map;
+    }
+
+    public MentoFullDto ReplaceMentoFullDto(MentoDto m){
+        MentoFullDto mf = new MentoFullDto();
+        mf.setMentoId(m.getMentoId());
+        mf.setPrimaryMajor(m.getPrimaryMajor());
+        mf.setSubMajor(m.getSubMajor());
+        mf.setIntroduceTitle(m.getIntroduceTitle());
+        mf.setIntroduceContent( m.getIntroduceContent());
+        mf.setUser(userService.findByUserId(m.getUserId()));
+        mf.setMultiMajor(m.getMultiMajor());
+        return mf;
+    }
+    public List<MentoFullDto> findMentoBig3(){
+        List<MentoFullDto> list = mentoMapper.findMentoBig3().stream().map(m -> ReplaceMentoFullDto(m)).toList();
+        return list;
     }
 }
