@@ -18,4 +18,5 @@ public interface ReservationMapper {
     void replaceBankNum(String refundBankNum, String reservationId);
     String findSignatureById(String reservationId);
     void refundEdit(ReservationDto reservationDto);
+    void deleteById(String reservationId);
 }

@@ -293,4 +293,8 @@ public class ReservationService {
     public void newReservation(ReservationDto reservationDto){
         reservationMapper.newReservation(reservationDto);
     }
+
+    public void deleteById(String reservationId){
+        reservationMapper.deleteById(reservationId);
+    }
 }
