@@ -68,6 +68,7 @@
                 <!-- S: 쓰는 영역-->
                 <div class="write-area">
                     <form method="post" action="/reservation/3">
+                        <input type="hidden" th:value="${mentoId}" name="mentoId">
                         <div class="form-group">
                             <p>계좌정보</p>
                             <div class="card mt-2 bank-info-wrap">

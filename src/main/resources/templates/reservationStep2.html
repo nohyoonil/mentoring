@@ -54,6 +54,7 @@
                         <!--S: 궁금해요 Plan-->
                         <div class="custom-chk-card">
                             <div class="form-check">
+                                <input type="hidden" th:value="${mentoId}" name="mentoId">
                                 <input class="form-check-input" type="radio" name="planTitle" id="planCurious" value="궁금해요" checked th:checked="${session.newReservation.planTitle}">
                                 <label class="form-check-label card-label" for="planCurious">
                                     <span class="thumnail-wrap">

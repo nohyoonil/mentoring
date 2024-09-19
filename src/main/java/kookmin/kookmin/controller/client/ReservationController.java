@@ -59,13 +59,13 @@ public class ReservationController {
         if(loginUser == null){
             return "redirect:/userInfoEnd";
         }
+        model.addAttribute("mentoId", mentoId);
         return switch (step) {
             case 1 -> {
                 //타임리프는 해당 객체가 없으면 아예 오류를 내뱉으므로 필요
                 if(session.getAttribute("newReservation") == null){
                     session.setAttribute("newReservation", new ReservationDto());
                 }
-                model.addAttribute("mentoId", mentoId);
                 yield "reservationStep1";
             }
             case 2 -> "reservationStep2";
@@ -99,18 +99,20 @@ public class ReservationController {
                 ReservationDto reservationDto = reservationService.stepSetReservation01(mentoId, loginUserId, desiredDateDay1, desiredDateTime1, desiredDateDay2, desiredDateTime2, InputReservation);
                 userService.updateBaseInfo(InputUserDto);
                 session.setAttribute("newReservation", reservationDto);
-                return "redirect:/reservation/2";
+
+                return "redirect:/reservation/2?mentoId="+mentoId;
+
             }
             case 2 -> {
                 ReservationDto reservationDto = (ReservationDto)session.getAttribute("newReservation");
                 reservationDto.setPlanTitle(InputReservation.getPlanTitle());
                 session.setAttribute("newReservation", reservationDto);  //이전으로 버튼때문에 model 이 아닌 session 에 저장 필요
-                return "redirect:/reservation/3";
+                return "redirect:/reservation/3?mentoId="+mentoId;
             }
             default -> {
                 ReservationDto reservationDto = (ReservationDto)session.getAttribute("newReservation");
                 reservationService.newReservation(reservationDto);
-                return "redirect:/reservation/4";
+                return "redirect:/reservation/4?mentoId="+mentoId;
             }
         }
     }
