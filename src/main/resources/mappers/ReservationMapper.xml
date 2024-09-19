@@ -56,4 +56,8 @@
     select signature from reservation
     where reservation_id = #{reservationId}
   </select>
+  <delete id="deleteById">
+    delete from reservation
+    where reservation_id = #{reservationId}
+  </delete>
 </mapper>

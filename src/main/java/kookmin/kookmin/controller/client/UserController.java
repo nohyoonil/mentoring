@@ -34,6 +34,7 @@ public class UserController {
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("mentoList", mentoService.findMentoBig3());
+        System.out.println(mentoService.findMentoBig3());
         return "index";
     }
     @GetMapping("/login")
@@ -165,6 +166,7 @@ public class UserController {
         }
         System.out.println("userEmail : "+userEmail);
         model.addAttribute("myInfoNums", reservationService.myInfoNums(userEmail));
+        model.addAttribute("noMoneyList", reservationService.findByEmailSplitStatus(userEmail).get(1));
         model.addAttribute("reservationStayList", reservationService.findByEmailSplitStatus(userEmail).get(2));
         model.addAttribute("reservationHistorysList", reservationService.findByEmailSplitStatus(userEmail).get(3));
         model.addAttribute("reservationRefundList", reservationService.findByEmailSplitStatus(userEmail).get(4));

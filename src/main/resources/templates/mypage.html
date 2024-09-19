@@ -14,6 +14,15 @@
     <title>마이페이지</title>
     <script>
         window.addEventListener("load", function(){
+            let $btnCancelNomoneyList = document.querySelectorAll(".btn-cancel-nomoney");
+            $btnCancelNomoneyList.forEach($btnCancelNomoney=>{
+                $btnCancelNomoney.addEventListener("click", function(e){
+                    if(!confirm("정말로 예약을 취소하시겠습니까?(이 작업은 복구할 수 없습니다.)")){
+                        e.preventDefault();
+                    }
+                });
+            });
+
            let $btnRefundList = document.querySelectorAll(".btn-refund");
            let $refundReservation = document.getElementById("refundReservation");
             $btnRefundList.forEach($btnRefund => {
@@ -25,7 +34,6 @@
                         method:"POST",
                         data: {"reservationId": reservationId},
                         success:function(r){
-                            console.log(r);
                             document.getElementById("refundBankName").value=r.refundBankName;
                             document.getElementById("refundBankNum").value=r.refundBankNum;
                         }
@@ -145,8 +153,89 @@
             </div>
         </th:block>
         <!-- E: NO data-->
-        <!-- S: 멘토링 신청 현황 -->
+
         <th:block th:if="${myReservations != null}">
+            <!-- S: 입금 전 -->
+            <div class="content-area current-status">
+                <p class="page-sub-title">입금 대기</p>
+                <th:block th:each="r:${noMoneyList}">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="list-wrap">
+                                <div class="list-item">
+                                    <div class="list-label">신청일자</div>
+                                    <div class="list-content" th:text="${#dates.format(r.reservationDate, 'YYYY-MM-dd')}"></div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="list-label">멘토닉네임</div>
+                                    <div class="list-content" th:text="${r.mento.nickname}"></div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="list-label">멘토 학과</div>
+                                    <div class="list-content" th:text="${r.mento.department}">시각디자인학과</div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="list-label">멘토 학년</div>
+                                    <div class="list-content" th:text="${r.mento.grade} + '학년'"></div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="list-label">질문종류</div>
+                                    <th:block th:switch="${r.askType}">
+                                        <div class="list-content" th:case="1">전과</div>
+                                        <div class="list-content" th:case="2">복수전공</div>
+                                        <div class="list-content" th:case="3">부전공</div>
+                                        <div class="list-content" th:case="4">그 외</div>
+                                        <div class="list-content" th:case="5">잘 모르겠음</div>
+                                    </th:block>
+                                </div>
+                                <div class="list-item">
+                                    <div class="list-label">질문</div>
+                                    <div class="list-content" th:text="${r.askContent}"></div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="list-label">신청플랜</div>
+                                    <div class="list-content" th:text="${r.plan.planTitle}"></div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="list-label">플랜금액</div>
+                                    <div class="list-content" th:text="${r.plan.planPrice}+'원'"></div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="list-label">희망날짜1</div>
+                                    <div class="list-content" th:text="${#dates.format(r.desiredDate1, 'YYYY-MM-dd aa h시 mm분')}"></div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="list-label">희망날짜2</div>
+                                    <div class="list-content" th:text="${#dates.format(r.desiredDate2, 'YYYY-MM-dd aa h시 mm분')}"></div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="list-label">약속장소</div>
+                                    <div class="list-content" th:switch="${r.position}">
+                                        <span th:case="headquartersCafe">본부관 카페</span>
+                                        <span th:case="bukakHalllobby">북악관 로비</span>
+                                    </div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="list-label">예약확정</div>
+                                    <div class="list-content">
+                                        <th:block th:switch="${r.reservationStatus}">
+                                            <span th:case="1">확정 대기</span>
+                                            <span th:case="2">예약 확정</span>
+                                            <span th:case="3">멘토링 완료</span>
+                                            <span th:case="4">환불 신청</span>
+                                        </th:block>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btns-wrap bottom-btns-wrap pb-5">
+                        <a th:href="@{/cancelNomoney(reservationId=${r.reservationId})}" class="btn btn-line-white btn-cancel-nomoney">취소하기</a>
+                    </div>
+                </th:block>
+            </div>
+            <!-- E: 입금 전 -->
+            <!-- S: 멘토링 신청 현황 -->
             <div class="content-area current-status">
                 <p class="page-sub-title">멘토링 신청 현황</p>
                 <th:block th:each="r:${reservationStayList}">

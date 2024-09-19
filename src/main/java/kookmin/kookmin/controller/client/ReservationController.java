@@ -139,4 +139,10 @@ public class ReservationController {
         ReservationfullDto rf = reservationService.replaceFullDto(r);
         return rf;
     }
+
+    @GetMapping("/cancelNomoney")
+    public String cancelNomoney(@RequestParam String reservationId){
+        reservationService.deleteById(reservationId);
+        return "redirect:/mypage";
+    }
 }
