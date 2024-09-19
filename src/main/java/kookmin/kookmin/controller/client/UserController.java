@@ -72,7 +72,7 @@ public class UserController {
     @ResponseBody
     public String emailSend(String email) {
         String[] parts = email.split("@");
-        if (parts.length != 2 && parts[1].equals("gmail.com")) {
+        if (parts.length != 2 || !parts[1].equals("gmail.com")) {
             return "이메일 형식이 유효하지 않습니다. 국민대 이메일로만 가입 가능합니다.";
         }
         if (userService.isAlreadyRegister(email)) {
