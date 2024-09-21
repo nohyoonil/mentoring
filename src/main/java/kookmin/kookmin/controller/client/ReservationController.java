@@ -1,7 +1,6 @@
 package kookmin.kookmin.controller.client;
 
 import jakarta.servlet.http.HttpSession;
-import kookmin.kookmin.Utility.CryptoUtil;
 import kookmin.kookmin.dto.client.ReservationDto;
 import kookmin.kookmin.dto.client.ReservationfullDto;
 import kookmin.kookmin.dto.client.UserDto;
@@ -25,8 +24,6 @@ public class ReservationController {
     private ReservationService reservationService;
     @Autowired
     private UserService userService;
-
-
 
     @GetMapping("/mypage/reviewWrite")
     public String reviewWrite(@RequestParam("reservationId") String id, Model model, HttpSession session){

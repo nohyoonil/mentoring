@@ -37,9 +37,7 @@ public class UserController {
         return "index";
     }
     @GetMapping("/login")
-    public void login(){
-
-    }
+    public void login(){}
 
     // 로그인 플로우는 내가 해야하는것이니까 재구성
     // 추가적으로 회원가입 플로우 구현하기
@@ -174,9 +172,11 @@ public class UserController {
     // 하단 mapping은 정보수정 모달에서 '저장하기'하고 매핑
     @PostMapping("/userInfoUpdate")
     public String userInfoUpdate(UserDto InputUserDto, HttpSession session) {
+        UserDto editedUser;
         InputUserDto.setEmail(((UserDto)session.getAttribute("loginUser")).getEmail());
         userService.update(InputUserDto);
-        session.setAttribute("loginUser", userService.findByEmail(InputUserDto.getEmail()));
+        editedUser = userService.findByEmail(InputUserDto.getEmail());
+        session.setAttribute("loginUser", editedUser);
         return "redirect:/mypage";
     }
 
