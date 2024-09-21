@@ -16,21 +16,14 @@
     order by campus_year desc
   </select>
   <select id="findMentoBig3" resultType="MentoDto">
-    SELECT *
-    FROM mento
-    WHERE mento_id IN (
-    SELECT men FROM (
-    SELECT m.mento_id AS men, COUNT(*) AS c
-    FROM mento m, reservation r
-    WHERE m.mento_id = r.mento_id
-    GROUP BY m.mento_id
-    ) AS a
-    )
-    ORDER BY (
-    SELECT COUNT(*)
+    SELECT m.*
+    FROM mento m
+    LEFT JOIN (
+    SELECT r.mento_id, COUNT(*) AS count_reservations
     FROM reservation r
-    WHERE r.mento_id = mento.mento_id
-    ) DESC
+    GROUP BY r.mento_id
+    ) r ON m.mento_id = r.mento_id
+    ORDER BY COALESCE(r.count_reservations, 0) DESC
     LIMIT 3
   </select>
 </mapper>

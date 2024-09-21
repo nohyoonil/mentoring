@@ -20,7 +20,7 @@ public class MentoService {
     @Autowired
     private UserService userService;
 
-    private static final int MAX_REVIEW_SCORE = 7;
+    public static final int MAX_REVIEW_SCORE = 7;
 
     public MentoDto findByMentoId(String mentoId) {
         return mentoMapper.findByMentoId(mentoId);

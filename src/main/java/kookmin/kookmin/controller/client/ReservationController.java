@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import kookmin.kookmin.dto.client.ReservationDto;
 import kookmin.kookmin.dto.client.ReservationfullDto;
 import kookmin.kookmin.dto.client.UserDto;
+import kookmin.kookmin.service.client.MentoService;
 import kookmin.kookmin.service.client.ReservationService;
 import kookmin.kookmin.service.client.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ public class ReservationController {
         ReservationDto reservationDto= reservationService.findById(id);
         ReservationfullDto reservationfullDto = reservationService.replaceFullDto(reservationDto);
         model.addAttribute("r", reservationfullDto);
+        model.addAttribute("maxScore", MentoService.MAX_REVIEW_SCORE);
 
         return "reviewWrite";
     }

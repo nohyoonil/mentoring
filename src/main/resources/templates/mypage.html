@@ -203,10 +203,7 @@
                                 </div>
                                 <div class="list-item">
                                     <div class="list-label">약속장소</div>
-                                    <div class="list-content" th:switch="${r.position}">
-                                        <span th:case="headquartersCafe">본부관 카페</span>
-                                        <span th:case="bukakHalllobby">북악관 로비</span>
-                                    </div>
+                                    <div class="list-content" th:text="${r.position}"></div>
                                 </div>
                                 <div class="list-item">
                                     <div class="list-label">예약확정</div>
@@ -288,10 +285,7 @@
                             </div>
                             <div class="list-item">
                                 <div class="list-label">약속장소</div>
-                                <div class="list-content" th:switch="${r.position}">
-                                    <span th:case="headquartersCafe">본부관 카페</span>
-                                    <span th:case="bukakHalllobby">북악관 로비</span>
-                                </div>
+                                <div class="list-content" th:text="${r.position}"></div>
                             </div>
                             <div class="list-item">
                                 <div class="list-label">예약확정</div>
@@ -373,10 +367,7 @@
                         </div>
                         <div class="list-item">
                             <div class="list-label">약속장소</div>
-                            <div class="list-content" th:switch="${r.position}">
-                                <span th:case="headquartersCafe">본부관 카페</span>
-                                <span th:case="bukakHalllobby">북악관 로비</span>
-                            </div>
+                            <div class="list-content" th:text="${r.position}"></div>
                         </div>
                         <div class="list-item">
                             <div class="list-label">예약확정</div>

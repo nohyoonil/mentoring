@@ -61,11 +61,6 @@ public class ReservationService {
             case 3 -> "멘토링 완료(희망날짜가 모두 지남)";
             default -> "환불 신청 중";
         };
-        String position = switch (reservationfullDto.getPosition()){
-            case "bukakHalllobby" -> "북악관 로비";
-            case "headquartersCafe" -> "본부관 카페";
-            default -> "그 외의 장소";
-        };
         content += "[예약 내용]\n";
         content += "질문타입 : " + asktype + "\n";
         content += "질문내용 : " + reservationfullDto.getAskContent() + "\n";
@@ -73,7 +68,7 @@ public class ReservationService {
         content += "희망날짜1 : " + sdfAddTime.format(reservationfullDto.getDesiredDate1()) + "\n";
         content += "희망날짜2 : " + sdfAddTime.format(reservationfullDto.getDesiredDate2()) + "\n";
         content += "예약상태 : " + status + "\n";
-        content += "위치 : "+ position + "\n";
+        content += "위치 : "+ reservationfullDto.getPosition() + "\n";
         content += "\n";
         content += "[신청자 정보]\n";
         content += "닉네임 : "+ reservationfullDto.getUser().getNickname() + "\n";
