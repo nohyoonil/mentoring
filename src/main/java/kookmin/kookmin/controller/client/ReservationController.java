@@ -17,7 +17,7 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time                                                          .LocalTime;
 
 @Controller
 public class ReservationController {
@@ -35,7 +35,9 @@ public class ReservationController {
             return "redirect:/userInfoEnd";
         }
         ReservationDto reservationDto= reservationService.findById(id);
-        model.addAttribute("r", reservationService.replaceFullDto(reservationDto));
+        ReservationfullDto reservationfullDto = reservationService.replaceFullDto(reservationDto);
+        model.addAttribute("r", reservationfullDto);
+
         return "reviewWrite";
     }
 
@@ -72,7 +74,8 @@ public class ReservationController {
             case 3 -> "reservationStep3";
             default -> {
                 ReservationDto reservationDto = (ReservationDto)session.getAttribute("newReservation");
-                model.addAttribute("newReservation", reservationService.replaceFullDto(reservationDto));
+                ReservationfullDto reservationfullDto = reservationService.replaceFullDto(reservationDto);
+                model.addAttribute("newReservation", reservationfullDto);
                 reservationService.newReservationMailSend(reservationDto);
                 session.removeAttribute("newReservation");
                 yield "reservationOk";
