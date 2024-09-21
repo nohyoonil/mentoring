@@ -37,7 +37,7 @@ public class MentoService {
         int count = 0;
         int stisfaction = 0;
         int moneyAvg = 0;
-        if(reservationList != null){
+        if(reservationList != null && !reservationList.isEmpty()){
             count = reservationList.size();
             stisfaction = (int)((reservationList.stream().filter(r -> r.getReviewScore() != 0).mapToInt(r -> r.getReviewScore()).average().getAsDouble()) / MAX_REVIEW_SCORE * 100);
             moneyAvg = (int)(reservationList.stream().mapToInt(r -> reservationService.replaceFullDto(r).getPlan().getPlanPrice()).average().getAsDouble());
