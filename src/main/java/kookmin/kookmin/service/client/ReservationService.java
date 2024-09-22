@@ -47,7 +47,6 @@ public class ReservationService {
         SimpleDateFormat sdfDay = new SimpleDateFormat("yyyy-MM-dd");
         ReservationfullDto reservationfullDto = replaceFullDto(reservationDto);
         String title = "COFFWEE : ["+reservationfullDto.getUser().getNickname()+"]님의 예약 신청의 건";
-        String content = "";
         String asktype = switch (reservationfullDto.getAskType()){
             case 1 -> "전과";
             case 2 -> "복수전공";
@@ -61,31 +60,28 @@ public class ReservationService {
             case 3 -> "멘토링 완료(희망날짜가 모두 지남)";
             default -> "환불 신청 중";
         };
-        content += "[예약 내용]\n";
-        content += "질문타입 : " + asktype + "\n";
-        content += "질문내용 : " + reservationfullDto.getAskContent() + "\n";
-        content += "예약한날짜 : " + sdfDay.format(reservationfullDto.getReservationDate()) + "\n";
-        content += "희망날짜1 : " + sdfAddTime.format(reservationfullDto.getDesiredDate1()) + "\n";
-        content += "희망날짜2 : " + sdfAddTime.format(reservationfullDto.getDesiredDate2()) + "\n";
-        content += "예약상태 : " + status + "\n";
-        content += "위치 : "+ reservationfullDto.getPosition() + "\n";
-        content += "\n";
-        content += "[신청자 정보]\n";
-        content += "닉네임 : "+ reservationfullDto.getUser().getNickname() + "\n";
-        content += "메일주소 : "+ reservationfullDto.getUser().getEmail() + "\n";
-        content += "연락처 : "+ reservationfullDto.getUser().getPhone() + "\n";
-        content += "학과 : "+ reservationfullDto.getUser().getDepartment() + "\n";
-        content += "학번 : "+ reservationfullDto.getUser().getStudentNumber() + "\n";
-        content += "학년 : "+ reservationfullDto.getUser().getGrade()+"학년\n";
-        content += "\n";
-        content += "[멘토 정보]\n";
-        content += "닉네임 : "+ reservationfullDto.getMento().getNickname() + "\n";
-        content += "메일주소 : "+ reservationfullDto.getMento().getEmail() + "\n";
-        content += "연락처 : "+ reservationfullDto.getMento().getPhone() + "\n";
-        content += "학과 : "+ reservationfullDto.getMento().getDepartment() + "\n";
-        content += "학번 : "+ reservationfullDto.getMento().getStudentNumber() + "\n";
-        content += "학년 : "+ reservationfullDto.getMento().getGrade()+"학년\n";
-
+        String content = new StringBuilder("[예약 내용]\n")
+            .append("질문타입 : ").append(asktype).append("\n")
+            .append("질문내용 : ").append(reservationfullDto.getAskContent()).append("\n")
+            .append("예약한날짜 : ").append(sdfDay.format(reservationfullDto.getReservationDate())).append("\n")
+            .append("희망날짜1 : ").append(sdfAddTime.format(reservationfullDto.getDesiredDate1())).append("\n")
+            .append("희망날짜2 : ").append(sdfAddTime.format(reservationfullDto.getDesiredDate2())).append("\n")
+            .append("예약상태 : ").append(status).append("\n")
+            .append("위치 : ").append(reservationfullDto.getPosition()).append("\n\n")
+            .append("[신청자 정보]\n")
+            .append("닉네임 : ").append(reservationfullDto.getUser().getNickname()).append("\n")
+            .append("메일주소 : ").append(reservationfullDto.getUser().getEmail()).append("\n")
+            .append("연락처 : ").append(reservationfullDto.getUser().getPhone()).append("\n")
+            .append("학과 : ").append(reservationfullDto.getUser().getDepartment()).append("\n")
+            .append("학번 : ").append(reservationfullDto.getUser().getStudentNumber()).append("\n")
+            .append("학년 : ").append(reservationfullDto.getUser().getGrade()).append("학년\n\n")
+            .append("[멘토 정보]\n")
+            .append("닉네임 : ").append(reservationfullDto.getMento().getNickname()).append("\n")
+            .append("메일주소 : ").append(reservationfullDto.getMento().getEmail()).append("\n")
+            .append("연락처 : ").append(reservationfullDto.getMento().getPhone()).append("\n")
+            .append("학과 : ").append(reservationfullDto.getMento().getDepartment()).append("\n")
+            .append("학번 : ").append(reservationfullDto.getMento().getStudentNumber()).append("\n")
+            .append("학년 : ").append(reservationfullDto.getMento().getGrade()).append("학년\n").toString();
         boolean ret = MailUtil.sendEmail(emailSender, email, email, title, content);
         return ret;
     }
@@ -93,22 +89,18 @@ public class ReservationService {
         SimpleDateFormat sdfAddTime = new SimpleDateFormat("yyyy-MM-dd a hh:mm");
         ReservationfullDto reservationfullDto = replaceFullDto(reservationDto);
         String title = "COFFWEE : ["+reservationfullDto.getUser().getNickname()+"]님의 "+ titleAddTxt;
-        String content = "";
-        content += "[환불 정보]\n";
-        content += "환불 신청 날짜 : "+ sdfAddTime.format(reservationfullDto.getRefundTime()) + "\n";
-        content += "환불 은행 : "+ reservationfullDto.getRefundBankName() + "\n";
-        content += "환불 계좌 : " +reservationfullDto.getRefundBankNum() + "\n";
-        content += "\n";
-        content += "[환불 신청자 정보]\n";
-        content += "닉네임 : "+ reservationfullDto.getUser().getNickname() + "\n";
-        content += "메일주소 : "+ reservationfullDto.getUser().getEmail() + "\n";
-        content += "연락처 : "+ reservationfullDto.getUser().getPhone() + "\n";
-        content += "\n";
-        content += "[멘토 정보]\n";
-        content += "닉네임 : "+ reservationfullDto.getMento().getNickname() + "\n";
-        content += "메일주소 : "+ reservationfullDto.getMento().getEmail() + "\n";
-        content += "연락처 : "+ reservationfullDto.getMento().getPhone() + "\n";
-
+        String content = new StringBuilder("[환불 정보]\n")
+                .append("환불 신청 날짜 : ").append(sdfAddTime.format(reservationfullDto.getRefundTime())).append("\n")
+                .append("환불 은행 : ").append(reservationfullDto.getRefundBankName()).append("\n")
+                .append("환불 계좌 : ").append(reservationfullDto.getRefundBankNum()).append("\n\n")
+                .append("[환불 신청자 정보]\n")
+                .append("닉네임 : ").append(reservationfullDto.getUser().getNickname()).append("\n")
+                .append("메일주소 : ").append(reservationfullDto.getUser().getEmail()).append("\n")
+                .append("연락처 : ").append(reservationfullDto.getUser().getPhone()).append("\n\n")
+                .append("[멘토 정보]\n")
+                .append("닉네임 : ").append(reservationfullDto.getMento().getNickname()).append("\n")
+                .append("메일주소 : ").append(reservationfullDto.getMento().getEmail()).append("\n")
+                .append("연락처 : ").append(reservationfullDto.getMento().getPhone()).append("\n").toString();
         boolean ret = MailUtil.sendEmail(emailSender, email, email, title, content);
         return ret;
     }
@@ -172,6 +164,7 @@ public class ReservationService {
         }
         return map;
     }
+
     public Boolean signatureChk(ReservationDto reservationDto){
         System.out.println("서명검증 시작");
         String originSign = reservationMapper.findSignatureById(reservationDto.getReservationId());
