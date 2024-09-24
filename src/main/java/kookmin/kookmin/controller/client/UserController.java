@@ -2,10 +2,8 @@ package kookmin.kookmin.controller.client;
 
 import jakarta.servlet.http.HttpSession;
 import kookmin.kookmin.Utility.MailUtil;
-import kookmin.kookmin.dto.client.MentoDto;
-import kookmin.kookmin.dto.client.ReservationDto;
-import kookmin.kookmin.dto.client.SignupDto;
-import kookmin.kookmin.dto.client.UserDto;
+import kookmin.kookmin.dto.client.*;
+import kookmin.kookmin.enums.ReservationStatus;
 import kookmin.kookmin.service.client.MentoService;
 import kookmin.kookmin.service.client.ReservationService;
 import kookmin.kookmin.service.client.UserService;
@@ -15,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -38,9 +37,7 @@ public class UserController {
         return "index";
     }
     @GetMapping("/login")
-    public void login(){
-
-    }
+    public void login(){}
 
     // 로그인 플로우는 내가 해야하는것이니까 재구성
     // 추가적으로 회원가입 플로우 구현하기
@@ -151,26 +148,23 @@ public class UserController {
 
     @GetMapping("/mypage")
     public String mypage(Model model, HttpSession session) {
-        List<ReservationDto> userReservationlist;
+        HashMap<String, Integer> myInfoNums;
         UserDto loginUser = (UserDto) session.getAttribute("loginUser");
         String userEmail = "";
-
         if(loginUser != null){
             userEmail = loginUser.getEmail();
         }else{
             return "redirect:/userInfoEnd";
         }
-        userReservationlist =  reservationService.findByEmail(userEmail);
-        if(userReservationlist != null && !(userReservationlist.isEmpty())){
-            model.addAttribute("myReservations", "존재함.");
+        myInfoNums = reservationService.myInfoNums(userEmail);
+        model.addAttribute("myInfoNums", myInfoNums);
+        for (ReservationStatus status : ReservationStatus.values()) {
+            List<ReservationfullDto> list = reservationService.findByEmailSplitStatus(userEmail).get(status.getValue());;
+            if(list == null || list.isEmpty()){
+                list = null;
+            }
+            model.addAttribute(String.valueOf(status), list);
         }
-        System.out.println("userEmail : "+userEmail);
-        model.addAttribute("myInfoNums", reservationService.myInfoNums(userEmail));
-        model.addAttribute("noMoneyList", reservationService.findByEmailSplitStatus(userEmail).get(1));
-        model.addAttribute("reservationStayList", reservationService.findByEmailSplitStatus(userEmail).get(2));
-        model.addAttribute("reservationHistorysList", reservationService.findByEmailSplitStatus(userEmail).get(3));
-        model.addAttribute("reservationRefundList", reservationService.findByEmailSplitStatus(userEmail).get(4));
-
 
         return "mypage";
     }
@@ -178,9 +172,11 @@ public class UserController {
     // 하단 mapping은 정보수정 모달에서 '저장하기'하고 매핑
     @PostMapping("/userInfoUpdate")
     public String userInfoUpdate(UserDto InputUserDto, HttpSession session) {
+        UserDto editedUser;
         InputUserDto.setEmail(((UserDto)session.getAttribute("loginUser")).getEmail());
         userService.update(InputUserDto);
-        session.setAttribute("loginUser", userService.findByEmail(InputUserDto.getEmail()));
+        editedUser = userService.findByEmail(InputUserDto.getEmail());
+        session.setAttribute("loginUser", editedUser);
         return "redirect:/mypage";
     }
 

@@ -20,11 +20,10 @@ public class MentoService {
     @Autowired
     private UserService userService;
 
+    public static final int MAX_REVIEW_SCORE = 7;
+
     public MentoDto findByMentoId(String mentoId) {
         return mentoMapper.findByMentoId(mentoId);
-    }
-    public UserDto findUserByMentoId(String mentoId) {
-        return mentoMapper.findUserByMentoId(mentoId);
     }
 
     public Map<Boolean, List<ActDto>> findActByMentoId(String mentoId) {
@@ -35,17 +34,17 @@ public class MentoService {
     public Map<String, Integer> mentoNumInfo(String mentoId) {
         Map <String, Integer> map = new HashMap<>();
         List<ReservationDto> reservationList = reservationService.findByMentoId(mentoId);
-        if(reservationList != null){
-            map.put("count", reservationList.size());
-            map.put("satisfaction", (int)((reservationList.stream().filter(r -> r.getReviewScore() != 0).mapToInt(r -> r.getReviewScore()).average().getAsDouble()) / 7 * 100));
-            map.put("moneyAvg", (int)(reservationList.stream().mapToInt(r -> {
-                return reservationService.replaceFullDto(r).getPlan().getPlanPrice();
-            }).average().getAsDouble()));
-        }else{
-            map.put("countReservation", 0);
-            map.put("satisfaction", 0);
-            map.put("moneyAvg", 0);
+        int count = 0;
+        int stisfaction = 0;
+        int moneyAvg = 0;
+        if(reservationList != null && !reservationList.isEmpty()){
+            count = reservationList.size();
+            stisfaction = (int)((reservationList.stream().filter(r -> r.getReviewScore() != 0).mapToInt(r -> r.getReviewScore()).average().getAsDouble()) / MAX_REVIEW_SCORE * 100);
+            moneyAvg = (int)(reservationList.stream().mapToInt(r -> reservationService.replaceFullDto(r).getPlan().getPlanPrice()).average().getAsDouble());
         }
+        map.put("count", count);
+        map.put("satisfaction", stisfaction);
+        map.put("moneyAvg", moneyAvg);
         return map;
     }
 

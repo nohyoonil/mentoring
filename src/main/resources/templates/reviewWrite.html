@@ -60,48 +60,15 @@
                         <label for="reviewText">2. 준마이 멘토가 제공한 멘토링에 얼마나 만족하셨나요?<br>(1: 매우 불만족 / 4: 보통 / 7: 매우 만족)</label>
                         <div class="custom-chk-btns">
                             <input type="hidden" name="reservationId" th:value="${r.reservationId}">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="reviewScore" id="reviewScore01" value="1" th:checked="${r.reviewScore} == 1">
-                                <label class="form-check-label" for="reviewScore01">
-                                    1
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="reviewScore" id="reviewScore02" value="2" th:checked="${r.reviewScore} == 2">
-                                <label class="form-check-label" for="reviewScore02">
-                                    2
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="reviewScore" id="reviewScore03" value="3" th:checked="${r.reviewScore} == 3">
-                                <label class="form-check-label" for="reviewScore03">
-                                    3
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="reviewScore" id="reviewScore04" value="4" checked>
-                                <label class="form-check-label" for="reviewScore04">
-                                    4
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="reviewScore" id="reviewScore05" value="5"  th:checked="${r.reviewScore} == 5">
-                                <label class="form-check-label" for="reviewScore05">
-                                    5
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="reviewScore" id="reviewScore06" value="6" th:checked="${r.reviewScore} == 6">
-                                <label class="form-check-label" for="reviewScore06">
-                                    6
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="reviewScore" id="reviewScore07" value="7"  th:checked="${r.reviewScore} == 7">
-                                <label class="form-check-label" for="reviewScore07">
-                                    7
-                                </label>
-                            </div>
+                            <th:block th:each="n:${#numbers.sequence(1,maxScore)}">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="reviewScore"
+                                           th:id="'reviewScore'+${n}"
+                                           th:value="${n}"
+                                           th:checked="${r.reviewScore} == ${n}">
+                                    <label class="form-check-label" th:for="'reviewScore'+${n}" th:text="${n}"></label>
+                                </div>
+                            </th:block>
                         </div>
                     </div>
 

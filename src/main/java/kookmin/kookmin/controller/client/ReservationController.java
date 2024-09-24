@@ -1,10 +1,10 @@
 package kookmin.kookmin.controller.client;
 
 import jakarta.servlet.http.HttpSession;
-import kookmin.kookmin.Utility.CryptoUtil;
 import kookmin.kookmin.dto.client.ReservationDto;
 import kookmin.kookmin.dto.client.ReservationfullDto;
 import kookmin.kookmin.dto.client.UserDto;
+import kookmin.kookmin.service.client.MentoService;
 import kookmin.kookmin.service.client.ReservationService;
 import kookmin.kookmin.service.client.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time                                                          .LocalTime;
 
 @Controller
 public class ReservationController {
@@ -26,8 +26,6 @@ public class ReservationController {
     @Autowired
     private UserService userService;
 
-
-
     @GetMapping("/mypage/reviewWrite")
     public String reviewWrite(@RequestParam("reservationId") String id, Model model, HttpSession session){
         UserDto loginUser = (UserDto) session.getAttribute("loginUser");
@@ -35,7 +33,10 @@ public class ReservationController {
             return "redirect:/userInfoEnd";
         }
         ReservationDto reservationDto= reservationService.findById(id);
-        model.addAttribute("r", reservationService.replaceFullDto(reservationDto));
+        ReservationfullDto reservationfullDto = reservationService.replaceFullDto(reservationDto);
+        model.addAttribute("r", reservationfullDto);
+        model.addAttribute("maxScore", MentoService.MAX_REVIEW_SCORE);
+
         return "reviewWrite";
     }
 
@@ -59,20 +60,21 @@ public class ReservationController {
         if(loginUser == null){
             return "redirect:/userInfoEnd";
         }
+        model.addAttribute("mentoId", mentoId);
         return switch (step) {
             case 1 -> {
                 //타임리프는 해당 객체가 없으면 아예 오류를 내뱉으므로 필요
                 if(session.getAttribute("newReservation") == null){
                     session.setAttribute("newReservation", new ReservationDto());
                 }
-                model.addAttribute("mentoId", mentoId);
                 yield "reservationStep1";
             }
             case 2 -> "reservationStep2";
             case 3 -> "reservationStep3";
             default -> {
                 ReservationDto reservationDto = (ReservationDto)session.getAttribute("newReservation");
-                model.addAttribute("newReservation", reservationService.replaceFullDto(reservationDto));
+                ReservationfullDto reservationfullDto = reservationService.replaceFullDto(reservationDto);
+                model.addAttribute("newReservation", reservationfullDto);
                 reservationService.newReservationMailSend(reservationDto);
                 session.removeAttribute("newReservation");
                 yield "reservationOk";
@@ -99,18 +101,20 @@ public class ReservationController {
                 ReservationDto reservationDto = reservationService.stepSetReservation01(mentoId, loginUserId, desiredDateDay1, desiredDateTime1, desiredDateDay2, desiredDateTime2, InputReservation);
                 userService.updateBaseInfo(InputUserDto);
                 session.setAttribute("newReservation", reservationDto);
-                return "redirect:/reservation/2";
+
+                return "redirect:/reservation/2?mentoId="+mentoId;
+
             }
             case 2 -> {
                 ReservationDto reservationDto = (ReservationDto)session.getAttribute("newReservation");
                 reservationDto.setPlanTitle(InputReservation.getPlanTitle());
                 session.setAttribute("newReservation", reservationDto);  //이전으로 버튼때문에 model 이 아닌 session 에 저장 필요
-                return "redirect:/reservation/3";
+                return "redirect:/reservation/3?mentoId="+mentoId;
             }
             default -> {
                 ReservationDto reservationDto = (ReservationDto)session.getAttribute("newReservation");
                 reservationService.newReservation(reservationDto);
-                return "redirect:/reservation/4";
+                return "redirect:/reservation/4?mentoId="+mentoId;
             }
         }
     }
