@@ -9,6 +9,7 @@ import kookmin.kookmin.service.client.ReservationService;
 import kookmin.kookmin.service.client.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -146,7 +147,7 @@ public class ReservationController {
 
     @GetMapping("/cancelNomoney")
     public String cancelNomoney(@RequestParam String reservationId){
-        reservationService.deleteById(reservationId);
+        reservationService.replaceStatusCancel(reservationId);
         return "redirect:/mypage";
     }
 }

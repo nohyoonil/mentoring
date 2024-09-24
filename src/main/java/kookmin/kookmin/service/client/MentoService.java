@@ -39,8 +39,8 @@ public class MentoService {
         int moneyAvg = 0;
         if(reservationList != null && !reservationList.isEmpty()){
             count = reservationList.size();
-            stisfaction = (int)((reservationList.stream().filter(r -> r.getReviewScore() != 0).mapToInt(r -> r.getReviewScore()).average().getAsDouble()) / MAX_REVIEW_SCORE * 100);
-            moneyAvg = (int)(reservationList.stream().mapToInt(r -> reservationService.replaceFullDto(r).getPlan().getPlanPrice()).average().getAsDouble());
+            stisfaction = (int)((reservationList.stream().filter(r -> r.getReviewScore() != 0).mapToInt(r -> r.getReviewScore()).average().orElse(0)) / MAX_REVIEW_SCORE * 100);
+            moneyAvg = (int)(reservationList.stream().mapToInt(r -> reservationService.replaceFullDto(r).getPlan().getPlanPrice()).average().orElse(0));
         }
         map.put("count", count);
         map.put("satisfaction", stisfaction);
