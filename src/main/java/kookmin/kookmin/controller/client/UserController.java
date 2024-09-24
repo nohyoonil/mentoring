@@ -8,6 +8,7 @@ import kookmin.kookmin.service.client.MentoService;
 import kookmin.kookmin.service.client.ReservationService;
 import kookmin.kookmin.service.client.UserService;
 import kookmin.kookmin.config.message.MessageComponent;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,10 +43,10 @@ public class UserController {
     // 로그인 플로우는 내가 해야하는것이니까 재구성
     // 추가적으로 회원가입 플로우 구현하기
     @PostMapping("/login")
-    public String loginSubmit(UserDto InputUserDto, Model model, HttpSession session) {
+    public String loginSubmit(UserDto InputUserDto, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         UserDto userDto = userService.getUserInfo(InputUserDto.getEmail());
         if (userDto == null) {
-            model.addAttribute("userNotFound", "존재하지 않는 회원입니다. 회원가입을 진행해주세요.");
+            redirectAttributes.addFlashAttribute("userNotFound", "존재하지 않는 회원입니다. 회원가입을 진행해주세요.");
             return "redirect:/signup";
         }
 
@@ -54,8 +55,8 @@ public class UserController {
             return "redirect:/";
         }
         else {
-            model.addAttribute("userNotFound", "비밀번호를 확인해주세요");
-            return "/login";
+            redirectAttributes.addFlashAttribute("userNotFound", "비밀번호를 확인해주세요");
+            return "redirect:/login";
         }
     }
 

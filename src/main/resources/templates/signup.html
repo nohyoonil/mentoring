@@ -13,6 +13,10 @@
     <script src="/js/log/PageLog.js"></script>
     <title>회원가입</title>
     <script>
+        if ("[[${userNotFound}]]" != null && "[[${userNotFound}]]" != "") {
+            alert("[[${userNotFound}]]");
+            console.log("[[${userNotFound}]]");
+        }
         document.addEventListener('DOMContentLoaded', function() {
             const btnEmailCheck = document.getElementById('btnEmailCheck');
             const inputEmail = document.getElementById('email');
