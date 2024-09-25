@@ -67,6 +67,90 @@ public class UserController {
         return "redirect:/";
     }
 
+/* ------------------------------------------ 비밀번호 찾기 start ------------------------------------------ */
+    @PostMapping("/emailSendForChangePwd")
+    @ResponseBody
+    public String emailSendForChangePwd(String email) {
+        String[] parts = email.split("@");
+        if (parts.length != 2 || !parts[1].equals("gmail.com")) {
+            return "이메일 형식이 유효하지 않습니다. 국민대 이메일로만 이용가능합니다.";
+        }
+        if (!userService.isAlreadyRegister(email)) {
+            return "가입되지 않은 회원입니다.";
+        }
+        if (!userService.sendEmail(email)) {
+            return "메일 발송에 실패하였습니다. 관리자에게 문의해주세요.";
+        }
+        return "메일 발송이 완료되었습니다. 입력하신 국민대학교 이메일 수신함에서 인증번호를 확인해주세요.";
+    }
+
+    @PostMapping("/authEmailCodeForChangePwd")
+    @ResponseBody
+    public String authEmailCodeForChangePwd(String email, String emailCheckCode) {
+        MailUtil.EmailAuthStatus emailAuthStatus = userService.emailCodeCheck(email, emailCheckCode);
+
+        if (emailAuthStatus == MailUtil.EmailAuthStatus.EMAIL_AUTH_SUCCESS) {
+            return "이메일 인증을 완료하였습니다.";
+        }
+        else if (emailAuthStatus == MailUtil.EmailAuthStatus.EMAIL_AUTH_ALREADY_SUCCESS) {
+            return "이메일 인증이 이미 완료되었습니다.";
+        }
+        else if (emailAuthStatus == MailUtil.EmailAuthStatus.EMAIL_AUTH_CODE_DIFF) {
+            return "이메일 인증번호가 다릅니다. 재입력 해주세요";
+        }
+        else if (emailAuthStatus == MailUtil.EmailAuthStatus.EMAIL_AUTH_CODE_NOT_SEND) {
+            return "이메일 인증번호가 발송되지 않은 상태입니다.";
+        }
+
+        return "이메일 인증을 실패하였습니다. 다시 메일 발송 후, 재입력 해주세요. 문제가 반복될시, 관리자에게 문의부탁드립니다.";
+    }
+
+    @GetMapping("/changePwd")
+    public String changePwd(Model model) {
+        return "changePassword";
+    }
+
+    @PostMapping("/changePwd")
+    public String changePwdSubmit(ChangePwdDto changePwdDto, RedirectAttributes redirectAttributes) {
+        boolean successOrFailFlag = false;
+        if (!userService.pwdCheck(changePwdDto.getPwd())) {
+            redirectAttributes.addFlashAttribute("pwdCheckFailed", messageComponent.getPWD_CHECK_FAILED());
+        }
+
+        else if (!userService.isPwdEqual(changePwdDto.getPwd(), changePwdDto.getPwdCheck())) {
+            redirectAttributes.addFlashAttribute("pwdIsNotEqual", messageComponent.getPWD_IS_NOT_EQUAL());
+        }
+
+        else if (!userService.finishAuthEmail(changePwdDto.getEmail())) {
+            redirectAttributes.addFlashAttribute("emailNotCheck", messageComponent.getEMAIL_CHECK_FAILED());
+        }
+
+        else {
+            if (!userService.changePassword(changePwdDto.getEmail(), changePwdDto.getPwd())) {
+                redirectAttributes.addFlashAttribute("pwdChangeFail", messageComponent.getSIGNUP_FAIL());
+            }
+            else {
+                redirectAttributes.addFlashAttribute("pwdChangeSuccess", messageComponent.getSIGNUP_SUCCESS());
+                successOrFailFlag = true;
+            }
+        }
+
+        if (!successOrFailFlag) {
+            redirectAttributes.addFlashAttribute("email", changePwdDto.getEmail());
+            redirectAttributes.addFlashAttribute("emailCheckCode", changePwdDto.getEmailCheckCode());
+            redirectAttributes.addFlashAttribute("pwd", changePwdDto.getPwd());
+            redirectAttributes.addFlashAttribute("pwdCheck", changePwdDto.getPwdCheck());
+            return "redirect:/changePwd";
+        }
+        else {
+            return "redirect:/login";
+        }
+    }
+/* ------------------------------------------ 비밀번호 찾기 end ------------------------------------------ */
+
+
+
+/* ------------------------------------------ 회원가입 매핑 start ------------------------------------------ */
     @PostMapping("/emailSend")
     @ResponseBody
     public String emailSend(String email) {
@@ -146,6 +230,7 @@ public class UserController {
             model.addAttribute("nickname", signupDto.getNickname());
         }
     }
+/* ------------------------------------------ 회원가입 매핑 end ------------------------------------------ */
 
     @GetMapping("/mypage")
     public String mypage(Model model, HttpSession session) {

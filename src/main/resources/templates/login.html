@@ -15,6 +15,10 @@
     <script src="/js/log/ButtonLog/LoginSlugBtn.js"></script>
     <title>로그인</title>
     <script>
+        if("[[${pwdChangeSuccess}]]" != null && "[[${pwdChangeSuccess}]]" != ""){
+            alert("[[${pwdChangeSuccess}]]");
+            console.log("[[${pwdChangeSuccess}]]");
+        }
         if("[[${userNotFound}]]" != null && "[[${userNotFound}]]" != ""){
             alert("[[${userNotFound}]]");
             console.log("[[${userNotFound}]]");
@@ -44,6 +48,9 @@
                         </div>
                         <div class="login-sub-txt">
                             <p>아직 계정이 없으신가요? <a href="/signup" class="btn btn-link btn-signup">회원가입</a></p>
+                        </div>
+                        <div class="login-sub-txt">
+                            <p>비밀번호를 잊어버리셨나요? <a href="/changePwd" class="btn btn-link btn-signup">비밀번호 변경</a></p>
                         </div>
                     </div>
                 </div>

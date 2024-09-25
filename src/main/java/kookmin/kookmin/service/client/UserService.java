@@ -164,6 +164,18 @@ public class UserService {
         return true;
     }
 
+    public boolean changePassword(String email, String pwd){
+        String pwdHashing = "";
+        try {
+            pwdHashing = CryptoUtil.hashingSha256(pwd);
+        }
+        catch (NoSuchAlgorithmException e) {
+            return false;
+        }
+        userMapper.changePwdByEmail(email, pwdHashing);
+        return true;
+    }
+
     public boolean isAlreadyRegister(String email) {
         String pwd = userMapper.findPwdByEmail(email);
         if (pwd != null) {

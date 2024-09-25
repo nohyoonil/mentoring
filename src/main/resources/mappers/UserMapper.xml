@@ -21,6 +21,11 @@
   <insert id="insertBySignupInfo" parameterType="SignupDto">
     INSERT INTO user(email, pwd, nickname) VALUES(#{email}, #{pwd}, #{nickname})
   </insert>
+  <update id="changePwdByEmail" parameterType="ChangePwdDto">
+    update user set
+    pwd = #{pwd}
+    where email = #{email}
+  </update>
   <update id="update" parameterType="UserDto">
     update user set
     department = #{department},
