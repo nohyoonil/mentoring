@@ -18,7 +18,12 @@
     <div class="mento-info">
         <!--S: mento-profile-->
         <div class="mento-profile">
-            <img src="/images/coweef.png" alt="">
+            <th:block th:if="${mento.mentoId == '2b9acffc-766a-11ef-8387-0bbb8b870274'}">
+                <img th:src="@{/images/hyunjune.jpeg}" alt="hyun_june">
+            </th:block>
+            <th:block th:if="${mento.mentoId == '3de7cf86-7b00-11ef-b0a0-fa163ed56c54'}">
+                <img th:src="@{/images/yellowmin.jpeg}" alt="yellow_min">
+            </th:block>
         </div>
         <!--E: mento-profile-->
         <!--S: mento-info-summary-->

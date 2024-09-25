@@ -121,7 +121,7 @@
         <div class="content-area ex-review">
             <div class="container-fluid">
                 <p class="visual-txt visual-txt-sm">
-                    벌써 <span class="implement-txt">10명</span>의 학우분들과<br>
+                    벌써 <span class="implement-txt">9명</span>의 학우분들과<br>
                     도움을 주고 받았습니다.
                 </p>
                 <div class="review-card-wrap">
@@ -163,11 +163,11 @@
                             <div class="card-top">
                                 <div class="list-wrap">
                                     <div class="list-item">
-                                        <div class="list-label">북악관 로비 / 약 1시간 진행</div>
+                                        <div class="list-label">본부관 / 약 1시간 진행</div>
                                         <div class="list-content"><span class="txt-review">7점 / 7점</span></div>
                                     </div>
                                     <div class="list-item">
-                                        <div class="list-label">융합전공 복수전공 관련</div>
+                                        <div class="list-label">조형대학 전과 관</div>
                                         <div class="list-content">
                                             <span class="txt-review">
                                                 <i class="bi bi-star-fill"></i>
@@ -183,8 +183,8 @@
                                 </div>
                             </div>
                             <div class="card-bottom">
-                                <p class="card-text">궁금한 점이 좀 많아서 에브리타임 메신저로 묻기가 부담스러웠는데, 커피챗(대면)을 통해 하다보니 세세한 궁금증들을 바로바로 해결할 수  있어 좋았어요.</p>
-                                <p class="card-subtext">2024.05</p>
+                                <p class="card-text">쉽게 알 수 없었던 정보들을 이런 기회로 듣게 돼서 너무 좋았어요! 쉽게 얻을 수 없는 정보인만큼 선뜻 공유해주시는 것도 쉽지 않았을텐데 정말 감사합니다..</p>
+                                <p class="card-subtext">2024.06</p>
                             </div>
                         </div>
                     </div>
@@ -217,7 +217,12 @@
                                 <div class="card dark-card">
                                     <div class="card-img-top-area">
                                         <!--<img src="/images/upload/upload01.png" alt="">-->
-                                        <img src="/images/coweef.png" alt="">
+                                        <th:block th:if="${m.mentoId == '2b9acffc-766a-11ef-8387-0bbb8b870274'}">
+                                            <img th:src="@{/images/hyunjune.jpeg}" alt="hyun_june">
+                                        </th:block>
+                                        <th:block th:if="${m.mentoId == '3de7cf86-7b00-11ef-b0a0-fa163ed56c54'}">
+                                            <img th:src="@{/images/yellowmin.jpeg}" alt="yellow_min">
+                                        </th:block>
                                     </div>
                                     <div class="card-body">
                                         <p class="card-title"><span th:text="${m.user.nickname}"></span><span class="card-sub-title"><span th:text="${m.user.grade}"></span>학년</span></p>
