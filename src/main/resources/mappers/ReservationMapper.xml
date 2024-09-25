@@ -56,8 +56,19 @@
     select signature from reservation
     where reservation_id = #{reservationId}
   </select>
-  <delete id="deleteById">
-    delete from reservation
-    where reservation_id = #{reservationId}
-  </delete>
+  <update id="replaceStatusCancel">
+    update reservation set
+    reservation_status = 0
+    where
+    reservation_status = 1 and
+    reservation_id = #{reservationId}
+  </update>
+  <update id="autoReplaceStatusCancel">
+    update reservation set
+    reservation_status = 0
+    where
+    reservation_status = 1
+    and desired_date1 &lt; now()
+    and desired_date2 &lt; now()
+  </update>
 </mapper>

@@ -10,6 +10,7 @@ import kookmin.kookmin.mapper.client.ReservationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -166,9 +167,7 @@ public class ReservationService {
     }
 
     public Boolean signatureChk(ReservationDto reservationDto){
-        System.out.println("서명검증 시작");
         String originSign = reservationMapper.findSignatureById(reservationDto.getReservationId());
-        System.out.println("기존 서명:"+originSign);
         ReservationDto oldR = findById(reservationDto.getReservationId());
         String newSign = null;
         try{
@@ -176,10 +175,10 @@ public class ReservationService {
             System.out.println(num);
             oldR.setRefundBankNum(num);
             newSign = CryptoUtil.hashingSha512(oldR.getRefundBankNum()+"_"+oldR.getRefundBankName()+"_"+oldR.getReservationId());
-            System.out.println("확인 서명:" + newSign);
         }catch(Exception e){
             System.out.println(e);
             e.printStackTrace();
+
         }
         return originSign.equals(newSign);
     }
@@ -282,7 +281,14 @@ public class ReservationService {
         reservationMapper.newReservation(reservationDto);
     }
 
-    public void deleteById(String reservationId){
-        reservationMapper.deleteById(reservationId);
+    //입금 전(1)의 상태일 때 사용자가 취소를 눌렀을 경우
+    public void replaceStatusCancel(String reservationId){
+        reservationMapper.replaceStatusCancel(reservationId);
+    }
+
+    // 매일 자정에 입금 전(1) 의 상태일 때, 예약일이 모두 다 지나면 0으로 변하고, 메일이 가도록 변경
+    @Scheduled(cron = "0 1 0  * * ?")
+    private void autoCancelNomoney(){
+        reservationMapper.autoReplaceStatusCancel();
     }
 }
