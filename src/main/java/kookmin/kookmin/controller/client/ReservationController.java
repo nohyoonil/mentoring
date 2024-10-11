@@ -97,12 +97,13 @@ public class ReservationController {
             Model model)
     {
         String loginUserId = ((UserDto) session.getAttribute("loginUser")).getUserId();
+        String loginEmail = ((UserDto) session.getAttribute("loginUser")).getEmail();
         switch (step){
             case 1 -> {
                 ReservationDto reservationDto = reservationService.stepSetReservation01(mentoId, loginUserId, desiredDateDay1, desiredDateTime1, desiredDateDay2, desiredDateTime2, InputReservation);
+                InputUserDto.setEmail(loginEmail);
                 userService.updateBaseInfo(InputUserDto);
                 session.setAttribute("newReservation", reservationDto);
-
                 return "redirect:/reservation/2?mentoId="+mentoId;
 
             }
